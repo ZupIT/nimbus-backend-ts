@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "@zup-it/nimbus-backend-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node ../cli/src/index.ts start",
+    "start-once": "ts-node src/index.ts",
+    "build": "tsc --project tsconfig.prod.json",
+    "clean": "del dist",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@zup-it/nimbus-backend-core": "1.0.0",
+    "@zup-it/nimbus-backend-express": "1.0.0",
+    "cors": "^2.8.5",
+    "express": "4.17.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/supertest": "^2.0.11",
+    "@types/ws": "^8.5.3",
+    "@types/yargs": "^17.0.9",
+    "supertest": "^6.2.2",
+    "ts-node": "^10.4.0"
+  }
+}

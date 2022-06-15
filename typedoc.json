@@ -1,0 +1,11 @@
+{
+  "out": "api-docs",
+  "entryPoints": [
+    "core/src/api.ts",
+    "core/src/actions",
+    "core/src/operations",
+    "express-client/src"
+  ],
+  "readme": "none",
+  "name": "Nimbus Backend Typescript"
+}

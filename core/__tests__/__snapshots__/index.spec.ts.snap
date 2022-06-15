@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Core module should export 1`] = `
+Object {
+  "Component": "function",
+  "NimbusJSX": "object",
+  "Operation": "function",
+  "RootState": "function",
+  "componentValidation": "object",
+  "createAction": "function",
+  "createState": "function",
+  "createStateNode": "function",
+  "getGlobalState": "function",
+  "isDynamicExpression": "function",
+  "serialize": "function",
+  "setFragmentFactory": "function",
+  "setupHotReloading": "function",
+}
+`;

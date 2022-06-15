@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "paths": {
+      "@zup-it/nimbus-backend-express": ["./express-client/src"],
+      "@zup-it/nimbus-backend-express/*": ["./express-client/src/*"],
+      "@zup-it/nimbus-backend-core": ["./core/src"],
+      "@zup-it/nimbus-backend-core/*": ["./core/src/*"]
+    }
+  }
+}

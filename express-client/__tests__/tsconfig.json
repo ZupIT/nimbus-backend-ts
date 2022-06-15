@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": "../",
+    "paths": {
+      "src/*": ["./src/*"],
+      "test/*": ["./__tests__/*"],
+      "@zup-it/nimbus-backend-core": ["../core/src"],
+      "@zup-it/nimbus-backend-core/*": ["../core/src/*"],
+    }
+  }
+}
