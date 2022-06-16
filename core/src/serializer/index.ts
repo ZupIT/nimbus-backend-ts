@@ -18,10 +18,7 @@ const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
   Array.isArray(actions) ? actions.map(asActionCall) : [asActionCall(actions)]
 )
 
-const asStateDeclaration = (state: LocalState<any>): StateDeclaration => ({
-  id: state.path,
-  value: state.value,
-})
+const asStateDeclaration = ({ path, value }: LocalState<any>): StateDeclaration => ({ id: path, value  })
 
 const transformExpressionsAndActions = (value: any): any => {
   const isActions = value instanceof Action || Array.isArray(value) && value[0] instanceof Action

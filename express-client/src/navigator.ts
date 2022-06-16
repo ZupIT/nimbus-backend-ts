@@ -1,6 +1,6 @@
 import { FC } from '@zup-it/nimbus-backend-core'
 import {
-  pushView, pushStack, popToView, popView, popStack, resetApplication, resetStack, Route,
+  push, pushStack, popTo, pop, popStack, resetApplication, resetStack, Route,
 } from '@zup-it/nimbus-backend-core/actions'
 import { forEach, isEmpty, map } from 'lodash'
 import {
@@ -10,7 +10,7 @@ import {
 import { RouteMap, RouteConfig } from './route'
 import { ScreenNavigation } from './screen'
 
-const navigationActions = { pushView, pushStack, popToView, popView, resetApplication, resetStack, popStack }
+const navigationActions = { pushView: push, pushStack, popToView: popTo, popView: pop, resetApplication, resetStack, popStack }
 
 interface GenericRemoteNavigationProperties extends ScreenNavigation<any>, Partial<ControllerId> {}
 

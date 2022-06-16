@@ -4,70 +4,6 @@ import { Component } from '../model/component'
 import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
 
-// App navigation
-
-export interface OpenNativeRouteParams {
-  /**
-   * The identifier of the route in mobile applications or the relative URL in web apps.
-   */
-  route: Expression<string>,
-  /**
-   * Removes all the navigation history if set to true.
-   *
-   * Attention: this feature doesn't play well with Web Apps and Flutter.
-   */
-  shouldResetApplication?: boolean,
-  /**
-   * A Map containing all the data needed by the route. It will become query parameters in web applications. It doesn't
-   * do anything in Flutter applications.
-   *
-   * Warning: Nimbus iOS and Nimbus Android won't accept expression values in this map. While working with these
-   * platforms, you should interpret this type as `Record<string, string>`.
-   */
-  data?: Record<string, Expression<string>>,
-}
-
-/**
- * Navigates to a local native route.
- *
- * @category Actions
- * @param params the action parameters: route, shouldResetApplication and data. See {@link OpenNativeRouteParams}.
- */
-export const openNativeRoute = createCoreAction<OpenNativeRouteParams>('openNativeRoute')
-
-export interface OpenExternalUrlParams {
-  /**
-   * The URL of the web page.
-   */
-  url: Expression<string>,
-}
-
-const openExternalUrlAction = createCoreAction<OpenExternalUrlParams>('openExternalUrl')
-
-interface OpenExternalUrl {
-  /**
-   * Opens the browser with the provided URL.
-   *
-   * @param url the url to the web page to open.
-   */
-  (url: OpenExternalUrlParams['url']): ReturnType<typeof openExternalUrlAction>,
-  /**
-   * Opens the browser with the provided URL.
-   *
-   * @param properties an object with the URL to navigate to.
-   */
-  (properties: Parameters<typeof openExternalUrlAction>[0]): ReturnType<typeof openExternalUrlAction>,
-}
-
-/** @category Actions */
-export const openExternalUrl: OpenExternalUrl = (urlOrOptions) => (
-  typeof urlOrOptions === 'string' || isDynamicExpression(urlOrOptions)
-    ? openExternalUrlAction({ url: urlOrOptions as Expression<string> })
-    : openExternalUrlAction(urlOrOptions as OpenExternalUrlParams)
-)
-
-// Nimbus Navigation
-
 /**
  * Transforms anything into the navigation state expected by the frontend, i.e. an object with `path` and `value`.
  * `path` will be undefined if it's not possible to extract a common path from the argument `data`.
@@ -165,36 +101,21 @@ export interface RouteNavigationParams<T extends (Route | string) = Route> exten
   route: T,
 }
 
-interface StackNavigationParams extends RouteNavigationParams {
-  /**
-   * Used to set the navigation controller for this stack. The navigation controller is an entity implemented in the
-   * front-end that allows you to control the loading, error and success behavior when a navigation is triggered.
-   *
-   * Each navigation controller in the front-end is identified by a string. You can specify this string here so Nimbus
-   * can use this specific custom behavior for all navigations in this stack.
-   */
-  controllerId?: string,
-}
-
-export type PushStackParams = StackNavigationParams
-export type PushViewParams = RouteNavigationParams
-export type PopViewParams = BaseNavigationParams
-export type PopToViewParams = RouteNavigationParams<string>
-export type ResetStackParams = StackNavigationParams
-export type PopStackParams = BaseNavigationParams
-export type ResetApplicationParams = StackNavigationParams
+export type PushParams = RouteNavigationParams
+export type PopParams = BaseNavigationParams
+export type PopToParams = RouteNavigationParams<string>
+export type PresentParams = RouteNavigationParams
+export type DismissParams = BaseNavigationParams
 
 const navigator = {
-  pushStack: createCoreAction<PushStackParams>('pushStack'),
-  pushView: createCoreAction<PushViewParams>('pushView'),
-  popView: createCoreAction<PopViewParams>('popView'),
-  popToView: createCoreAction<PopToViewParams>('popToView'),
-  popStack: createCoreAction<BaseNavigationParams>('popStack'),
-  resetStack: createCoreAction<ResetStackParams>('resetStack'),
-  resetApplication: createCoreAction<ResetApplicationParams>('resetApplication'),
+  push: createCoreAction<PushParams>('push'),
+  pop: createCoreAction<PopParams>('pop'),
+  popTo: createCoreAction<PopToParams>('popTo'),
+  present: createCoreAction<PresentParams>('present'),
+  dismiss: createCoreAction<DismissParams>('dismiss'),
 }
 
-interface PushViewFunction {
+interface PushFunction {
   /**
    * Adds the provided route to the current navigation stack.
    *
@@ -211,59 +132,39 @@ interface PushViewFunction {
    * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
-  (...args: Parameters<typeof navigator.pushView>): ReturnType<typeof navigator.pushView>,
+  (...args: Parameters<typeof navigator.push>): ReturnType<typeof navigator.push>,
 }
 
-interface PushStackFunction {
+interface PresentFunction {
   /**
-   * Adds a new stack to the navigator with the provided route.
+   * Adds the provided route to the current navigation stack.
    *
    * @param url the url to the screen to load
    * @returns an instance of Action
    */
-   (url: Expression<string>): Action,
+  (url: Expression<string>): Action,
 
   /**
-   * Adds a new stack to the navigator with the provided route.
+   * Adds the provided route to the current navigation stack.
    *
    * @param props the parameters for this navigation:
-   * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
-   * - controllerId: the id for the navigation controller to use. See {@link StackNavigationParams}.
+   * - route the screen to load. A {@link LocalView} or a {@link RemoteView}.
    * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
-  (...args: Parameters<typeof navigator.pushStack>): ReturnType<typeof navigator.pushStack>,
+  (...args: Parameters<typeof navigator.present>): ReturnType<typeof navigator.present>,
 }
 
-interface PopStackFunction {
-  /**
-   * Pops the current stack, going back to the last route of the previous stack.
-   *
-   * @returns an instance of Action
-   *
-   */
-  (): Action,
-
-  /**
-   * Pops the current stack, going back to the last route of the previous stack.
-   *
-   * @param props the parameters for this navigation:
-   * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
-   * @returns an instance of Action
-   */
-  (...args: Parameters<typeof navigator.popStack>): ReturnType<typeof navigator.popStack>,
-}
-
-interface PopToViewFunction {
+interface PopToFunction {
   /**
    * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
    * navigation stack, nothing happens.
    *
-   * @param routeId the identifier of the route to go back to. For RemoteViews, this identifier
+   * @param url the identifier of the route to go back to. For RemoteViews, this identifier
    * will be the url. For LocalViews, it will the id of the root component.
    * @returns an instance of Action
    */
-   (routeId: Expression<string>): Action,
+   (url: Expression<string>): Action,
 
   /**
    * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
@@ -274,31 +175,10 @@ interface PopToViewFunction {
    * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
-  (...args: Parameters<typeof navigator.popToView>): ReturnType<typeof navigator.popToView>,
+  (...args: Parameters<typeof navigator.popTo>): ReturnType<typeof navigator.popTo>,
 }
 
-interface ResetStackFunction {
-  /**
-   * Removes the current navigation stack and adds a new one with the provided route.
-   *
-   * @param url the url to the screen to load
-   * @returns an instance of Action
-   */
-  (url: Expression<string>): Action,
-
-  /**
-   * Removes the current navigation stack and adds a new one with the provided route.
-   *
-   * @param props the parameters for this navigation:
-   * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
-   * - controllerId: the id for the navigation controller to use. See {@link StackNavigationParams}.
-   * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
-   * @returns an instance of Action
-   */
-  (...args: Parameters<typeof navigator.resetStack>): ReturnType<typeof navigator.resetStack>,
-}
-
-interface PopViewFunction {
+interface PopFunction {
   /**
   * Goes back to the previous route.
   *
@@ -313,28 +193,25 @@ interface PopViewFunction {
    * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
-  (...args: Parameters<typeof navigator.popView>): ReturnType<typeof navigator.popView>,
+  (...args: Parameters<typeof navigator.pop>): ReturnType<typeof navigator.pop>,
 }
 
-interface ResetApplicationFunction {
+interface DismissFunction {
   /**
-   * Removes all the navigation stacks and adds a new one with the provided route.
-   *
-   * @param url the url to the screen to load
-   * @returns an instance of Action
-   */
-   (url: Expression<string>): Action,
+  * Goes back to the previous route.
+  *
+  * @returns an instance of Action
+  * */
+  (): Action,
 
   /**
-   * Removes all the navigation stacks and adds a new one with the provided route.
+   * Goes back to the previous route.
    *
    * @param props the parameters for this navigation:
-   * - route: the screen to load. A {@link LocalView} or a {@link RemoteView}.
-   * - controllerId: the id for the navigation controller to use. See {@link StackNavigationParams}.
    * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
-  (...args: Parameters<typeof navigator.resetApplication>): ReturnType<typeof navigator.resetApplication>,
+  (...args: Parameters<typeof navigator.dismiss>): ReturnType<typeof navigator.dismiss>,
 }
 
 function getParams(props: any, isPopToView?: boolean) {
@@ -351,16 +228,13 @@ function getParams(props: any, isPopToView?: boolean) {
 }
 
 /** @category Actions */
-export const pushView: PushViewFunction = (props) => navigator.pushView(getParams(props))
+export const push: PushFunction = (props) => navigator.push(getParams(props))
 /** @category Actions */
-export const pushStack: PushStackFunction = (props) => navigator.pushStack(getParams(props))
+export const popTo: PopToFunction = (props) => navigator.popTo(getParams(props, true))
 /** @category Actions */
-export const resetStack: ResetStackFunction = (props) => navigator.resetStack(getParams(props))
+export const pop: PopFunction = (props = {}) => navigator.pop(getParams(props))
 /** @category Actions */
-export const resetApplication: ResetApplicationFunction = (props) => (navigator.resetApplication(getParams(props)))
+export const present: PresentFunction = (props) => navigator.present(getParams(props))
 /** @category Actions */
-export const popToView: PopToViewFunction = (props) => navigator.popToView(getParams(props, true))
-/** @category Actions */
-export const popView: PopViewFunction = (props = {}) => navigator.popView(getParams(props))
-/** @category Actions */
-export const popStack: PopStackFunction = (props = {}) => navigator.popStack(getParams(props))
+export const dismiss: DismissFunction = (props = {}) => navigator.dismiss(getParams(props))
+
