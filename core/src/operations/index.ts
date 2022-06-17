@@ -3,6 +3,7 @@
  */
 
 export * from './array'
-export * from './number'
+export * from './math'
 export * from './logic'
+export * from './text'
 export * from './other'

@@ -1,0 +1,8 @@
+export { divide } from './divide'
+export { gt } from './gt'
+export { gte } from './gte'
+export { lt } from './lt'
+export { lte } from './lte'
+export { multiply } from './multiply'
+export { subtract } from './subtract'
+export { sum } from './sum'

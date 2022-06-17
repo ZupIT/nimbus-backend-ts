@@ -1,0 +1,7 @@
+export { capitalize } from './capitalize'
+export { concat } from './concat'
+export { lowercase } from './lowercase'
+export { match } from './match'
+export { replace } from './replace'
+export { substr } from './substr'
+export { uppercase } from './uppercase'
