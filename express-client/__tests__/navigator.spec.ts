@@ -1,7 +1,5 @@
 import { Component } from '@zup-it/nimbus-backend-core'
-import {
-  popStack, popTo, pop, pushStack, push, resetApplication, resetStack,
-} from '@zup-it/nimbus-backend-core/actions'
+import { popTo, pop, push, present, dismiss } from '@zup-it/nimbus-backend-core/actions'
 import { omit } from 'lodash'
 import { Navigator } from 'src/navigator'
 import { RouteMap } from 'src/route'
@@ -36,49 +34,44 @@ describe('Navigator', () => {
       }))
     }
 
-    it('should create actions to pushView', () => {
-      testNavigation(navigator.pushView, push)
+    it('should create actions to push', () => {
+      testNavigation(navigator.push, push)
     })
 
-    it('should create actions to pushStack', () => {
-      testNavigation(navigator.pushStack, pushStack)
-    })
-
-    it('should create actions to resetStack', () => {
-      testNavigation(navigator.resetStack, resetStack)
-    })
-
-    it('should create actions to resetApplication', () => {
-      testNavigation(navigator.resetApplication, resetApplication)
+    it('should create actions to present', () => {
+      testNavigation(navigator.present, present)
     })
 
     it('should throw error when navigating to unregistered screen', () => {
-      expect(() => navigator.pushView(() => component)).toThrow()
+      expect(() => navigator.push(() => component)).toThrow()
+      expect(() => navigator.present(() => component)).toThrow()
     })
   })
 
   describe('Pop navigations', () => {
     it('should create action to popView', () => {
-      const action = navigator.popView()
+      const action = navigator.pop()
       expect(action).toEqual(pop())
     })
 
     it('should create action to popToView', () => {
-      const actionA = navigator.popToView(screenA)
-      const actionC = navigator.popToView(screenC)
+      const actionA = navigator.popTo(screenA)
+      const actionC = navigator.popTo(screenC)
       expect(actionA).toEqual(popTo({ route: 'my-screen-a' }))
       expect(actionC).toEqual(popTo({ route: 'my-screen-c' }))
     })
+  })
 
-    it('should create action to popStack', () => {
-      const action = navigator.popStack()
-      expect(action).toEqual(popStack())
+  describe('Dismiss navigation', () => {
+    it('should create action to dismiss', () => {
+      const action = navigator.dismiss()
+      expect(action).toEqual(dismiss())
     })
   })
 
   describe('Options', () => {
     function testActionWithOptions(screen: Screen, navigationFn: any, options: any, expected: any) {
-      const action = (navigationFn === navigator.popView || navigationFn === navigator.popStack)
+      const action = (navigationFn === navigator.pop || navigationFn === navigator.dismiss)
         ? navigationFn(options)
         : navigationFn(screen, options)
       expect(action).toEqual(expected)
@@ -88,24 +81,14 @@ describe('Navigator', () => {
       options: any,
       expectedParams: any,
       { exclude = [], screen = screenA }: { exclude?: string[], screen?: Screen } = {}) {
-      if (!exclude.includes('pushView')) {
-        testActionWithOptions(screen, navigator.pushView, options, push(expectedParams))
-      }
-      if (!exclude.includes('pushStack')) {
-        testActionWithOptions(screen, navigator.pushStack, options, pushStack(expectedParams))
-      }
-      if (!exclude.includes('resetStack')) {
-        testActionWithOptions(screen, navigator.resetStack, options, resetStack(expectedParams))
-      }
-      if (!exclude.includes('resetApplication')) {
-        testActionWithOptions(screen, navigator.resetApplication, options, resetApplication(expectedParams))
+      if (!exclude.includes('push')) {
+        testActionWithOptions(screen, navigator.push, options, push(expectedParams))
       }
     }
 
     function testAllPopActions(options: any, expectedParams: any, screen: Screen = screenA) {
-      testActionWithOptions(screen, navigator.popView, options, pop(omit(expectedParams, 'route')))
-      testActionWithOptions(screen, navigator.popStack, options, popStack(omit(expectedParams, 'route')))
-      testActionWithOptions(screen, navigator.popToView, options, popTo(expectedParams))
+      testActionWithOptions(screen, navigator.pop, options, pop(omit(expectedParams, 'route')))
+      testActionWithOptions(screen, navigator.popTo, options, popTo(expectedParams))
     }
 
     it('should create action with request body', () => {
@@ -149,7 +132,7 @@ describe('Navigator', () => {
         { query },
         { route: { url: expectedUrl },
       })
-      testActionWithOptions(screenA, navigator.popToView, { query }, popTo({ route: expectedUrl }))
+      testActionWithOptions(screenA, navigator.popTo, { query }, popTo({ route: expectedUrl }))
     })
 
     it('should create action with route params', () => {
@@ -160,7 +143,7 @@ describe('Navigator', () => {
         { route: { url: expectedUrl } },
         { screen: screenD },
       )
-      testActionWithOptions(screenD, navigator.popToView, { routeParams }, popTo({ route: expectedUrl }))
+      testActionWithOptions(screenD, navigator.popTo, { routeParams }, popTo({ route: expectedUrl }))
     })
 
     it('should create action with shouldPrefetch', () => {

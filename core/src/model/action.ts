@@ -22,7 +22,7 @@ export type Actions = Action | Action[]
  * a return value and they can have as many colateral effects as they want. They can also be very complex, the
  * sendRequest action, for instance, is a function that interacts with the network layer of the application.
  *
- * Some actions shipped with Nimbus are: sendRequest, setState, addChildren, alert, confirm and pushView.
+ * Some actions shipped with Nimbus are: sendRequest, setState and push.
  *
  * @example
  * ```tsx

@@ -100,14 +100,14 @@ interface ScreenProps<T extends ScreenRequest> {
    * Considering we typed it correctly using the type `Screen`, a navigation to it could be written like this:
    * ```typescript
    * // using the navigator
-   * navigator.pushView(Order, {
+   * navigator.push(Order, {
    *   routeParams: { orderId: '1' },
    *   query: { summary: 'true' },
    *   headers: { token: '_AEx45O' },
    * })
    *
-   * // using pushView from the core actions
-   * pushView({
+   * // using push from the core actions
+   * push({
    *   route: {
    *     url: '/order/1?summary=true',
    *     httpAdditionalData: {
