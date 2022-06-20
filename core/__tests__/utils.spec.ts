@@ -28,8 +28,8 @@ describe('Utils', () => {
 
   describe('isDynamicExpression', () => {
     it('should return true if parameter is a StateNode', () => {
-      const ctx = new StateNode('ctx')
-      expect(isDynamicExpression(ctx)).toBe(true)
+      const stt = new StateNode('stt')
+      expect(isDynamicExpression(stt)).toBe(true)
     })
 
     it('should return true if parameter is an Operation', () => {
@@ -42,7 +42,7 @@ describe('Utils', () => {
       expect(isDynamicExpression(10)).toBe(false)
       expect(isDynamicExpression(true)).toBe(false)
       expect(isDynamicExpression([1, 2])).toBe(false)
-      expect(isDynamicExpression({ id: 'ctx' })).toBe(false)
+      expect(isDynamicExpression({ id: 'stt' })).toBe(false)
       expect(isDynamicExpression({ _: null, name: 'op', args: [1, 2] })).toBe(false)
     })
   })

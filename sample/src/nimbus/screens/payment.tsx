@@ -1,5 +1,4 @@
 import { NimbusJSX, createState } from '@zup-it/nimbus-backend-core'
-import { alert, openNativeRoute } from '@zup-it/nimbus-backend-core/actions'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { createOrder } from '../network/order'
 import { Address, PaymentCard } from '../../models/order'
@@ -8,20 +7,20 @@ import { updateCartIndicator } from '../actions'
 import { localNavigator } from '../local-navigator'
 
 // interface Props extends ScreenRequest {
-//   navigationContext: {
+//   navigationState: {
 //     address: Address,
 //   }
 // }
 
 export const Payment: Screen = () => {
-  // const cart = globalContext.get('cart')
-  // const card = createContext<PaymentCard>('card')
+  // const cart = globalState.get('cart')
+  // const card = createState<PaymentCard>('card')
   // const formItem: Style = { margin: 8 }
   // const makeOrder = createOrder(
   //   {
   //     data: {
   //       products: cart,
-  //       address: navigationContext.get('address'),
+  //       address: navigationState.get('address'),
   //       payment: card,
   //     },
   //     onSuccess: response => [
@@ -44,7 +43,7 @@ export const Payment: Screen = () => {
 
   return (
     <></>
-    // <ScreenComponent navigationBar={{ title: 'Payment' }} context={card}>
+    // <ScreenComponent navigationBar={{ title: 'Payment' }} state={card}>
     //   <Container style={{ flex: 1, justifyContent: 'SPACE_BETWEEN', marginHorizontal: 10, marginTop: 10 }}>
     //     <Container>
     //       {createInput('Card number', 'number', false)}

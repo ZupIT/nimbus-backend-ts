@@ -14,27 +14,27 @@ import { DefinitionItem, Section } from './fragments'
 //   }
 // }
 
-// interface OrderContext {
+// interface OrderState {
 //   isLoading: boolean,
 //   data?: OrderModel,
 // }
 
 export const Order: Screen = () => {
-  // const orderContext = createContext<OrderContext>('order', { isLoading: true })
-  // const order = orderContext.get('data')
+  // const orderState = createState<OrderState>('order', { isLoading: true })
+  // const order = orderState.get('data')
   // const address = order.get('address')
   // const loadOrder = getOrderById({
   //   id: params.id,
   //   onSuccess: response => order.set(response.get('data')),
   //   onError: response => alert(`${response.get('status')}: ${response.get('message')}`),
-  //   onFinish: orderContext.get('isLoading').set(false),
+  //   onFinish: orderState.get('isLoading').set(false),
   // })
 
   return (
     <></>
     // <ScreenComponent navigationBar={{ title: 'Order' }}>
-    //   <Container context={orderContext} onInit={loadOrder} style={style.page}>
-    //     <Loading isLoading={orderContext.get('isLoading')}>
+    //   <Container state={orderState} onInit={loadOrder} style={style.page}>
+    //     <Loading isLoading={orderState.get('isLoading')}>
     //       <Section>
     //         <DefinitionItem title="Id:" definition={order.get('id')} />
     //         <DefinitionItem title="Status:" definition={order.get('state')} />

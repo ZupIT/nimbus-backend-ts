@@ -28,8 +28,8 @@ program
   .option('-wh, --with-headers', 'The screen will expect headers in the request.')
   .option('-wb, --with-body', 'The screen will expect the request to have a body. Invalid for "GET" requests.')
   .option('-wq, --with-query', 'The screen will expect query parameters in the url.')
-  .option('-wnc, --with-navigation-context', 'The screen will expect a navigation context.')
-  .option('-wctx, --with-context', 'A Context that will be made available for this Screen and its children.')
+  .option('-wns, --with-navigation-state', 'The screen will expect a navigation state.')
+  .option('-wstt, --with-state', 'A State that will be made available for this Screen and its children.')
   .action(generateScreen)
 
 program

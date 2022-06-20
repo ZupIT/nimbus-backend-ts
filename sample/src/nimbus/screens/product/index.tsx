@@ -9,14 +9,14 @@ import { formatPrice } from '../../operations'
 // import { style } from './style'
 
 // interface Props extends ScreenRequest {
-//   navigationContext: {
+//   navigationState: {
 //     product: ProductModel,
 //   }
 // }
 
 export const Product: Screen = ({ navigationState }) => {
-  // const product = navigationContext.get('product')
-  // const cart = globalContext.get('cart')
+  // const product = navigationState.get('product')
+  // const cart = globalState.get('cart')
   // const addToCart = [
   //   updateCartIndicator({ numberOfElementsInCart: sum(length(cart), 1) }),
   //   cart.set(insert(cart, product)),

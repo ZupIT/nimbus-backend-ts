@@ -237,4 +237,3 @@ export const pop: PopFunction = (props = {}) => navigator.pop(getParams(props))
 export const present: PresentFunction = (props) => navigator.present(getParams(props))
 /** @category Actions */
 export const dismiss: DismissFunction = (props = {}) => navigator.dismiss(getParams(props))
-

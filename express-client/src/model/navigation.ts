@@ -7,31 +7,16 @@ export interface ControllerId {
   controllerId?: string,
 }
 
-type PushStack<T extends ScreenRequest> = ScreenNavigation<T> & ControllerId
-type PushView<T extends ScreenRequest> = ScreenNavigation<T>
-type PopView<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState'>
-type PopStack<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState'>
-type PopToView<T extends ScreenRequest> = Pick<
-  ScreenNavigation<T>, 'navigationState' | 'routeParams' | 'query'
->
-type ResetStack<T extends ScreenRequest> = ScreenNavigation<T> & ControllerId
-type ResetApplication<T extends ScreenRequest> = ScreenNavigation<T> & ControllerId
+type Push<T extends ScreenRequest> = ScreenNavigation<T>
+type Present<T extends ScreenRequest> = ScreenNavigation<T>
+type Pop<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState'>
+type Dismiss<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState'>
+type PopTo<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState' | 'routeParams' | 'query'>
 
 type NavigationAction<T extends ScreenRequest, N> = HasRequiredProperty<T> extends true
   ? [screen: Screen<T>, properties: N] : [screen: Screen<T>, properties?: N]
 
-export interface PushStackAction {
-  /**
-   * Adds a new stack to the navigator with the provided route.
-   *
-   * @param screen the screen (functional component) to navigate to.
-   * @param properties the data to send with this navigation.
-   * @returns an instance of Action.
-   */
-  <T extends ScreenRequest>(...args: NavigationAction<T, PushStack<T>>): Actions,
-}
-
-export interface PushViewAction {
+export interface PushAction {
   /**
    * Adds the provided route to the current navigation stack.
    *
@@ -39,30 +24,41 @@ export interface PushViewAction {
    * @param properties the data to send with this navigation.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(...args: NavigationAction<T, PushView<T>>): Actions,
+  <T extends ScreenRequest>(...args: NavigationAction<T, Push<T>>): Actions,
 }
 
-export interface PopViewAction {
+export interface PresentAction {
+  /**
+   * Present a modal with the required screen
+   *
+   * @param screen the screen (functional component) to navigate to.
+   * @param properties the data to send with this navigation.
+   * @returns an instance of Action.
+   */
+  <T extends ScreenRequest>(...args: NavigationAction<T, Present<T>>): Actions,
+}
+
+export interface PopAction {
   /**
    * Goes back to the previous route.
    *
    * @param properties the navigation state to set.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(properties?: PopView<T>): Actions,
+  <T extends ScreenRequest>(properties?: Pop<T>): Actions,
 }
 
-export interface PopStackAction {
+export interface DismissAction {
   /**
-   * Pops the current stack, going back to the last route of the previous stack.
+   * Dismiss the modal that is open
    *
    * @param properties the navigation state to set.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(properties?: PopStack<T>): Actions,
+  <T extends ScreenRequest>(properties?: Dismiss<T>): Actions,
 }
 
-export interface PopToViewAction {
+export interface PopToAction {
   /**
    * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
    * navigation stack, nothing happens.
@@ -71,27 +67,5 @@ export interface PopToViewAction {
    * @param properties the data to send with this navigation.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(...args: NavigationAction<T, PopToView<T>>): Actions,
-}
-
-export interface ResetStackAction {
-  /**
-   * Removes the current navigation stack and adds a new one with the provided route.
-   *
-   * @param screen the screen (functional component) to navigate to.
-   * @param properties the data to send with this navigation.
-   * @returns an instance of Action.
-   */
-  <T extends ScreenRequest>(...args: NavigationAction<T, ResetStack<T>>): Actions,
-}
-
-export interface ResetApplicationAction {
-  /**
-   * Removes all the navigation stacks and adds a new one with the provided route.
-   *
-   * @param screen the screen (functional component) to navigate to.
-   * @param properties the data to send with this navigation.
-   * @returns an instance of Action.
-   */
-  <T extends ScreenRequest>(...args: NavigationAction<T, ResetApplication<T>>): Actions,
+  <T extends ScreenRequest>(...args: NavigationAction<T, PopTo<T>>): Actions,
 }

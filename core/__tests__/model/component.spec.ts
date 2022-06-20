@@ -6,7 +6,7 @@ describe('Component', () => {
     const component = new Component({
       name: 'component',
       children: [new Component({ name: 'test' })],
-      state: new RootState('ctx'),
+      state: new RootState('stt'),
       id: 'component-id',
       namespace: 'test',
       properties: { prop: 1 },
@@ -15,7 +15,7 @@ describe('Component', () => {
     expect(component).toEqual({
       name: 'component',
       children: [new Component({ name: 'test' })],
-      state: new RootState('ctx'),
+      state: new RootState('stt'),
       id: 'component-id',
       namespace: 'test',
       properties: { prop: 1 },

@@ -6,7 +6,7 @@ import { formatPrice, sumProducts } from '../../operations'
 import { Address } from '../address'
 
 export const Cart: Screen = ({ navigator }) => {
-  // const cart = globalContext.get('cart')
+  // const cart = globalState.get('cart')
   return (
     <></>
     // <ScreenComponent safeArea={true} navigationBar={{ title: 'Cart', showBackButton: true }}>

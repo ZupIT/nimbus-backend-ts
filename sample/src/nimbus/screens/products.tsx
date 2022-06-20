@@ -18,8 +18,8 @@ interface ProductData {
 }
 
 export const Products: Screen = ({ navigator }) => {
-  // const products = createContext<ProductData>('products', { isLoading: true, data: [] })
-  // const cart = globalContext.get('cart')
+  // const products = createState<ProductData>('products', { isLoading: true, data: [] })
+  // const cart = globalState.get('cart')
   // const onInit = listProducts({
   //   onSuccess: response => products.get('data').set(response.get('data')),
   //   onError: response => alert(response.get('message')),
@@ -29,7 +29,7 @@ export const Products: Screen = ({ navigator }) => {
   return (
     <></>
     // <ScreenComponent safeArea={true} navigationBar={{ title: 'Products' }}>
-    //   <Container context={products} onInit={onInit} style={{ backgroundColor: theme.viewBackground }}>
+    //   <Container state={products} onInit={onInit} style={{ backgroundColor: theme.viewBackground }}>
     //     <Loading isLoading={products.get('isLoading')}>
     //       <GridView dataSource={products.get('data')} spanCount={2} key="id" itemAspectRatio={0.6}>
     //         {item => (
@@ -44,7 +44,7 @@ export const Products: Screen = ({ navigator }) => {
     //                 updateCartIndicator({ numberOfElementsInCart: sum(length(cart), 1) }),
     //                 cart.set(insert(cart, item)),
     //               ]}
-    //               onPressDetails={navigator.pushView(ProductScreen, { navigationContext: { product: item } })}
+    //               onPressDetails={navigator.pushView(ProductScreen, { navigationState: { product: item } })}
     //             />
     //           </Template>
     //         )}

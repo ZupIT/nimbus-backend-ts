@@ -12,4 +12,4 @@ The application will start running on port `nimbus-ts-cli-port` (3000, by defaul
 There are two routes available:
 
 - `http://localhost:nimbus-ts-cli-port`: Welcome page
-- `http://localhost:nimbus-ts-cli-port/home`: A test page to exemplify the navigation and global context.
+- `http://localhost:nimbus-ts-cli-port/home`: A test page to exemplify the navigation and global state.

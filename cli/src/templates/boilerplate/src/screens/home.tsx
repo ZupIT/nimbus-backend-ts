@@ -7,9 +7,9 @@ export const Home: Screen = ({ navigator }) => (
   <>
     {/* <Text>Hello!</Text>
     <Text style={{ marginTop: 40 }}>This is the Home Page!</Text>
-    <If condition={gte(length(globalContext.get('message') ?? ''), 0)}>
+    <If condition={gte(length(globalState.get('message') ?? ''), 0)}>
       <Then>
-        <Text style={{ marginTop: 40 }}>Global context: {globalContext.get('message')}</Text>
+        <Text style={{ marginTop: 40 }}>Global state: {globalState.get('message')}</Text>
       </Then>
     </If>
     <Button style={{ marginTop: 40 }} onPress={navigator.popView()}>Go back</Button> */}

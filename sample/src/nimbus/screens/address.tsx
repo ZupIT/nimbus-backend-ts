@@ -6,7 +6,7 @@ import { fetchCepAddress } from '../network/address'
 import { Payment } from './payment'
 
 export const Address: Screen = ({ navigator }) => {
-  // const address = createContext<AddressModel>('address')
+  // const address = createState<AddressModel>('address')
   // const fillByZip = (zip: Expression<string>) => fetchCepAddress({
   //   cep: zip,
   //   onSuccess: response => [
@@ -34,7 +34,7 @@ export const Address: Screen = ({ navigator }) => {
 
   return (
     <></>
-    // <ScreenComponent context={address} safeArea={true} navigationBar={{ title: 'Address' }}>
+    // <ScreenComponent state={address} safeArea={true} navigationBar={{ title: 'Address' }}>
     //   <Container style={{ flex: 1 }}>
     //     {createInput({ name: 'zip', onBlur: fillByZip })}
     //     <Container style={{ flexDirection: 'ROW', justifyContent: 'SPACE_BETWEEN' }}>
@@ -49,7 +49,7 @@ export const Address: Screen = ({ navigator }) => {
     //   <Container style={{ flexDirection: 'ROW', justifyContent: 'SPACE_BETWEEN' }}>
     //     <Button onPress={navigator.popView()} style={formItemStyle}>Cancel</Button>
     //     <Button
-    //       onPress={navigator.pushView(Payment, { navigationContext: { address }})}
+    //       onPress={navigator.pushView(Payment, { navigationState: { address }})}
     //       style={formItemStyle}
     //     >
     //       Next

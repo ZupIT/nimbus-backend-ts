@@ -1,16 +1,11 @@
 import { FC } from '@zup-it/nimbus-backend-core'
-import {
-  push, pushStack, popTo, pop, popStack, resetApplication, resetStack, Route,
-} from '@zup-it/nimbus-backend-core/actions'
+import { push, popTo, pop, present, dismiss, Route } from '@zup-it/nimbus-backend-core/actions'
 import { forEach, isEmpty, map } from 'lodash'
-import {
-  ControllerId, PopStackAction, PopToViewAction, PopViewAction, PushStackAction, PushViewAction, ResetApplicationAction,
-  ResetStackAction,
-} from './model/navigation'
+import { ControllerId, PopToAction, PopAction, PushAction, PresentAction, DismissAction } from './model/navigation'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenNavigation } from './screen'
 
-const navigationActions = { pushView: push, pushStack, popToView: popTo, popView: pop, resetApplication, resetStack, popStack }
+const navigationActions = { push, popTo, pop, present, dismiss }
 
 interface GenericRemoteNavigationProperties extends ScreenNavigation<any>, Partial<ControllerId> {}
 
@@ -66,12 +61,12 @@ export class Navigator {
   }
 
   private buildRoute({ type, screen, properties = {} }: GenericRemoteNavigation) {
-    if (type === 'popView' || type === 'popStack') return undefined
+    if (type === 'pop' || type === 'dismiss') return undefined
 
     const { routeParams, headers, body, shouldPrefetch, fallback, query } = properties
     const { path, method } = this.getPathAndMethod(screen!)
     const url = this.buildUrl(path, routeParams, query)
-    if (type === 'popToView') return url
+    if (type === 'popTo') return url
 
     const httpAdditionalData = method || headers || body ? { method, headers, body } : undefined
 
@@ -92,22 +87,13 @@ export class Navigator {
     })
   }
 
-  pushStack: PushStackAction = (...[screen, properties]) =>
-    this.navigateRemote({ type: 'pushStack', screen, properties })
+  push: PushAction = (...[screen, properties]) => this.navigateRemote({ type: 'push', screen, properties })
 
-  popStack: PopStackAction = (properties) => this.navigateRemote({ type: 'popStack', properties })
+  pop: PopAction = (properties) => this.navigateRemote({ type: 'pop', properties })
 
-  pushView: PushViewAction = (...[screen, properties]) => this.navigateRemote({ type: 'pushView', screen, properties })
+  popTo: PopToAction = (...[screen, properties]) => this.navigateRemote({ type: 'popTo', screen, properties })
 
-  popView: PopViewAction = (properties) => this.navigateRemote({ type: 'popView', properties })
+  present: PresentAction = (...[screen, properties]) => this.navigateRemote({ type: 'present', screen, properties })
 
-  popToView: PopToViewAction = (...[screen, properties]) =>
-    this.navigateRemote({ type: 'popToView', screen, properties })
-
-  resetStack: ResetStackAction = (...[screen, properties]) =>
-    this.navigateRemote({ type: 'resetStack', screen, properties })
-
-  resetApplication: ResetApplicationAction = (...[screen, properties]) => (
-    this.navigateRemote({ type: 'resetApplication', screen, properties })
-  )
+  dismiss: DismissAction = (properties) => this.navigateRemote({ type: 'dismiss', properties })
 }

@@ -62,6 +62,8 @@ export interface ScreenRequest {
    *   address: Address,
    * }
    * ```
+   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
+   * release and the functionality may change
    */
   navigationState?: unknown,
 }
@@ -69,6 +71,8 @@ export interface ScreenRequest {
 interface ScreenProps<T extends ScreenRequest> {
   /**
    * The navigation state of this screen.
+   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
+   * release, and the functionality may change
    */
   navigationState: State<T['navigationState']>,
   /**
@@ -181,6 +185,8 @@ interface WithQuery<T> {
 interface WithNavigationState<T> {
   /**
    * The properties to set in the navigation state of the next screen (previous, if this is a pop navigation).
+   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
+   * release, and the functionality may change
    */
    navigationState: DeepExpression<T>,
 }

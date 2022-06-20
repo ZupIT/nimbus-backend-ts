@@ -16,7 +16,7 @@ export interface GenerateScreenOptions {
    */
   withQuery: boolean,
   /**
-   * The screen will have properties to be set in the navigation context.
+   * The screen will have properties to be set in the navigation state.
    */
-  withNavigationContext: boolean,
+  withNavigationState: boolean,
 }

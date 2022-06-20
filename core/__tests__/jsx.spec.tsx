@@ -6,13 +6,13 @@ describe('JSX', () => {
   describe('General JSX tests', () => {
     it('should create component', () => {
       const component = (
-        <component name="comp" namespace="test" state={new RootState('ctx')} id="01" properties={{ prop: 1 }} />
+        <component name="comp" namespace="test" state={new RootState('stt')} id="01" properties={{ prop: 1 }} />
       )
       expect(component).toBeInstanceOf(Component)
       expect(component).toEqual({
         name: 'comp',
         namespace: 'test',
-        state: new RootState('ctx'),
+        state: new RootState('stt'),
         id: '01',
         properties: { prop: 1 },
       })
