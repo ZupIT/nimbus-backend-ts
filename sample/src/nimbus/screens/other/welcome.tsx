@@ -1,6 +1,8 @@
-import { Actions, FC, NimbusJSX, WithChildren, WithState } from '@zup-it/nimbus-backend-core'
-import { alert } from '@zup-it/nimbus-backend-core/actions'
+import { Actions, Else, FC, If, NimbusJSX, Then, WithChildren, WithState } from '@zup-it/nimbus-backend-core'
+import { log } from '@zup-it/nimbus-backend-core/actions'
+import { eq } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
+import { gte } from 'lodash'
 
 interface ContainerProps extends WithChildren, WithState {
   first: string
@@ -10,7 +12,7 @@ interface ContainerProps extends WithChildren, WithState {
 
 interface TextProps {
   text: string,
-  onPress: Actions
+  onPress?: Actions
 }
 
 const Container: FC<ContainerProps> = ({ children, state, ...props }) => (
@@ -24,7 +26,15 @@ const Text: FC<TextProps> = ({ ...props }) => (
 export const Welcome: Screen = () => (
   <Container first='Text' second={9} third={false}>
     <>Arthur</>
-    <Text text='Bleil' onPress={alert('Hello')}></Text>
+    <Text text='Bleil' onPress={log({ message: 'Hello', level: 'Info' })}></Text>
+    <If condition={gte(1, 2)}>
+      <Then>
+        <Text text='Then result'></Text>
+      </Then>
+      <Else>
+        <Text text='Else result'></Text>
+      </Else>
+    </If>
   </Container>
   // <Container
   //   style={{

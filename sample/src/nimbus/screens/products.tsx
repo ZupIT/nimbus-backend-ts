@@ -1,7 +1,6 @@
 import { NimbusJSX, createState } from '@zup-it/nimbus-backend-core'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { contains, insert, length, sum } from '@zup-it/nimbus-backend-core/operations'
-import { alert } from '@zup-it/nimbus-backend-core/actions'
 import { Product } from '../../models/product'
 import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'

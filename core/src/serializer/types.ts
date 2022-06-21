@@ -1,3 +1,5 @@
+export type StructureNodeName = `${string}:${string}`
+
 /**
  * A State declaration as expected by the Nimbus frontend libraries.
  */
@@ -10,7 +12,7 @@ export interface StateDeclaration {
  * A call to an Action as expected by the Nimbus frontend libraries.
  */
 export interface ActionCall {
-  '_:action': `${string}:${string}` | string,
+  '_:action': StructureNodeName,
   [key: string]: any,
 }
 
@@ -18,7 +20,7 @@ export interface ActionCall {
  * A component as expected by the Nimbus frontend libraries.
  */
 export interface NimbusNode {
-  '_:component': `${string}:${string}`,
+  '_:component': StructureNodeName,
   id?: string,
   state?: StateDeclaration,
   children?: NimbusNode[],

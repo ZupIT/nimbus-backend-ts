@@ -3,9 +3,14 @@
 exports[`Core module should export 1`] = `
 Object {
   "Component": "function",
+  "Else": "function",
+  "ForEach": "function",
+  "If": "function",
   "NimbusJSX": "object",
   "Operation": "function",
   "RootState": "function",
+  "Switch": "function",
+  "Then": "function",
   "componentValidation": "object",
   "createAction": "function",
   "createState": "function",

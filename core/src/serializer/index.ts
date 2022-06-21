@@ -1,5 +1,5 @@
 import { isEmpty, mapValues } from 'lodash'
-import { genericNamespace } from '../constants'
+import { coreNamespace, genericNamespace } from '../constants'
 import { Component } from '../model/component'
 import { Action } from '../model/action'
 import { LocalState } from '../model/state/types'
@@ -7,10 +7,17 @@ import { StateNode } from '../model/state/state-node'
 import { Operation } from '../model/operation'
 import { componentValidation } from '..'
 import { isDevelopmentMode } from '../utils'
-import { ActionCall, NimbusNode, StateDeclaration } from './types'
+import { ActionCall, StructureNodeName, NimbusNode, StateDeclaration } from './types'
+
+const getComponentActionName = (componentAction: Component | Action): StructureNodeName => {
+  const { namespace, name } = componentAction
+  return namespace === coreNamespace
+    ? name as StructureNodeName
+    : `${componentAction.namespace ?? genericNamespace}:${componentAction.name}`
+}
 
 const asActionCall = (action: Action<any>): ActionCall => ({
-  '_:action': `${action.namespace ? `${action.namespace}:` : ''}${action.name}`,
+  '_:action': getComponentActionName(action),
   ...(action.properties ? { properties: transformExpressionsAndActions(action.properties ?? {}) } : {}),
 })
 
@@ -36,7 +43,7 @@ const asNimbusNode = (component: Component): NimbusNode => {
     : [component.children]
 
   return {
-    '_:component': `${component.namespace ?? genericNamespace}:${component.name}`,
+    '_:component': getComponentActionName(component),
     state: component.state ? asStateDeclaration(component.state) : undefined,
     id: component.id,
     children: isEmpty(childrenArray) ? undefined : childrenArray!.map(asNimbusNode),

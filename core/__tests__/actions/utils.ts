@@ -1,4 +1,5 @@
 import { omitBy } from 'lodash'
+import { coreNamespace } from 'src/constants'
 import { Action } from 'src/model/action'
 
 export function expectActionToBeCorrect(
@@ -8,7 +9,7 @@ export function expectActionToBeCorrect(
 ) {
   expect(action).toBeInstanceOf(Action)
   expect(action.name).toBe(name)
-  expect(action.namespace).toBeUndefined()
+  expect(action.namespace).toBe(coreNamespace)
   const validProperties = omitBy(action.properties, value => value === undefined)
   expect(validProperties).toEqual(properties)
 }

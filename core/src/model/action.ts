@@ -74,7 +74,7 @@ export interface Action<Props = any> {
 }
 export class Action<Props = any> {
   /**
-   * @param options the action parameters: namespace, name, properties. See {@link ActionInterface}.
+   * @param options the action parameters: namespace, name, properties. See {@link Action}.
    */
   constructor({ name, namespace, properties }: Action<Props>) {
     this.name = name

@@ -1,4 +1,4 @@
-import { Component, isDynamicExpression } from '../..'
+import { Component, isDynamicExpression } from '../../..'
 import { FragmentFactory } from './types'
 
 const stringable = (value: any) => !(value instanceof Component)

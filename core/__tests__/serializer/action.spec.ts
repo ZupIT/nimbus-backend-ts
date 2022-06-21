@@ -1,6 +1,7 @@
 import { Component, Operation, serialize } from 'src'
 import { StateNode } from 'src/model/state/state-node'
 import { Action } from 'src/model/action'
+import { coreNamespace } from 'src/constants'
 
 describe('Serializer: actions', () => {
   it('should serialize actions', () => {
@@ -8,8 +9,8 @@ describe('Serializer: actions', () => {
       name: 'test',
       properties: {
         onPress: [
-          new Action({ name: 'alert', namespace: 'a', properties: { message: 'hi' } }),
-          new Action({ name: 'log', namespace: 'a', properties: { text: '[INFO] hi!' } }),
+          new Action({ name: 'log', namespace: 'a', properties: { text: '[INFO] hello!' } }),
+          new Action({ name: 'log', namespace: 'a', properties: { text: '[INFO] world!' } }),
         ],
       },
     })
@@ -19,21 +20,21 @@ describe('Serializer: actions', () => {
     console.log(serialized)
 
     expect(JSON.parse(serialized).properties.onPress).toEqual([
-      { '_:action': 'a:alert', properties: { message: 'hi' } },
-      { '_:action': 'a:log', properties: { text: '[INFO] hi!' } },
+      { '_:action': 'a:log', properties: { text: '[INFO] hello!' } },
+      { '_:action': 'a:log', properties: { text: '[INFO] world!' } },
     ])
   })
 
-  it('should not use namespace', () => {
+  it('should not use namespace when is a core action', () => {
     const component = new Component({
       name: 'test',
       properties: {
-        onPress: [new Action({ name: 'alert' })],
+        onPress: [new Action({ name: 'log', namespace: coreNamespace })],
       },
     })
     const serialized = serialize(component)
     expect(JSON.parse(serialized).properties.onPress).toEqual([
-      { '_:action': 'alert' },
+      { '_:action': 'log' },
     ])
   })
 
@@ -41,12 +42,12 @@ describe('Serializer: actions', () => {
     const component = new Component({
       name: 'test',
       properties: {
-        onPress: new Action({ name: 'alert', namespace: 'a', properties: { message: 'hi' } }),
+        onPress: new Action({ name: 'log', namespace: 'a', properties: { message: 'hi' } }),
       },
     })
     const serialized = serialize(component)
     expect(JSON.parse(serialized).properties.onPress).toEqual([
-      { '_:action': 'a:alert', properties: { message: 'hi' } },
+      { '_:action': 'a:log', properties: { message: 'hi' } },
     ])
   })
 
@@ -66,7 +67,7 @@ describe('Serializer: actions', () => {
                   properties: {
                     test: {
                       onSuccess: [
-                        new Action({ name: 'alert', namespace: 'a', properties: { message: 'success' } }),
+                        new Action({ name: 'log', namespace: 'a', properties: { message: 'success' } }),
                       ],
                     },
                   },
@@ -86,7 +87,7 @@ describe('Serializer: actions', () => {
           properties: {
             test: {
               onSuccess: [
-                { '_:action': 'a:alert', properties: { message: 'success' } },
+                { '_:action': 'a:log', properties: { message: 'success' } },
               ],
             },
           },

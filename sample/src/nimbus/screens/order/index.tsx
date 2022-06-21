@@ -1,5 +1,4 @@
 import { NimbusJSX, createState } from '@zup-it/nimbus-backend-core'
-import { alert } from '@zup-it/nimbus-backend-core/actions'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { Order as OrderModel } from '../../../models/order'
 import { Loading } from '../../fragments/loading'

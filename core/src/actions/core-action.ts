@@ -1,3 +1,4 @@
+import { coreNamespace } from '../constants'
 import { Action, ActionFunction } from '../model/action'
 
 /**
@@ -6,4 +7,4 @@ import { Action, ActionFunction } from '../model/action'
  * @returns the action factory
  */
 export const createCoreAction = <Props = any>(name: string): ActionFunction<Props> => ({ ...properties }) =>
-  new Action({ name, properties })
+  new Action({ name, namespace: coreNamespace, properties })
