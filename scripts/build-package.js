@@ -7,7 +7,7 @@ const TARGET = 'dist/package.json'
 async function readPackages() {
   const dev = JSON.parse(await readFile(DEV_PACKAGE, { encoding: 'utf-8' }))
   try {
-    prod = JSON.parse(await readFile(PROD_PACKAGE, { encoding: 'utf-8' }))
+    const prod = JSON.parse(await readFile(PROD_PACKAGE, { encoding: 'utf-8' }))
     return { dev, prod }
   } catch {
     return { dev, prod: {} }

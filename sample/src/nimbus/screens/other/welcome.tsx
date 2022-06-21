@@ -2,7 +2,6 @@ import { Actions, Else, FC, If, NimbusJSX, Then, WithChildren, WithState } from 
 import { log } from '@zup-it/nimbus-backend-core/actions'
 import { eq } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { gte } from 'lodash'
 
 interface ContainerProps extends WithChildren, WithState {
   first: string
@@ -27,7 +26,7 @@ export const Welcome: Screen = () => (
   <Container first='Text' second={9} third={false}>
     <>Arthur</>
     <Text text='Bleil' onPress={log({ message: 'Hello', level: 'Info' })}></Text>
-    <If condition={gte(1, 2)}>
+    <If condition={eq(1, 1)}>
       <Then>
         <Text text='Then result'></Text>
       </Then>
