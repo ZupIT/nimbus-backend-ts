@@ -1,6 +1,6 @@
-import { Actions, Else, FC, If, NimbusJSX, Then, WithChildren, WithState } from '@zup-it/nimbus-backend-core'
+import { Actions, Else, FC, ForEach, If, NimbusJSX, Then, WithChildren, WithState } from '@zup-it/nimbus-backend-core'
 import { log } from '@zup-it/nimbus-backend-core/actions'
-import { eq } from '@zup-it/nimbus-backend-core/operations'
+import { eq, isNull, not } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
 
 interface ContainerProps extends WithChildren, WithState {
@@ -34,6 +34,23 @@ export const Welcome: Screen = () => (
         <Text text='Else result'></Text>
       </Else>
     </If>
+    <ForEach items={['Arthur', 'Daniel', 'Hernand', 'Tiago']} key="myKey">
+      {myKey => (
+        <Text text={myKey.toString()}></Text>
+      )}
+    </ForEach>
+    <ForEach items={[{ name: 'Arthur', age: 30 }, { name: 'Daniel' }, { name: 'Hernand' }, { name: 'Tiago' }]}>
+      {myKey => (
+        <>
+          <Text text={myKey.get('name').toString()}></Text>
+          <If condition={not(isNull(myKey.get('age')))}>
+            <Then>
+              <Text text={myKey.get('age').toString()}></Text>
+            </Then>
+          </If>
+        </>
+      )}
+    </ForEach>
   </Container>
   // <Container
   //   style={{
