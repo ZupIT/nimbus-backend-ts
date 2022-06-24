@@ -1,3 +1,4 @@
+import { Style } from '../jsx/style'
 import { LocalState } from './state/types'
 
 export interface WithState {
@@ -15,6 +16,20 @@ export interface WithChildren {
    * The children of this Component. This must be a single Component or an array of Components.
    */
   children?: Component | Component[] | null,
+}
+
+export interface WithAccessibility {
+  accessibility?: {
+    label?: string,
+    isHeader?: boolean,
+  },
+}
+
+export interface WithStyle<T = Style> {
+  /**
+   * The style for this component. Use it to customize the background, layout, borders, etc.
+   */
+  style?: T,
 }
 
 /**
