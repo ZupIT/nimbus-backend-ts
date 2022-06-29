@@ -1,6 +1,7 @@
 import { hotReloadingString } from './constants'
 import { StateNode } from './model/state/state-node'
 import { Operation } from './model/operation'
+import { InterpolatedText } from './types'
 
 /**
  * Verifies if the value passed as parameter is an instance of StateNode or Operation. i.e. if it's a Nimbus
@@ -49,4 +50,11 @@ export function setupHotReloading() {
  * @param map the map to look for values.
  * @returns true if the map contains any value, false otherwise.
  */
- export const hasAnyValue = (map: Record<string, any>) => Object.values(map).some(v => v !== undefined && v !== null)
+export const hasAnyValue = (map: Record<string, any>) => Object.values(map).some(v => v !== undefined && v !== null)
+
+const stringable = (value: any) => typeof value !== 'object' || isDynamicExpression(value)
+const formatTextUnit = (text: any) => ((text && typeof text === 'object') ? JSON.stringify(text) : text ?? '')
+export const childrenToInterpolatedText = (children: InterpolatedText) =>
+  (Array.isArray(children) ? children : [children])
+    .map(child => stringable(child) ? child : formatTextUnit(child))
+    .join('')

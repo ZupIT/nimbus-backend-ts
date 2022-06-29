@@ -1,5 +1,4 @@
 import { RouteMap } from '@zup-it/nimbus-backend-express'
-import { Test } from './other/test'
 import { Welcome } from './other/welcome'
 import { Products } from './products'
 import { Product } from './product'
@@ -15,6 +14,5 @@ export const routes: RouteMap = {
   '/address': Address,
   '/payment': Payment,
   '/order/:id': Order,
-  '/test': Test,
   '/welcome': Welcome,
 }

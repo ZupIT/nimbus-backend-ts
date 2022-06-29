@@ -5,6 +5,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./actions": "./src/actions/index.ts",
+    "./jsx": "./src/jsx/index.ts",
+    "./structure": "./src/jsx/structure/index.ts",
     "./operations": "./src/operations/index.ts",
     "./*": "./src/*.ts"
   },

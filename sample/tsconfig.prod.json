@@ -7,6 +7,8 @@
     "paths": {
       "@zup-it/nimbus-backend-express": ["../../express-client/dist"],
       "@zup-it/nimbus-backend-express/*": ["../../express-client/dist/*"],
+      "@zup-it/nimbus-backend-components": ["../../components/dist"],
+      "@zup-it/nimbus-backend-components/*": ["../../components/dist/*"],
       "@zup-it/nimbus-backend-core": ["../../core/dist"],
       "@zup-it/nimbus-backend-core/*": ["../../core/dist/*"]
     }

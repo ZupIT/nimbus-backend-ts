@@ -1,6 +1,6 @@
 import { Component } from '../model/component'
-import { nimbusFragmentFactory } from './components/fragment'
-import { FragmentFactory } from './components/fragment/types'
+import { nimbusFragmentFactory } from './structure/fragment'
+import { FragmentFactory } from './structure/fragment/types'
 import { FC } from './types'
 
 const intrinsicComponentName = 'component'

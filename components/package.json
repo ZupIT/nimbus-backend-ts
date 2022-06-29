@@ -1,0 +1,17 @@
+{
+  "name": "@zup-it/nimbus-backend-components",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc --project tsconfig.prod.json && node ../scripts/build-package.js",
+    "clean": "del dist",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "@zup-it/nimbus-backend-core": "1.0.0"
+  },
+  "devDependencies": {
+    "@zup-it/nimbus-backend-core": "1.0.0"
+  }
+}

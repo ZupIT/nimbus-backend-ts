@@ -1,4 +1,4 @@
-import { NimbusJSX, DynamicExpression, FC, WithChildren } from '@zup-it/nimbus-backend-core'
+import { NimbusJSX, DynamicExpression, FC, WithChildren, If, Then, Else } from '@zup-it/nimbus-backend-core'
 import { Spinner } from '../components/spinner'
 
 interface Props extends WithChildren {
@@ -6,9 +6,8 @@ interface Props extends WithChildren {
 }
 
 export const Loading: FC<Props> = ({ isLoading, children }) => (
-  <></>
-  // <If condition={isLoading}>
-  //   <Then><Spinner style={{ height: '100%' }} /></Then>
-  //   <Else><>{children}</></Else>
-  // </If>
+  <If condition={isLoading}>
+    <Then><Spinner style={{ height: 100 }} /></Then>
+    <Else><>{children}</></Else>
+  </If>
 )

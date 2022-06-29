@@ -1,5 +1,5 @@
 import { NimbusJSX, RootState, Component, WithChildren, setFragmentFactory } from 'src'
-import { nimbusFragmentFactory } from 'src/jsx/components/fragment'
+import { nimbusFragmentFactory } from 'src/jsx/structure'
 import { omitUndefined } from './utils'
 
 describe('JSX', () => {
