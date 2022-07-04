@@ -1,11 +1,10 @@
-import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { omit } from 'lodash'
-import { colors } from 'src/color'
-import { Text, TextProps } from '../../src/components/text'
+import { Text, TextProps } from 'src/api'
 import { StyledComponentMock } from '../__mocks__/styled-component'
-import { expectComponentToBeCorrect } from './utils'
+import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
-jest.mock('src/style/styled', () => ({
+jest.mock('src/components/styled', () => ({
   __esModule: true,
   StyledComponent: (_: any) => StyledComponentMock(_),
   StyledDefaultComponent: (_: any) => StyledComponentMock(_),
@@ -16,84 +15,27 @@ describe('Components', () => {
     const name = 'text'
     const id = 'test-text'
     const props: TextProps = {
-      textColor: colors.aqua,
-      alignment: 'LEFT',
-      styleId: 'test-text-style-id',
-      accessibility: {
-        accessible: true,
-        accessibilityLabel: 'Text Accessibility Label',
-        isHeader: false,
-      },
+      children: 'This is the text component',
       style: {
-        borderColor: '#000',
-        backgroundColor: '#fff',
-        padding: 10,
+        size: 22.0,
+        weight: 'semiBold',
+        color: '#e3e3e3',
       },
-      children: ['Test', ' ', 'Text'],
     }
-    const options = {
+    const options: ComponentTestOptions = {
       id,
       properties: {
-        ...omit(props, 'children'),
-        text: 'Test Text',
+        ...omit(props, ['state', 'children']),
+        text: props.children,
       },
     }
 
-    it('should create component with text as a property', () => {
+    it('should create component', () => {
       expectComponentToBeCorrect(
-        <Text
-          id={id}
-          textColor={props.textColor}
-          alignment={props.alignment}
-          styleId={props.styleId}
-          accessibility={props.accessibility}
-          style={props.style}
-        >
-          {props.children}
-        </Text>,
+        <Text id={id} style={props.style}>{props.children}</Text>,
         name,
         options,
       )
-    })
-
-    describe('Validations', () => {
-      describe('Colors', () => {
-        it('should create with valid color', () => {
-          expectComponentToBeCorrect(
-            <Text
-              id={id}
-              textColor={props.textColor}
-              alignment={props.alignment}
-              styleId={props.styleId}
-              accessibility={props.accessibility}
-              style={props.style}
-            >
-              {props.children}
-            </Text>,
-            name,
-            options,
-          )
-        })
-
-        it('should throw with valid color', () => {
-          expect(() =>
-            expectComponentToBeCorrect(
-              <Text
-                id={id}
-                textColor="#test123"
-                alignment={props.alignment}
-                styleId={props.styleId}
-                accessibility={props.accessibility}
-                style={props.style}
-              >
-                {props.children}
-              </Text>,
-              name,
-              options,
-            )
-          ).toThrowError()
-        })
-      })
     })
   })
 })

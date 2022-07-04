@@ -1,15 +1,19 @@
-import { BeagleJSX, coreNamespace } from '@zup-it/beagle-backend-core'
-import { FC } from '@zup-it/beagle-backend-core'
-import { StyledComponentProps } from '../../src/style/styled'
+import { NimbusJSX, Component } from '@zup-it/nimbus-backend-core'
+import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
+import { StyledComponentProps } from 'src/components/styled'
 
-export const StyledComponentMock: FC<StyledComponentProps> = ({ children, name, style, ...props }) => {
+interface StyledFC {
+  <T>(props: StyledComponentProps<T>): Component,
+}
+
+export const StyledComponentMock: StyledFC = ({ children, name, style, ...props }) => {
   const expectedProperties = { style, ...props.properties }
   return (
     <component
       name={name}
-      context={props.context}
+      state={props.state}
       id={props.id}
-      namespace={props.namespace ?? coreNamespace}
+      namespace={props.namespace ?? genericNamespace}
       properties={expectedProperties}>
       {children}
     </component>

@@ -3,7 +3,7 @@ import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 
 export interface LifecycleProps {
   onInit?: Actions,
-  children: Component[],
+  children: Component | Component[],
 }
 
 export const Lifecycle: FC<LifecycleProps> = ({ id, children, ...props }) => (

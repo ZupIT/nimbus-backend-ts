@@ -1,6 +1,6 @@
 import { createState, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { omit } from 'lodash'
-import { Container, ContainerProps, Text } from 'src/api'
+import { Positioned, Stack, StackProps, Text } from 'src/api'
 import { StyledComponentMock } from '../__mocks__/styled-component'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
@@ -11,16 +11,12 @@ jest.mock('src/components/styled', () => ({
 }))
 
 describe('Components', () => {
-  describe('Container', () => {
-    const name = 'container'
-    const id = 'test-container'
-    const state = createState('container-state-id')
-    const props: ContainerProps = {
+  describe('Stack', () => {
+    const name = 'stack'
+    const id = 'test-stack'
+    const state = createState('stack-state-id')
+    const props: StackProps = {
       style: {
-        crossAxisAlignment: 'center',
-        flex: 1,
-        mainAxisAlignment: 'spaceAround',
-        stretch: true,
         backgroundColor: '#fff',
         shadow: [
           {
@@ -46,7 +42,9 @@ describe('Components', () => {
         borderColor: '#000',
       },
       children: [
-        <Text>This is the children test case.</Text>,
+        <Positioned>
+          <Text>This is the children test case.</Text>
+        </Positioned>,
       ],
       state,
     }
@@ -59,10 +57,18 @@ describe('Components', () => {
 
     it('should create component', () => {
       expectComponentToBeCorrect(
-        <Container id={id} style={props.style} state={props.state}>{props.children}</Container>,
+        <Stack id={id} style={props.style} state={props.state}>{props.children}</Stack>,
         name,
         options,
       )
+    })
+
+    it('should throw when children are not the Positioned component', () => {
+      expect(() =>
+        <Stack id={id} style={props.style} state={props.state}>
+          <Text>Text</Text>
+        </Stack>
+      ).toThrow()
     })
   })
 })

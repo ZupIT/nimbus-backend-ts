@@ -10,7 +10,7 @@ export interface ScrollViewProps {
    * @default true
    */
   scrollIndicator?: boolean,
-  children: Component[],
+  children: Component | Component[],
 }
 
 export const ScrollView: FC<ScrollViewProps> = ({

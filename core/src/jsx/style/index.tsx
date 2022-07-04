@@ -1,36 +1,36 @@
 import { Color } from './color'
 
 export interface Margin {
-    margin?: number,
-    marginStart?: number,
-    marginEnd?: number,
-    marginTop?: number,
-    marginBottom?: number,
-    marginHorizontal?: number,
-    marginVertical?: number,
+  margin?: number,
+  marginStart?: number,
+  marginEnd?: number,
+  marginTop?: number,
+  marginBottom?: number,
+  marginHorizontal?: number,
+  marginVertical?: number,
 }
 
 export interface Padding {
-    padding?: number,
-    paddingStart?: number,
-    paddingEnd?: number,
-    paddingTop?: number,
-    paddingBottom?: number,
-    paddingHorizontal?: number,
-    paddingVertical?: number,
+  padding?: number,
+  paddingStart?: number,
+  paddingEnd?: number,
+  paddingTop?: number,
+  paddingBottom?: number,
+  paddingHorizontal?: number,
+  paddingVertical?: number,
 }
 
 export interface Size {
-    width?: number,
-    height?: number,
-    minWidth?: number,
-    minHeight?: number,
-    maxWidth?: number,
-    maxHeight?: number,
-    /**
-     *  @default false
-     */
-    clipped?: boolean,
+  width?: number,
+  height?: number,
+  minWidth?: number,
+  minHeight?: number,
+  maxWidth?: number,
+  maxHeight?: number,
+  /**
+   *  @default false
+   */
+  clipped?: boolean,
 }
 
 export interface Border {

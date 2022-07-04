@@ -1,14 +1,16 @@
 import { Component, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
+import { isArray } from 'lodash'
 import { BoxProps } from '../api'
 import { StyledComponent } from './styled'
 
-export interface StackProps extends BoxProps {
-  children: Component[],
+export interface StackProps extends Omit<BoxProps, 'children'> {
+  children: Component | Component[],
 }
 
 export const Stack: FC<StackProps> = ({ id, state, children, style, ...props }) => {
-  if (children.some(c => c.namespace != 'layout' || c.name != 'positioned')) {
+  const array = isArray(children) ? children : [children]
+  if (array.some(c => c.namespace != 'layout' || c.name != 'positioned')) {
     throw new Error('The Stack Component only supports the Positioned Component as children.')
   }
   return (

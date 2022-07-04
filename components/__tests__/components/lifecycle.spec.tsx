@@ -1,15 +1,17 @@
 import { NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { setState } from '@zup-it/nimbus-backend-core/actions/set-state'
 import { omit } from 'lodash'
-import { ScrollView, ScrollViewProps, Text } from 'src/api'
+import { Lifecycle, LifecycleProps, Text } from 'src/api'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
 describe('Components', () => {
-  describe('ScrollView', () => {
-    const name = 'scrollView'
-    const id = 'test-scroll-view'
-    const props: ScrollViewProps = {
-      direction: 'horizontal',
-      scrollIndicator: true,
+  describe('Lifecycle', () => {
+    const name = 'lifecycle'
+    const id = 'test-lifecyle'
+    const props: LifecycleProps = {
+      onInit: [
+        setState({ path: 'global', value: 'Initialized' }),
+      ],
       children: [
         <Text>This is the children test case.</Text>,
       ],
@@ -22,13 +24,7 @@ describe('Components', () => {
 
     it('should create component', () => {
       expectComponentToBeCorrect(
-        <ScrollView
-          id={id}
-          direction={props.direction}
-          scrollIndicator={props.scrollIndicator}
-        >
-          {props.children}
-        </ScrollView>,
+        <Lifecycle id={id} onInit={props.onInit}>{props.children}</Lifecycle>,
         name,
         options,
       )

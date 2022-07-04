@@ -1,50 +1,41 @@
-import { BeagleJSX } from '@zup-it/beagle-backend-core'
+import { NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { setState } from '@zup-it/nimbus-backend-core/actions/set-state'
 import { omit } from 'lodash'
-import { alert } from '@zup-it/beagle-backend-core/actions'
-import { Touchable, TouchableProps } from '../../src/components/touchable'
-import { Container } from '../../src/components/container'
-import { Image } from '../../src/components'
-import { Text } from '../../src/components/text'
-import { expectComponentToBeCorrect } from './utils'
+import { Text, Touchable, TouchableProps } from 'src/api'
+import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
 describe('Components', () => {
   describe('Touchable', () => {
     const name = 'touchable'
     const id = 'test-touchable'
     const props: TouchableProps = {
-      onPress: alert('Touchable Alert'),
-      children: [
-        <Image type="remote" url="https://my-backend/my-image.png" />,
-        <Text>This is the children test case.</Text>,
+      onPress: [
+        setState({ path: 'global', value: 'Touchable pressed' }),
       ],
-    }
-    const options = {
-      id,
-      children: undefined,
-      properties: {
-        ...omit(props, 'children'),
-        child: <Container>{props.children}</Container>,
+      children: <Text>This is the children test case.</Text>,
+      accessibility: {
+        isHeader: false,
+        label: 'Test Touchable',
       },
+    }
+    const options: ComponentTestOptions = {
+      id,
+      children: props.children,
+      properties: omit(props, ['children']),
     }
 
     it('should create component', () => {
       expectComponentToBeCorrect(
-        <Touchable id={id} onPress={props.onPress!}>{props.children}</Touchable>,
+        <Touchable
+          id={id}
+          onPress={props.onPress}
+          accessibility={props.accessibility}
+        >
+          {props.children}
+        </Touchable>,
         name,
         options,
       )
-    })
-
-    describe('Children', () => {
-      it ('should set the child as the Component passed, when children is a single child', () => {
-        const overwrittenChildren = <Text>This is the children test case.</Text>
-        const overwrittenOptions = { id, properties: { ...props, children: undefined, child: overwrittenChildren } }
-        expectComponentToBeCorrect(
-          <Touchable id={id} onPress={props.onPress!}>{overwrittenChildren}</Touchable>,
-          name,
-          overwrittenOptions,
-        )
-      })
     })
   })
 })

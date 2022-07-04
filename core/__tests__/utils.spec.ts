@@ -1,6 +1,6 @@
-import { Operation } from 'src'
-import { StateNode } from 'src/model/state/state-node'
-import { isDevelopmentMode, isDynamicExpression, setupHotReloading } from 'src/utils'
+import { Operation, sum } from 'src'
+import { createStateNode, StateNode } from 'src/model/state/state-node'
+import { childrenToInterpolatedText, isDevelopmentMode, isDynamicExpression, setupHotReloading } from 'src/utils'
 
 describe('Utils', () => {
   describe('isDevelopmentMode', () => {
@@ -80,6 +80,45 @@ describe('Utils', () => {
       setupHotReloading()
       expect(process.stdout.write).toHaveBeenCalledWith(expect.stringMatching(/^__\[HOT RELOADING: SERVER_STARTED\]__/))
       process.env.NODE_ENV = currentMode
+    })
+  })
+
+  describe('childrenToInterpolatedText', () => {
+    it('should deal with strings', () => {
+      expect(childrenToInterpolatedText('hello')).toBe('hello')
+      expect(childrenToInterpolatedText(['hello ', 'world'])).toBe('hello world')
+    })
+
+    it('should deal with numbers', () => {
+      expect(childrenToInterpolatedText(10)).toBe('10')
+      expect(childrenToInterpolatedText([10, 20.52])).toBe('1020.52')
+    })
+
+    it('should deal with booleans', () => {
+      expect(childrenToInterpolatedText(true)).toBe('true')
+      expect(childrenToInterpolatedText([true, false])).toBe('truefalse')
+    })
+
+    it('should deal with objects', () => {
+      const value1 = { a: 1, b: '2', c: true, d: { e: '3' } }
+      const value2 = { hello: 'world' }
+      expect(childrenToInterpolatedText(value1)).toBe(JSON.stringify(value1))
+      expect(childrenToInterpolatedText([value1, value2])).toBe(`${JSON.stringify(value1)}${JSON.stringify(value2)}`)
+    })
+
+    it('should deal with expressions', () => {
+      const ctx = createStateNode<number>('ctx')
+      const op = sum(ctx, 2)
+      expect(childrenToInterpolatedText(op)).toBe(op.toString())
+      expect(childrenToInterpolatedText([op, ctx])).toBe(`${op.toString()}${ctx.toString()}`)
+    })
+
+    it('should deal with mixed types', () => {
+      const ctx = createStateNode<number>('ctx')
+      const values = ['1', 2, 3.58, true, false, 'test', ctx, { a: 1, b: '2' }]
+      expect(childrenToInterpolatedText(values)).toBe(
+        `123.58truefalsetest${ctx.toString()}${JSON.stringify(values[7])}`,
+      )
     })
   })
 })

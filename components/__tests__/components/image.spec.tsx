@@ -1,157 +1,69 @@
-import { BeagleJSX } from '@zup-it/beagle-backend-core'
-import { Image, ImageProps } from '../../src/components/image'
+import { NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { BaseImageProps, LocalImage, LocalImageProps, RemoteImage, RemoteImageProps } from 'src/api'
 import { StyledComponentMock } from '../__mocks__/styled-component'
 import { expectComponentToBeCorrect } from './utils'
 
-jest.mock('src/style/styled', () => ({
+jest.mock('src/components/styled', () => ({
   __esModule: true,
   StyledComponent: (_: any) => StyledComponentMock(_),
   StyledDefaultComponent: (_: any) => StyledComponentMock(_),
 }))
 
 describe('Components', () => {
-  describe('ImageComponent', () => {
-    const name = 'image'
-    const id = 'test-image'
-
-    const props: ImageProps = {
-      type: 'remote',
-      url: 'https://server.com/image.png',
-      placeholder: {
-        mobileId: 'image-mobile-id',
-      },
-      mode: 'FIT_XY',
-      styleId: 'test-button-style-id',
+  describe('Image', () => {
+    const id = 'image-test'
+    const props: BaseImageProps = {
       accessibility: {
-        accessible: true,
-        accessibilityLabel: 'Button Accessibility Label',
         isHeader: false,
+        label: 'Test image',
       },
       style: {
-        borderColor: '#000',
-        backgroundColor: '#fff',
-        padding: 10,
+        width: 200,
+        height: 130,
+        minWidth: 100,
+        minHeight: 30,
+        maxWidth: 300,
+        maxHeight: 200,
+        clipped: true,
+        scale: 'fillHeight',
       },
-      mobileId: 'image-mobile-id',
     }
 
-    describe('Remote Image', () => {
-      it('should create component', () => {
-        expectComponentToBeCorrect(
-          <Image
-            id={id}
-            type="remote"
-            mode={props.mode}
-            url={props.url}
-            placeholder={props.placeholder}
-            styleId={props.styleId}
-            accessibility={props.accessibility}
-            style={props.style}
-          />,
-          name,
-          {
-            id,
-            properties: {
-              mode: props.mode,
-              style: props.style,
-              path: {
-                '_beagleImagePath_': 'remote',
-                url: props.url,
-                placeholder: props.placeholder,
-                styleId: props.styleId,
-                accessibility: props.accessibility,
-              },
-            },
-          },
-        )
-      })
-    })
-
-    describe('Local Web Image', () => {
-      it('should create component', () => {
-        expectComponentToBeCorrect(
-          <Image
-            id={id}
-            type="local"
-            url={props.url}
-            mode={props.mode}
-            styleId={props.styleId}
-            accessibility={props.accessibility}
-            style={props.style}
-          />,
-          name,
-          {
-            id,
-            properties: {
-              mode: props.mode,
-              style: props.style,
-              path: {
-                '_beagleImagePath_': 'local',
-                url: props.url,
-                styleId: props.styleId,
-                accessibility: props.accessibility,
-              },
-            },
-          },
-        )
-      })
-    })
-
-    describe('Local Mobile Image', () => {
+    it('should create the local image component', () => {
+      const localImageProps: LocalImageProps = { ...props, id: 'test-local-image' }
+      const options = { id, properties: localImageProps }
       expectComponentToBeCorrect(
-        <Image
+        <LocalImage
           id={id}
-          type="local"
-          mobileId={props.mobileId}
-          mode={props.mode}
-          styleId={props.styleId}
-          accessibility={props.accessibility}
           style={props.style}
+          localImageId={options.properties.id}
+          accessibility={options.properties.accessibility}
         />,
-        name,
-        {
-          id,
-          properties: {
-            mode: props.mode,
-            style: props.style,
-            path: {
-              '_beagleImagePath_': 'local',
-              mobileId: props.mobileId,
-              styleId: props.styleId,
-              accessibility: props.accessibility,
-            },
-          },
-        },
+        'localImage',
+        options
       )
     })
 
-    describe('Local Web & Mobile Image', () => {
+    it('should create the remote image component', () => {
+      const remoteImageProperties: RemoteImageProps = {
+        ...props,
+        url: 'https://usebeagle.io/test.jpg',
+        placeholder: 'https://google.com/test.jpg',
+      }
+      const options = {
+        id,
+        properties: remoteImageProperties,
+      }
       expectComponentToBeCorrect(
-        <Image
+        <RemoteImage
           id={id}
-          type="local"
-          url={props.url}
-          mobileId={props.mobileId}
-          mode={props.mode}
-          styleId={props.styleId}
-          accessibility={props.accessibility}
           style={props.style}
+          url={remoteImageProperties.url}
+          placeholder={remoteImageProperties.placeholder}
+          accessibility={options.properties.accessibility}
         />,
-        name,
-        {
-          id,
-          properties: {
-            mode: props.mode,
-            style: props.style,
-            path: {
-              '_beagleImagePath_': 'local',
-              url: props.url,
-              mobileId: props.mobileId,
-              styleId: props.styleId,
-              accessibility: props.accessibility,
-            },
-          },
-        },
+        'remoteImage',
+        options,
       )
     })
   })

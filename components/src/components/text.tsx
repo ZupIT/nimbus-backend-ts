@@ -1,10 +1,12 @@
 import { FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 import { Color } from '@zup-it/nimbus-backend-core/jsx/style/color'
+import { WithStyle } from '@zup-it/nimbus-backend-core/model/component'
 import { InterpolatedText } from '@zup-it/nimbus-backend-core/types'
 import { childrenToInterpolatedText } from '@zup-it/nimbus-backend-core/utils'
+import { StyledComponent } from './styled'
 
-export interface TextProps {
+export interface TextStyle {
   /**
    * @default 12.0
    */
@@ -17,20 +19,24 @@ export interface TextProps {
    * @default #000
    */
   color?: Color,
+}
+
+export interface TextProps extends WithStyle<TextStyle> {
   /**
    * The text to print.
    */
   children: InterpolatedText,
 }
 
-export const Text: FC<TextProps> = ({ id, children, size = 12.0, weight = 'normal', color = '#000', ...props }) => {
+export const Text: FC<TextProps> = ({ id, children, style, ...props }) => {
   const text = childrenToInterpolatedText(children)
   return (
-    <component
+    <StyledComponent
       id={id}
       namespace={genericNamespace}
       name="text"
-      properties={{ size, weight, color, text, ...props }}
+      style={{ size: 12.0, weight: 'normal', color: '#000', ...style }}
+      properties={{ ...props, text }}
     />
   )
 }

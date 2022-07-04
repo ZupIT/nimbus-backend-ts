@@ -14,7 +14,7 @@ type Alignment =
   'centerEnd' |
   'center'
 
-export interface PositionedProps extends BoxProps {
+export interface PositionedProps extends Omit<BoxProps, 'children'> {
   /**
    * @default topStart
    */
@@ -27,7 +27,7 @@ export interface PositionedProps extends BoxProps {
    * @default 0
   */
   y?: number,
-  children: Component[],
+  children: Component | Component[],
 }
 
 export const Positioned: FC<PositionedProps> = ({

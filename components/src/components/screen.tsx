@@ -11,7 +11,7 @@ export interface ScreenProps extends WithState {
    * @default true
    */
   showBackButton?: boolean,
-  children: Component[],
+  children: Component,
 }
 
 export const Screen: FC<ScreenProps> = ({ id, state, children, showBackButton = true, ...props }) => (

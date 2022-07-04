@@ -1,6 +1,6 @@
 import { createState, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { omit } from 'lodash'
-import { Container, ContainerProps, Text } from 'src/api'
+import { Positioned, PositionedProps, Text } from 'src/api'
 import { StyledComponentMock } from '../__mocks__/styled-component'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
@@ -11,16 +11,15 @@ jest.mock('src/components/styled', () => ({
 }))
 
 describe('Components', () => {
-  describe('Container', () => {
-    const name = 'container'
-    const id = 'test-container'
+  describe('Positioned', () => {
+    const name = 'positioned'
+    const id = 'test-positioned'
     const state = createState('container-state-id')
-    const props: ContainerProps = {
+    const props: PositionedProps = {
+      alignment: 'centerStart',
+      x: 1,
+      y: 2,
       style: {
-        crossAxisAlignment: 'center',
-        flex: 1,
-        mainAxisAlignment: 'spaceAround',
-        stretch: true,
         backgroundColor: '#fff',
         shadow: [
           {
@@ -59,7 +58,16 @@ describe('Components', () => {
 
     it('should create component', () => {
       expectComponentToBeCorrect(
-        <Container id={id} style={props.style} state={props.state}>{props.children}</Container>,
+        <Positioned
+          id={id}
+          style={props.style}
+          state={props.state}
+          alignment={props.alignment}
+          x={props.x}
+          y={props.y}
+        >
+          {props.children}
+        </Positioned>,
         name,
         options,
       )
