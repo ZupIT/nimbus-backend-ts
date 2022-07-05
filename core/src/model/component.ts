@@ -1,5 +1,5 @@
-import { Style } from '../jsx/style'
 import { LocalState } from './state/types'
+import { Style } from './style'
 
 export interface WithState {
   /**

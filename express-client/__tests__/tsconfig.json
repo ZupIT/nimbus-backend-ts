@@ -7,6 +7,8 @@
     "strict": true,
     "esModuleInterop": true,
     "baseUrl": "../",
+    "reactNamespace": "NimbusJSX",
+    "jsx": "react",
     "paths": {
       "src/*": ["./src/*"],
       "test/*": ["./__tests__/*"],

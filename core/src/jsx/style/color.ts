@@ -1,4 +1,4 @@
-export type Color = `#${string}`
+import { Color } from '../../model/style/color'
 
 const untypedColors = {
   aliceblue: '#F0F8FF',

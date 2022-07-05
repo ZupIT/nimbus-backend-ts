@@ -3,6 +3,8 @@ import { nimbusFragmentFactory } from './structure/fragment'
 import { FragmentFactory } from './structure/fragment/types'
 import { FC } from './types'
 
+export * from './structure'
+
 const intrinsicComponentName = 'component'
 
 let fragmentFactory: FragmentFactory = nimbusFragmentFactory

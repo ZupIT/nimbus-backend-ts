@@ -1,7 +1,7 @@
 import { FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
-import { Color } from '@zup-it/nimbus-backend-core/jsx/style/color'
 import { WithStyle } from '@zup-it/nimbus-backend-core/model/component'
+import { Color } from '@zup-it/nimbus-backend-core/model/style/color'
 import { InterpolatedText } from '@zup-it/nimbus-backend-core/types'
 import { childrenToInterpolatedText } from '@zup-it/nimbus-backend-core/utils'
 import { StyledComponent } from './styled'
