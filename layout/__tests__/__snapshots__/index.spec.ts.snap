@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Components module should export 1`] = `
+exports[`Layout module should export 1`] = `
 Object {
   "Box": "function",
   "Column": "function",

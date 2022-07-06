@@ -7,8 +7,8 @@ module.exports = {
   moduleNameMapper: {
     '^@zup-it/nimbus-backend-core$': '<rootDir>../core/src',
     '^@zup-it/nimbus-backend-core/(.*)$': '<rootDir>../core/src/$1',
-    '^@zup-it/nimbus-backend-components$': '<rootDir>../components/src',
-    '^@zup-it/nimbus-backend-components/(.*)$': '<rootDir>../components/src/$1',
+    '^@zup-it/nimbus-backend-layout$': '<rootDir>../layout/src',
+    '^@zup-it/nimbus-backend-layout/(.*)$': '<rootDir>../layout/src/$1',
     '^@zup-it/nimbus-backend-express$': '<rootDir>../express-client/src',
     '^@zup-it/nimbus-backend-express/(.*)$': '<rootDir>../express-client/src/$1',
   },
