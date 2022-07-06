@@ -16,5 +16,5 @@ interface StyledFC {
  * @returns JSX element, i.e an instance of Component.
  */
 export const StyledComponent: StyledFC = ({ name, style, children, state, id, namespace, properties }) => (
-  <component {...{ name, state, id, namespace }} properties={{ style, ...properties }}>{children}</component>
+  <component {...{ name, state, id, namespace }} properties={{ ...style, ...properties }}>{children}</component>
 )
