@@ -8,7 +8,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "@zup-it/nimbus-backend-components": "^1.0.0",
+    "@zup-it/nimbus-backend-layout": "^1.0.0",
     "@zup-it/nimbus-backend-core": "^1.0.0",
     "@zup-it/nimbus-backend-express": "^1.0.0",
     "cors": "^2.8.5",

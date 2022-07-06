@@ -1,5 +1,5 @@
 {
-  "name": "@zup-it/nimbus-backend-components",
+  "name": "@zup-it/nimbus-backend-layout",
   "version": "1.0.0",
   "license": "MIT",
   "main": "src/index.ts",

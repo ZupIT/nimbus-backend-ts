@@ -2,7 +2,7 @@
 exporting types that doesn't make sense. */
 
 /**
- * @module @zup-it/nimbus-backend-components
+ * @module @zup-it/nimbus-backend-layout
  */
 
 export * from './'
