@@ -1,6 +1,6 @@
 import { createState, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { omit } from 'lodash'
-import { Screen, ScreenProps, Text } from 'src/api'
+import { ScreenComponent, ScreenProps, Text } from 'src/api'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
 describe('Components', () => {
@@ -23,7 +23,7 @@ describe('Components', () => {
 
     it('should create component', () => {
       expectComponentToBeCorrect(
-        <Screen
+        <ScreenComponent
           id={id}
           state={state}
           ignoreSafeArea={props.ignoreSafeArea}
@@ -31,7 +31,7 @@ describe('Components', () => {
           showBackButton={props.showBackButton}
         >
           {props.children}
-        </Screen>,
+        </ScreenComponent>,
         name,
         options,
       )

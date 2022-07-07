@@ -1,7 +1,7 @@
-import { Component, FC, NimbusJSX, WithState } from '@zup-it/nimbus-backend-core'
+import { FC, NimbusJSX, WithChildren, WithState } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 
-export interface ScreenProps extends WithState {
+export interface ScreenProps extends WithState, Required<WithChildren> {
   /**
    * @default null|undefined|[]
    */
@@ -11,17 +11,10 @@ export interface ScreenProps extends WithState {
    * @default true
    */
   showBackButton?: boolean,
-  children: Component,
 }
 
-export const Screen: FC<ScreenProps> = ({ id, state, children, showBackButton = true, ...props }) => (
-  <component
-    id={id}
-    state={state}
-    name="screen"
-    namespace={genericNamespace}
-    properties={{ showBackButton, ...props }}
-  >
+export const ScreenComponent: FC<ScreenProps> = ({ id, state, children, showBackButton = true, ...props }) => (
+  <component id={id} state={state} name="screen" namespace={genericNamespace} properties={{ showBackButton, ...props }}>
     {children}
   </component>
 )

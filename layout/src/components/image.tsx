@@ -1,7 +1,7 @@
 import { FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
-import { Size } from '@zup-it/nimbus-backend-core/jsx/style'
 import { WithAccessibility, WithStyle } from '@zup-it/nimbus-backend-core/model/component'
+import { Size } from '@zup-it/nimbus-backend-core/model/style'
 import { omit } from 'lodash'
 import { StyledComponent } from './styled'
 

@@ -1,4 +1,4 @@
-import { Component, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { FC, NimbusJSX, WithChildren } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 import { StyledComponent } from './styled'
 import { BoxProps } from './types/box'
@@ -14,7 +14,7 @@ type Alignment =
   'centerEnd' |
   'center'
 
-export interface PositionedProps extends Omit<BoxProps, 'children'> {
+export interface PositionedProps extends Omit<BoxProps, 'children'>, Required<WithChildren> {
   /**
    * @default topStart
    */
@@ -27,7 +27,6 @@ export interface PositionedProps extends Omit<BoxProps, 'children'> {
    * @default 0
   */
   y?: number,
-  children: Component | Component[],
 }
 
 export const Positioned: FC<PositionedProps> = ({

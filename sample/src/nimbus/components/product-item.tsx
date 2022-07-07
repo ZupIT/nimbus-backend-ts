@@ -1,4 +1,4 @@
-import { Actions, NimbusJSX, Expression, FC } from '@zup-it/nimbus-backend-core'
+import { Actions, NimbusJSX, Expression, FC, Operation } from '@zup-it/nimbus-backend-core'
 import { customComponentNamespace } from './shared'
 
 export interface ProductItemProps {
@@ -11,6 +11,6 @@ export interface ProductItemProps {
   onPressDetails: Actions,
 }
 
-export const ProductItem: FC<ProductItemProps> = ({ id, ...props }) => (
-  <component id={id} namespace={customComponentNamespace} name="productItem" properties={props} />
+export const ProductItem: FC<ProductItemProps> = ({ id, ...properties }) => (
+  <component id={id} namespace={customComponentNamespace} name="productItem" properties={properties} />
 )

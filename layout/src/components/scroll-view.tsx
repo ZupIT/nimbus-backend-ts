@@ -1,7 +1,7 @@
-import { Component, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { FC, NimbusJSX, WithChildren } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 
-export interface ScrollViewProps {
+export interface ScrollViewProps extends Required<WithChildren> {
   /**
    * @default both
    */
@@ -10,7 +10,6 @@ export interface ScrollViewProps {
    * @default true
    */
   scrollIndicator?: boolean,
-  children: Component | Component[],
 }
 
 export const ScrollView: FC<ScrollViewProps> = ({

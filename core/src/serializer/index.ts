@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { isEmpty, mapValues } from 'lodash'
 import { coreNamespace, genericNamespace } from '../constants'
 import { Component } from '../model/component'
@@ -18,14 +19,14 @@ const getComponentActionName = (componentAction: Component | Action): StructureN
 
 const asActionCall = (action: Action<any>): ActionCall => ({
   '_:action': getComponentActionName(action),
-  ...(action.properties ? { properties: transformExpressionsAndActions(action.properties ?? {}) } : {}),
+  properties: action.properties ? transformExpressionsAndActions(action.properties ?? {}) : undefined,
 })
 
 const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
   Array.isArray(actions) ? actions.map(asActionCall) : [asActionCall(actions)]
 )
 
-const asStateDeclaration = ({ path, value }: LocalState<any>): StateDeclaration => ({ id: path, value  })
+const asStateDeclaration = ({ path, value }: LocalState<any>): StateDeclaration => ({ id: path, value })
 
 const transformExpressionsAndActions = (value: any): any => {
   const isActions = value instanceof Action || Array.isArray(value) && value[0] instanceof Action
@@ -38,16 +39,14 @@ const transformExpressionsAndActions = (value: any): any => {
 }
 
 const asNimbusNode = (component: Component): NimbusNode => {
-  const childrenArray = Array.isArray(component.children) || !component.children
-    ? component.children
-    : [component.children]
-
+  const { children, state, id, properties } = component
+  const childrenArray = (Array.isArray(children) || !children) ? children : [children]
   return {
     '_:component': getComponentActionName(component),
-    state: component.state ? asStateDeclaration(component.state) : undefined,
-    id: component.id,
+    id,
+    state: state ? asStateDeclaration(state) : undefined,
     children: isEmpty(childrenArray) ? undefined : childrenArray!.map(asNimbusNode),
-    ...(component.properties ? { properties: transformExpressionsAndActions(component.properties ?? {}) } : {}),
+    properties: properties && !isEmpty(properties) ? transformExpressionsAndActions(properties) : undefined,
   }
 }
 

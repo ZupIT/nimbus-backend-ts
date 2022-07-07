@@ -1,14 +1,14 @@
 import { NimbusJSX } from '../..'
 import { Component, createStateNode } from '../../../api'
+import { coreNamespace } from '../../../constants'
 import { ForEachProps } from './types'
 
-interface ForEachComponent {
+interface IForEach {
   <T>(props: ForEachProps<T>): Component,
 }
 
-export const ForEach: ForEachComponent = ({ children, state, ...props }) => {
-  const forEachState = createStateNode<Parameters<typeof children>[0]>(props.key ?? 'item')
-  return (
-    <component name="forEach" state={state} properties={props}>{children(forEachState as any)}</component>
-  )
-}
+export const ForEach: IForEach = ({ children, state, ...props }) => (
+  <component namespace={coreNamespace} name="forEach" state={state} properties={props}>
+    {children(createStateNode(props.key ?? 'item'))}
+  </component>
+)
