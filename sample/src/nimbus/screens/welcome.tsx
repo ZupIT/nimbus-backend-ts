@@ -2,7 +2,7 @@ import { NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { push } from '@zup-it/nimbus-backend-core/actions'
 import { FlowColumn, RemoteImage, Text } from '@zup-it/nimbus-backend-layout'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Button } from '../../components/button'
+import { Button } from '../components/button'
 
 export const Welcome: Screen = () => (
   <FlowColumn>

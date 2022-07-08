@@ -6,7 +6,6 @@ import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
 import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
-import { theme } from '../constants'
 import { Container, ContainerStyle, Lifecycle, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { log } from '@zup-it/nimbus-backend-core/actions'
 
@@ -21,7 +20,7 @@ interface ProductsStyles {
 
 const styles: ProductsStyles = {
   wrapper: {
-    backgroundColor: theme.viewBackground,
+    backgroundColor: '#eee',
     flex: 1,
     crossAxisAlignment: 'start',
     mainAxisAlignment: 'start',

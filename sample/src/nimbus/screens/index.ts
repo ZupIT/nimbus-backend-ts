@@ -1,5 +1,5 @@
 import { RouteMap } from '@zup-it/nimbus-backend-express'
-import { Welcome } from './other/welcome'
+import { Welcome } from './welcome'
 import { Products } from './products'
 import { Product } from './product'
 import { Order } from './order'
