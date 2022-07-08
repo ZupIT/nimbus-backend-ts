@@ -1,20 +1,31 @@
 import { NimbusJSX, createState, ForEach } from '@zup-it/nimbus-backend-core'
-import { contains, insert, length, sum } from '@zup-it/nimbus-backend-core/operations'
+import { contains } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Product } from '../../models/product'
 import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
-import { formatPrice } from '../operations'
 import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
 import { theme } from '../constants'
-import { updateCartIndicator } from '../actions'
-import { Product as ProductScreen } from './product'
-import { Container, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { Container, ContainerStyle, Lifecycle, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { log } from '@zup-it/nimbus-backend-core/actions'
 
 interface ProductData {
   isLoading: boolean,
   data: Product[],
+}
+
+interface ProductsStyles {
+  wrapper: ContainerStyle,
+}
+
+const styles: ProductsStyles = {
+  wrapper: {
+    backgroundColor: theme.viewBackground,
+    flex: 1,
+    crossAxisAlignment: 'start',
+    mainAxisAlignment: 'start',
+  },
 }
 
 export const Products: Screen = ({ navigator }) => {
@@ -22,32 +33,31 @@ export const Products: Screen = ({ navigator }) => {
   const cart = globalState.get('cart')
   const onInit = listProducts({
     onSuccess: response => products.get('data').set(response.get('data')),
-    // onError: response => alert(response.get('message')),
+    onError: response => log({ message: response.get('message').toString(), level: 'Error' }),
     onFinish: products.get('isLoading').set(false),
   })
 
   return (
     <ScreenComponent title="Products">
-      <Container state={products} style={{ backgroundColor: theme.viewBackground }}>
-        <Loading isLoading={products.get('isLoading')}>
-          <ForEach items={products.get('data')} key="product">
-            {product => (
-              <ProductItem
-                productId={product.get('id')}
-                image={product.get('image')}
-                price={formatPrice(product.get('price'), 'BRL')}
-                title={product.get('title')}
-                inCart={contains(cart, product)}
-                onPressBuy={[
-                  updateCartIndicator({ numberOfElementsInCart: sum(length(cart), 1) }),
-                  cart.set(insert(cart, product)),
-                ]}
-                onPressDetails={navigator.push(ProductScreen)}
-              />
-            )}
-          </ForEach>
-        </Loading>
-      </Container>
+      <Lifecycle onInit={onInit}>
+        <Container state={products} style={styles.wrapper}>
+          <Loading isLoading={products.get('isLoading')}>
+            <ForEach items={products.get('data')} key="product">
+              {product => (
+                <Row>
+                  <ProductItem
+                    image={product.get('image')}
+                    title={product.get('title')}
+                    price={product.get('price')}
+                    inCart={contains(cart, product)}
+                    onPressBuy={log({ message: '', level: 'Info' })}
+                  />
+                </Row>
+              )}
+            </ForEach>
+          </Loading>
+        </Container>
+      </Lifecycle>
     </ScreenComponent>
   )
 }

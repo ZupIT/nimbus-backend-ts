@@ -10,5 +10,4 @@ export interface ButtonProps extends WithStyle {
 
 export const Button: FC<ButtonProps> = ({ id, style, ...props }) => (
   <component id={id} namespace={customComponentNamespace} name="button" properties={{ ...style, ...props } }></component>
-  // <StyledComponent id={id} namespace={customComponentNamespace} name="button" style={style} properties={props} />
 )
