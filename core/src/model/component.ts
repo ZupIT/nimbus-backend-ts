@@ -83,12 +83,12 @@ export class Component {
   /**
    * @param options the component parameters: properties, children, state, id, name and namespace.
    */
-  constructor({ properties, children, state, id, name, namespace }: Component) {
+  constructor({ id, namespace, name, state, properties, children }: Component) {
     this.id = id
-    this.children = children
+    this.namespace = namespace
+    this.name = name
     this.state = state
     this.properties = properties
-    this.name = name
-    this.namespace = namespace
+    this.children = children
   }
 }

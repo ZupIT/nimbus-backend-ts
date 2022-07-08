@@ -1,9 +1,8 @@
-import { Actions, Component, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { Actions, FC, NimbusJSX, WithChildren } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 
-export interface LifecycleProps {
+export interface LifecycleProps extends Required<WithChildren> {
   onInit?: Actions,
-  children: Component | Component[],
 }
 
 export const Lifecycle: FC<LifecycleProps> = ({ id, children, ...props }) => (

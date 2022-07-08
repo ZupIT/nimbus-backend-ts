@@ -12,7 +12,7 @@ Object {
   "Positioned": "function",
   "RemoteImage": "function",
   "Row": "function",
-  "Screen": "function",
+  "ScreenComponent": "function",
   "ScrollView": "function",
   "Stack": "function",
   "Text": "function",

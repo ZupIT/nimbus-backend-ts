@@ -14,11 +14,8 @@ describe('Serializer: actions', () => {
         ],
       },
     })
+
     const serialized = serialize(component)
-
-    // eslint-disable-next-line no-console
-    console.log(serialized)
-
     expect(JSON.parse(serialized).properties.onPress).toEqual([
       { '_:action': 'a:log', properties: { text: '[INFO] hello!' } },
       { '_:action': 'a:log', properties: { text: '[INFO] world!' } },

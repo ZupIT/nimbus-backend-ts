@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { NimbusJSX, Component } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
-import { Style } from '@zup-it/nimbus-backend-core/jsx/style'
 import { LocalState } from '@zup-it/nimbus-backend-core/model/state/types'
+import { Style } from '@zup-it/nimbus-backend-core/model/style'
 
 export type ComponentTestOptions<Props = unknown> = {
   properties?: Props,
