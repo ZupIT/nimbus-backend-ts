@@ -1,4 +1,4 @@
-import { Address, Order, PaymentCard } from '../models/order'
+import { AddressModel, Order, PaymentCard } from '../models/order'
 import { Product } from '../models/product'
 
 let nextId = 1
@@ -72,7 +72,7 @@ const orders: Record<string, Order> =
 
 export interface CreateOrderData {
   products: Product[],
-  address: Address,
+  address: AddressModel,
   payment: PaymentCard,
 }
 

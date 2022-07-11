@@ -1,6 +1,6 @@
 import { Product } from './product'
 
-export interface Address {
+export interface AddressModel {
   zip: string,
   street: string,
   number: string,
@@ -15,7 +15,7 @@ export interface Order {
   state: 'AWAITING_PAYMENT' | 'PAYMENT_ACCEPTED' | 'PREPARING' | 'SENT' | 'COMPLETED' | 'CANCELED',
   products: Pick<Product, 'title' | 'price' | 'image' | 'id' | 'description' | 'category'>[],
   total: number,
-  address: Address,
+  address: AddressModel,
 }
 
 export interface PaymentCard {

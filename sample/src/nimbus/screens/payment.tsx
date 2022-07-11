@@ -1,7 +1,7 @@
 import { NimbusJSX, createState } from '@zup-it/nimbus-backend-core'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { createOrder } from '../network/order'
-import { Address, PaymentCard } from '../../models/order'
+import { AddressModel, PaymentCard } from '../../models/order'
 import { globalState } from '../global-state'
 import { updateCartIndicator } from '../actions'
 import { localNavigator } from '../local-navigator'
