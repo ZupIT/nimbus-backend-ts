@@ -1,6 +1,5 @@
 export * from './box'
 export * from './column'
-export * from './container'
 export * from './flow-column'
 export * from './flow-row'
 export * from './image'

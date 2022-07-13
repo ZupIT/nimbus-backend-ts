@@ -1,5 +1,4 @@
 import { NimbusJSX } from '@zup-it/nimbus-backend-core'
-import { omit } from 'lodash'
 import { ScrollView, ScrollViewProps, Text } from 'src/api'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
@@ -7,31 +6,19 @@ describe('Components', () => {
   describe('ScrollView', () => {
     const name = 'scrollView'
     const id = 'test-scroll-view'
-    const props: ScrollViewProps = {
+    const properties: Omit<ScrollViewProps, 'children'> = {
       direction: 'horizontal',
       scrollIndicator: true,
-      children: [
-        <Text>This is the children test case.</Text>,
-      ],
     }
+    const children = <Text>This is the children test case.</Text>
     const options: ComponentTestOptions = {
       id,
-      children: props.children,
-      properties: omit(props, ['style', 'children']),
+      children,
+      properties,
     }
 
     it('should create component', () => {
-      expectComponentToBeCorrect(
-        <ScrollView
-          id={id}
-          direction={props.direction}
-          scrollIndicator={props.scrollIndicator}
-        >
-          {props.children}
-        </ScrollView>,
-        name,
-        options,
-      )
+      expectComponentToBeCorrect(<ScrollView id={id} {...properties}>{children}</ScrollView>, name, options)
     })
   })
 })

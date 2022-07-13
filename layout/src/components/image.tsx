@@ -1,18 +1,14 @@
 import { FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
-import { WithAccessibility, WithStyle } from '@zup-it/nimbus-backend-core/model/component'
+import { WithAccessibility } from '@zup-it/nimbus-backend-core/model/component'
 import { Size } from '@zup-it/nimbus-backend-core/model/style'
 import { omit } from 'lodash'
-import { StyledComponent } from './styled'
 
-export interface BaseImageStyle extends Size {
+export interface BaseImageProps extends Size, WithAccessibility {
   /**
    * @default center
    */
-  scale?: 'fillBounds' | 'fillHeight' | 'fillWidth' | 'center',
-}
-
-export interface BaseImageProps extends WithStyle<BaseImageStyle>, WithAccessibility {
+   scale?: 'fillBounds' | 'fillHeight' | 'fillWidth' | 'center',
 }
 
 export interface LocalImageProps extends BaseImageProps {
@@ -31,20 +27,18 @@ export interface RemoteImageProps extends BaseImageProps {
 const getImageStyledComponent = (
   name: string,
   id?: string,
-  style?: Size,
   props?: RemoteImageProps | LocalImageProps
 ) => (
-  <StyledComponent
+  <component
     id={id}
     namespace={genericNamespace}
     name={name}
-    style={{ scale: 'center', ...style }}
-    properties={omit(props, ['children'])}
+    properties={{ scale: 'center', ...omit(props, ['children']) }}
   />
 )
 
-export const LocalImage: FC<LocalImageComponentProps> = ({ id, style, ...props }) =>
-  getImageStyledComponent('localImage', id, style, { ...omit(props, ['localImageId']), id: props.localImageId })
+export const LocalImage: FC<LocalImageComponentProps> = ({ id, ...props }) =>
+  getImageStyledComponent('localImage', id, { ...omit(props, ['localImageId']), id: props.localImageId })
 
-export const RemoteImage: FC<RemoteImageProps> = ({ id, style, ...props }) =>
-  getImageStyledComponent('remoteImage', id, style, props)
+export const RemoteImage: FC<RemoteImageProps> = ({ id, ...props }) =>
+  getImageStyledComponent('remoteImage', id, props)

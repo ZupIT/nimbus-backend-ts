@@ -15,7 +15,7 @@ const validateChild = (child?: JSX.Element) => {
 }
 
 /**
- * This is a helper component. It makes it easier to make conditional rendering with the styles. This should always
+ * This is a helper component. It makes it easier to make conditional rendering. This should always
  * be used with its Then and Else companions. See the example below:
  *
  * Suppose `isLoading` is a Context and it stores a boolean value.
@@ -30,12 +30,11 @@ const validateChild = (child?: JSX.Element) => {
  *
  * The children of If must always be a Then and an Else. The Else being optional.
  *
- * When `If` has only `Then` as a child, no enclosing child is created and both the id and style of the If component
- * are ignored.
+ * When `If` has only `Then` as a child, no enclosing child is created.
  *
  * @category Component
  * @param props the component properties. See: {@link IfProps}
- * @returns a Container with the child of Then and the child of Else with the proper style.display. Or the child of
+ * @returns a Container with the child of Then and the child of Else. Or the child of
  * Then, with no enclosing container, if no Else is provided.
  */
 export const If: FC<IfProps> = ({ children, ...props }) => {
