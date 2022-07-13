@@ -6,25 +6,12 @@ import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
 import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
-import { Container, ContainerStyle, Lifecycle, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { Column, Lifecycle, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { log } from '@zup-it/nimbus-backend-core/actions'
 
 interface ProductData {
   isLoading: boolean,
   data: Product[],
-}
-
-interface ProductsStyles {
-  wrapper: ContainerStyle,
-}
-
-const styles: ProductsStyles = {
-  wrapper: {
-    backgroundColor: '#eee',
-    flex: 1,
-    crossAxisAlignment: 'start',
-    mainAxisAlignment: 'start',
-  },
 }
 
 export const Products: Screen = ({ navigator }) => {
@@ -39,7 +26,7 @@ export const Products: Screen = ({ navigator }) => {
   return (
     <ScreenComponent title="Products">
       <Lifecycle onInit={onInit}>
-        <Container state={products} style={styles.wrapper}>
+        <Column state={products} backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start">
           <Loading isLoading={products.get('isLoading')}>
             <ForEach items={products.get('data')} key="product">
               {product => (
@@ -55,7 +42,7 @@ export const Products: Screen = ({ navigator }) => {
               )}
             </ForEach>
           </Loading>
-        </Container>
+        </Column>
       </Lifecycle>
     </ScreenComponent>
   )

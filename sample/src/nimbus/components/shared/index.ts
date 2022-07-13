@@ -1,1 +1,1 @@
-export const customComponentNamespace = 'material'
+export const customComponentNamespace = 'store'
