@@ -38,7 +38,7 @@ export const ProductItem: FC<ProductItemProps> = ({
         <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
       </Then>
       <Else>
-        <Button onPress={onPressBuy}>Add to cart</Button>
+        <Button text="Add to cart" onPress={onPressBuy} />
       </Else>
     </If>
   </Column>
