@@ -6,7 +6,7 @@ import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
 import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
-import { Column, Lifecycle, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { Column, Lifecycle, Row, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
 import { log } from '@zup-it/nimbus-backend-core/actions'
 
 interface ProductData {
@@ -24,25 +24,27 @@ export const Products: Screen = ({ navigator }) => {
   })
 
   return (
-    <ScreenComponent title="Products">
+    <ScreenComponent title="Products" state={products}>
       <Lifecycle onInit={onInit}>
-        <Column state={products} backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start">
-          <Loading isLoading={products.get('isLoading')}>
-            <ForEach items={products.get('data')} key="product">
-              {product => (
-                <Row>
-                  <ProductItem
-                    image={product.get('image')}
-                    title={product.get('title')}
-                    price={product.get('price')}
-                    inCart={contains(cart, product)}
-                    onPressBuy={log({ message: '', level: 'Info' })}
-                  />
-                </Row>
-              )}
-            </ForEach>
-          </Loading>
-        </Column>
+        <ScrollView>
+          <Column backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start">
+            <Loading isLoading={products.get('isLoading')}>
+              <ForEach items={products.get('data')} key="product">
+                {product => (
+                  <Row>
+                    <ProductItem
+                      image={product.get('image')}
+                      title={product.get('title')}
+                      price={product.get('price')}
+                      inCart={contains(cart, product)}
+                      onPressBuy={log({ message: '', level: 'Info' })}
+                    />
+                  </Row>
+                )}
+              </ForEach>
+            </Loading>
+          </Column>
+        </ScrollView>
       </Lifecycle>
     </ScreenComponent>
   )
