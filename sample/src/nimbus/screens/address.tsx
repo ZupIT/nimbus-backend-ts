@@ -1,7 +1,7 @@
-import { Actions, capitalize, createState, Expression, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { Actions, capitalize, Expression, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { Style } from '@zup-it/nimbus-backend-core/model/style'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Container, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { Column, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { AddressModel } from '../../models/order'
 import { Button } from '../components/button'
 import { TextInput } from '../components/text-input'
@@ -40,7 +40,7 @@ export const Address: Screen = ({ navigator }) => {
 
   return (
     <ScreenComponent title="Address">
-      <Container style={{ flex: 1 }}>
+      <Column style={{ flex: 1 }}>
         {createInput({ name: 'zip', onBlur: fillByZip })}
         <Row style={{ mainAxisAlignment: 'spaceBetween' }}>
           {createInput({ name: 'street', flex: 2 })}
@@ -50,7 +50,7 @@ export const Address: Screen = ({ navigator }) => {
           {createInput({ name: 'city', flex: 3 })}
           {createInput({ name: 'state', flex: 1 })}
         </Row>
-      </Container>
+      </Column>
       <Row style={{ mainAxisAlignment: 'spaceBetween' }}>
         <Button onPress={navigator.pop()} style={formItemStyle}>Cancel</Button>
         <Button onPress={navigator.push(Payment, { navigationState: { address }})} style={formItemStyle}>Next</Button>
