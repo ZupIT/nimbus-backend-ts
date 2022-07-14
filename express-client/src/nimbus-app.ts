@@ -14,6 +14,11 @@ interface Options {
    * The path to be used as a prefix for every route.
    */
   basePath?: string,
+  /**
+   * The path to be used as a prefix when navigating to a server driven view. By default, it will be the same as
+   * `basePath`.
+   */
+  navigatorBasePath?: string,
 }
 
 /**
@@ -44,7 +49,7 @@ export class NimbusApp {
     this.responseHeaders = options.responseHeaders ?? {}
     this.basePath = options.basePath ?? ''
     this.addRouteMap(routes)
-    this.navigator = new Navigator(routes)
+    this.navigator = new Navigator(routes, options.navigatorBasePath ?? options.basePath)
   }
 
   private responseHeaders: Record<string, any>
