@@ -30,7 +30,7 @@ export const Products: Screen = ({ navigator }) => {
           <Column backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start">
             <Loading isLoading={products.get('isLoading')}>
               <ForEach items={products.get('data')} key="product">
-                {product => (
+                {(product, index) => (
                   <Row>
                     <ProductItem
                       image={product.get('image')}

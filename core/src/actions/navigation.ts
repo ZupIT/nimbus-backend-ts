@@ -217,12 +217,7 @@ interface DismissFunction {
 function getParams(props: any, isPopToView?: boolean) {
   const isParamASingleUrl = typeof props === 'string' || isDynamicExpression(props)
   if (isParamASingleUrl) return { route: isPopToView ? props : { url: props } }
-  if (props?.route?.screen && !props.route.screen.id) {
-    throw new Error(`
-      The screen component must have an id, to perform a local navigation.
-      Root component: "${props?.route?.screen?.namespace ?? 'namespace'}:${props?.route?.screen?.name ?? 'name'}".
-    `)
-  }
+
   const { navigationState, ...other } = props
   return { navigationState: formatNavigationState(navigationState), ...other }
 }

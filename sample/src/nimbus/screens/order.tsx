@@ -74,7 +74,7 @@ export const Order: Screen<Props> = ({ request: { params } }) => {
             </Section>
             <Section title="Products" marginVertical={12}>
               <ForEach items={order.get('products')}>
-                {(item) => (
+                {(item, index) => (
                   <DefinitionItem
                     title={item.get('title')}
                     definition={formatPrice(item.get('price'), 'BRL')}

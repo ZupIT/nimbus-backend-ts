@@ -7,7 +7,13 @@ interface Props extends WithChildren {
 
 export const Loading: FC<Props> = ({ isLoading, children }) => (
   <If condition={isLoading}>
-    <Then><Spinner style={{ height: 100 }} /></Then>
-    <Else><>{children}</></Else>
+    <Then>
+      <Spinner />
+    </Then>
+    <Else>
+      <>
+        {children}
+      </>
+    </Else>
   </If>
 )

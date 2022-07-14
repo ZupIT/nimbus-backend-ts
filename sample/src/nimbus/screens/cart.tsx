@@ -21,7 +21,7 @@ export const Cart: Screen = ({ navigator }) => {
           <Else>
             <Row paddingHorizontal={15}>
               <ForEach items={cart}>
-                {item => (
+                {(item, index) => (
                   <Row
                     mainAxisAlignment="center"
                     padding={10}
@@ -31,7 +31,7 @@ export const Cart: Screen = ({ navigator }) => {
                     backgroundColor="#fff"
                     cornerRadius={8}
                   >
-                    <RemoteImage url={item.get('image').toString()} width={50} height={50} scale="center" />
+                    <RemoteImage url={item.get('image')} width={50} height={50} scale="center" />
                     <Text marginEnd={15}>{item.get('title')}</Text>
                     <Text>{formatPrice(item.get('price'), 'BRL')}</Text>
                   </Row>

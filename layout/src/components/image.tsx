@@ -1,4 +1,4 @@
-import { FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 import { WithAccessibility } from '@zup-it/nimbus-backend-core/model/component'
 import { Size } from '@zup-it/nimbus-backend-core/model/style'
@@ -12,16 +12,16 @@ export interface BaseImageProps extends Size, WithAccessibility {
 }
 
 export interface LocalImageProps extends BaseImageProps {
-  id?: string,
+  id?: Expression<string>,
 }
 
 export interface LocalImageComponentProps extends BaseImageProps {
-  localImageId?: string,
+  localImageId?: Expression<string>,
 }
 
 export interface RemoteImageProps extends BaseImageProps {
-  url: string,
-  placeholder?: string,
+  url: Expression<string>,
+  placeholder?: Expression<string>,
 }
 
 const getImageStyledComponent = (
