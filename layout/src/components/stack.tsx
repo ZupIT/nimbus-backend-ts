@@ -13,13 +13,7 @@ export const Stack: FC<StackProps> = ({ id, state, children, ...props }) => {
     throw new Error('The Stack Component only supports the Positioned Component as children.')
   }
   return (
-    <component
-      id={id}
-      namespace={genericNamespace}
-      name="stack"
-      state={state}
-      properties={props}
-    >
+    <component id={id} namespace={genericNamespace} name="stack" state={state} properties={props}>
       {children}
     </component>
   )

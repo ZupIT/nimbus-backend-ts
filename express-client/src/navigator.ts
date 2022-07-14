@@ -1,18 +1,16 @@
 import { FC } from '@zup-it/nimbus-backend-core'
-import { push, popTo, pop, present, dismiss, Route } from '@zup-it/nimbus-backend-core/actions'
+import { push, popTo, pop, present, dismiss, PushProperties, PopToProperties } from '@zup-it/nimbus-backend-core/actions'
 import { forEach, isEmpty, map } from 'lodash'
-import { ControllerId, PopToAction, PopAction, PushAction, PresentAction, DismissAction } from './model/navigation'
+import { PopToAction, PopAction, PushAction, PresentAction, DismissAction } from './model/navigation'
 import { RouteMap, RouteConfig } from './route'
 import { ScreenNavigation } from './screen'
 
 const navigationActions = { push, popTo, pop, present, dismiss }
 
-interface GenericRemoteNavigationProperties extends ScreenNavigation<any>, Partial<ControllerId> {}
-
 interface GenericRemoteNavigation {
   type: keyof typeof navigationActions,
   screen?: FC<any>,
-  properties?: GenericRemoteNavigationProperties,
+  properties?: ScreenNavigation<any>,
 }
 
 /**
@@ -63,31 +61,30 @@ export class Navigator {
     return `${this.basePath}${isEmpty(queryParts) ? withRouteParams : `${withRouteParams}?${queryParts.join('&')}`}`
   }
 
-  private buildRoute({ type, screen, properties = {} }: GenericRemoteNavigation) {
-    if (type === 'pop' || type === 'dismiss') return undefined
+  private buildRouteProperties({ type, screen, properties = {} }: GenericRemoteNavigation) {
+    const { routeParams, headers, data, prefetch, fallback, query, navigationState } = properties
 
-    const { routeParams, headers, body, shouldPrefetch, fallback, query } = properties
+    if (type === 'pop' || type === 'dismiss') return navigationState ? { navigationState } : undefined
+
     const { path, method } = this.getPathAndMethod(screen!)
     const url = this.buildUrl(path, routeParams, query)
-    if (type === 'popTo') return url
+    if (type === 'popTo') return { url, navigationState } as PopToProperties
 
-    const httpAdditionalData = method || headers || body ? { method, headers, body } : undefined
-
-    return {
+    const routeProperties: PushProperties = {
       url,
-      httpAdditionalData,
-      shouldPrefetch,
+      prefetch,
+      method,
+      headers,
       fallback,
-    } as Route
+      data,
+      navigationState,
+    }
+
+    return routeProperties
   }
 
   private navigateRemote(navigation: GenericRemoteNavigation) {
-    return navigationActions[navigation.type]({
-      // @ts-ignore todo: check this later
-      route: this.buildRoute(navigation),
-      navigationState: navigation.properties?.navigationState,
-      controllerId: navigation.properties?.controllerId,
-    })
+    return navigationActions[navigation.type](this.buildRouteProperties(navigation) as any)
   }
 
   push: PushAction = (...[screen, properties]) => this.navigateRemote({ type: 'push', screen, properties })

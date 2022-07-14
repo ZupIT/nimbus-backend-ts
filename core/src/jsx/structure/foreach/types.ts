@@ -3,11 +3,11 @@ import { Expression, State } from '../../../api'
 export interface ForEachProps<T> {
   items?: Expression<T[]>,
   /**
-   * @default item
+   * @default 'item'
    */
   iteratorName?: string,
   /**
-   * @default index
+   * @default 'index'
    */
   indexName?: string,
   key?: string,

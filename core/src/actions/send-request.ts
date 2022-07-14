@@ -27,7 +27,7 @@ export interface BaseSendRequestParams {
   /**
    * The method of the request.
    *
-   * @defaultValue `'get'`
+   * @default 'Get'
    */
   method?: Expression<HttpMethod>,
   /**
@@ -35,7 +35,7 @@ export interface BaseSendRequestParams {
    */
   headers?: Expression<Record<string, string>>,
   /**
-   * The body to send in this request. This is invalid for get requests.
+   * The data to send in this request. This is invalid for get requests.
    */
   data?: any,
   /**

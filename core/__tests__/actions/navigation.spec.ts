@@ -1,18 +1,18 @@
 import { Component } from 'src'
 import { StateNode } from 'src/model/state/state-node'
-import { PopToParams, popTo, PopParams, pop, PushParams, push, DismissParams, dismiss, PresentParams, present } from 'src/actions'
+import { popTo, pop, push, dismiss, present, PopToProperties, BaseNavigationParams, PushProperties } from 'src/actions'
 import { expectActionToBeCorrect } from './utils'
 
 describe('Actions', () => {
   describe('navigation', () => {
     describe('popTo', () => {
-      const properties: PopToParams = {
-        route: 'test',
+      const properties: PopToProperties = {
+        url: 'test',
         navigationState: { test: 'test' },
       }
 
       it('should create action', () => expectActionToBeCorrect(
-        popTo({ ...properties }),
+        popTo(properties),
         'popTo',
         { ...properties, navigationState: expect.any(Object) },
       ))
@@ -25,7 +25,7 @@ describe('Actions', () => {
     })
 
     describe('pop', () => {
-      const properties: PopParams = {
+      const properties: BaseNavigationParams = {
         navigationState: { test: 'test' },
       }
 
@@ -39,7 +39,7 @@ describe('Actions', () => {
     })
 
     describe('dismiss', () => {
-      const properties: DismissParams = {
+      const properties: BaseNavigationParams = {
         navigationState: { test: 'test' },
       }
 
@@ -53,18 +53,16 @@ describe('Actions', () => {
     })
 
     describe('push', () => {
-      const properties: PushParams = {
-        route: {
-          url: new StateNode<string>(''),
-          fallback: new Component({ name: 'fallback' }),
-          httpAdditionalData: { headers: { test: 'test' } },
-          shouldPrefetch: false,
-        },
+      const properties: PushProperties = {
+        url: new StateNode<string>(''),
+        fallback: new Component({ name: 'fallback' }),
+        headers: { test: 'test' },
+        prefetch: false,
         navigationState: { test: 'test' },
       }
 
       it('should create action', () => expectActionToBeCorrect(
-        push({ ...properties }),
+        push(properties),
         'push',
         { ...properties, navigationState: expect.any(Object) },
       ))
@@ -74,33 +72,19 @@ describe('Actions', () => {
         'push',
         { route: { url: 'test' } },
       ))
-
-      describe('local route', () => {
-        it('should create action with', () => {
-          const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-          expectActionToBeCorrect(push(localRouteProps), 'push', localRouteProps)
-        })
-
-        it('should throw when an id is not provided', () => {
-          const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
-          expect(() => push(localRouteProps)).toThrow()
-        })
-      })
     })
 
     describe('present', () => {
-      const properties: PresentParams = {
-        route: {
-          url: new StateNode<string>(''),
-          fallback: new Component({ name: 'fallback' }),
-          httpAdditionalData: { headers: { test: 'test' } },
-          shouldPrefetch: false,
-        },
+      const properties: PushProperties = {
+        url: new StateNode<string>(''),
+        fallback: new Component({ name: 'fallback' }),
+        headers: { test: 'test' },
+        prefetch: false,
         navigationState: { test: 'test' },
       }
 
       it('should create action', () => expectActionToBeCorrect(
-        present({ ...properties }),
+        present(properties),
         'present',
         { ...properties, navigationState: expect.any(Object) },
       ))
@@ -110,18 +94,6 @@ describe('Actions', () => {
         'present',
         { route: { url: 'test' } },
       ))
-
-      describe('local route', () => {
-        it('should create action with', () => {
-          const localRouteProps = { route: { screen: new Component({ id: 'test-screen', name: 'screen' }) } }
-          expectActionToBeCorrect(present(localRouteProps), 'present', localRouteProps)
-        })
-
-        it('should throw when an id is not provided', () => {
-          const localRouteProps = { route: { screen: new Component({ name: 'screen' }) } }
-          expect(() => present(localRouteProps)).toThrow()
-        })
-      })
     })
   })
 })

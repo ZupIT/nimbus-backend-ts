@@ -1,6 +1,6 @@
 import { forEach } from 'lodash'
 import { Express } from 'express'
-import { serialize, createStateNode } from '@zup-it/nimbus-backend-core'
+import { serialize, createStateNode, HttpMethod } from '@zup-it/nimbus-backend-core'
 import { RouteConfig, RouteMap } from './route'
 import { RequestWithCustomHeaders, Screen } from './screen'
 import { Navigator } from './navigator'
@@ -57,9 +57,20 @@ export class NimbusApp {
   private navigationState = createStateNode('navigationState')
   private navigator: Navigator
 
+  private expressMethodParser = (method?: HttpMethod | undefined): 'get' | 'patch' | 'put' | 'post' | 'delete' => {
+    switch (method) {
+      case 'Get': return 'get'
+      case 'Patch': return 'patch'
+      case 'Put': return 'put'
+      case 'Post': return 'post'
+      case 'Delete': return 'delete'
+      default: return 'get'
+    }
+  }
+
   private addRoute = (screen: Screen, properties: RouteConfig) => {
-    const { method = 'get', path } = properties
-    this.express[method](`${this.basePath}${path}`, (req, res) => {
+    const { method, path } = properties
+    this.express[this.expressMethodParser(method)](`${this.basePath}${path}`, (req, res) => {
       res.type('application/json')
       forEach(this.responseHeaders, (value, key) => res.setHeader(key, value))
       const componentTree = screen({

@@ -11,11 +11,11 @@ export interface TextProps extends Margin, Size {
    */
   size?: number,
   /**
-   * @default normal
+   * @default 'normal'
    */
   weight?: 'thin' | 'extraLight' | 'light' | 'normal' | 'medium' | 'semiBold' | 'bold' | 'extraBold' | 'black',
   /**
-   * @default #000
+   * @default '#000'
    */
   color?: Color,
   /**
@@ -26,12 +26,5 @@ export interface TextProps extends Margin, Size {
 
 export const Text: FC<TextProps> = ({ id, children, ...props }) => {
   const text = childrenToInterpolatedText(children)
-  return (
-    <component
-      id={id}
-      namespace={genericNamespace}
-      name="text"
-      properties={{ size: 12.0, weight: 'normal', color: '#000', ...props, text }}
-    />
-  )
+  return <component id={id} namespace={genericNamespace} name="text" properties={{ ...props, text }} />
 }

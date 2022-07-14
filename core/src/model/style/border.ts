@@ -18,7 +18,7 @@ export interface Border {
    */
   cornerRadius?: number,
   /**
-   *  @default #000
+   *  @default '#000'
    */
   borderColor?: Color,
 }

@@ -15,7 +15,7 @@ type Alignment =
 
 export interface PositionedProps extends Omit<BoxProps, 'children'>, Required<WithChildren> {
   /**
-   * @default topStart
+   * @default 'topStart'
    */
   alignment?: Alignment,
   /**
@@ -28,22 +28,8 @@ export interface PositionedProps extends Omit<BoxProps, 'children'>, Required<Wi
   y?: number,
 }
 
-export const Positioned: FC<PositionedProps> = ({
-  id,
-  state,
-  children,
-  alignment = 'topStart',
-  x = 0,
-  y = 0,
-  ...props
-}) => (
-  <component
-    id={id}
-    namespace={genericNamespace}
-    name="positioned"
-    state={state}
-    properties={{ alignment, x, y, ...props }}
-  >
+export const Positioned: FC<PositionedProps> = ({ id, state, children, ...props }) => (
+  <component id={id} namespace={genericNamespace} name="positioned" state={state} properties={props}>
     {children}
   </component>
 )

@@ -6,7 +6,7 @@ import { omit } from 'lodash'
 
 export interface BaseImageProps extends Size, WithAccessibility {
   /**
-   * @default center
+   * @default 'center'
    */
    scale?: 'fillBounds' | 'fillHeight' | 'fillWidth' | 'center',
 }
@@ -24,16 +24,12 @@ export interface RemoteImageProps extends BaseImageProps {
   placeholder?: Expression<string>,
 }
 
-const getImageStyledComponent = (
-  name: string,
-  id?: string,
-  props?: RemoteImageProps | LocalImageProps
-) => (
+const getImageStyledComponent = (name: string, id?: string, props?: RemoteImageProps | LocalImageProps) => (
   <component
     id={id}
     namespace={genericNamespace}
     name={name}
-    properties={{ scale: 'center', ...omit(props, ['children']) }}
+    properties={{ ...omit(props, ['children']) }}
   />
 )
 

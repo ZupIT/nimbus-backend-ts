@@ -1,11 +1,7 @@
-import { Actions } from '@zup-it/nimbus-backend-core'
+import { Action } from '@zup-it/nimbus-backend-core/api'
 import { Screen, ScreenRequest } from '..'
 import { ScreenNavigation } from '../screen'
 import { HasRequiredProperty } from '../utils/types'
-
-export interface ControllerId {
-  controllerId?: string,
-}
 
 type Push<T extends ScreenRequest> = ScreenNavigation<T>
 type Present<T extends ScreenRequest> = ScreenNavigation<T>
@@ -24,7 +20,7 @@ export interface PushAction {
    * @param properties the data to send with this navigation.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(...args: NavigationAction<T, Push<T>>): Actions,
+  <T extends ScreenRequest>(...args: NavigationAction<T, Push<T>>): Action,
 }
 
 export interface PresentAction {
@@ -35,7 +31,7 @@ export interface PresentAction {
    * @param properties the data to send with this navigation.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(...args: NavigationAction<T, Present<T>>): Actions,
+  <T extends ScreenRequest>(...args: NavigationAction<T, Present<T>>): Action,
 }
 
 export interface PopAction {
@@ -45,7 +41,7 @@ export interface PopAction {
    * @param properties the navigation state to set.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(properties?: Pop<T>): Actions,
+  <T extends ScreenRequest>(properties?: Pop<T>): Action,
 }
 
 export interface DismissAction {
@@ -55,7 +51,7 @@ export interface DismissAction {
    * @param properties the navigation state to set.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(properties?: Dismiss<T>): Actions,
+  <T extends ScreenRequest>(properties?: Dismiss<T>): Action,
 }
 
 export interface PopToAction {
@@ -67,5 +63,5 @@ export interface PopToAction {
    * @param properties the data to send with this navigation.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(...args: NavigationAction<T, PopTo<T>>): Actions,
+  <T extends ScreenRequest>(...args: NavigationAction<T, PopTo<T>>): Action,
 }

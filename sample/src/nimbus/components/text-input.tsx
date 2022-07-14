@@ -6,8 +6,8 @@ import { customComponentNamespace } from './shared'
 export interface TextInputProps extends Margin {
   onChange?: (value: Expression<string>) => Actions,
   onBlur?: (value: Expression<string>) => Actions,
-  value: PrimitiveStateNode<string> | string,
-  placeholder: PrimitiveStateNode<string> | Operation<string> | string,
+  value: Expression<string>,
+  placeholder: Expression<string>,
 }
 
 export const TextInput: FC<TextInputProps> = ({ id, ...props }) => (

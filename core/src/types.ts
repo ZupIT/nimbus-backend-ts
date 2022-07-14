@@ -24,7 +24,7 @@ export type DeepExpression<T> = T extends (number | boolean | string | any[])
   ? Expression<T>
   : (Expression<T> | { [K in keyof T]: DeepExpression<T[K]> })
 
-export type HttpMethod = 'get' | 'put' | 'post' | 'delete' | 'patch'
+export type HttpMethod = 'Get' | 'Patch' | 'Put' | 'Post' | 'Delete'
 
 type InterpolatedTextAcceptableTypes =
   string |

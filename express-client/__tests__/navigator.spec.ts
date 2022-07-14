@@ -1,6 +1,5 @@
 import { Component } from '@zup-it/nimbus-backend-core'
 import { popTo, pop, push, present, dismiss } from '@zup-it/nimbus-backend-core/actions'
-import { omit } from 'lodash'
 import { Navigator } from 'src/navigator'
 import { RouteMap } from 'src/route'
 import { Screen } from 'src'
@@ -14,7 +13,7 @@ describe('Navigator', () => {
   const routes: RouteMap = {
     'my-screen-a': screenA,
     'my-screen-b': { screen: screenB },
-    'my-screen-c': { method: 'post', screen: screenC },
+    'my-screen-c': { method: 'Post', screen: screenC },
     'my-screen-d/:id/:resource': screenD,
   }
   const navigator = new Navigator(routes)
@@ -24,14 +23,9 @@ describe('Navigator', () => {
       const actionA = navigatorFn(screenA, options)
       const actionB = navigatorFn(screenB, options)
       const actionC = navigatorFn(screenC, options)
-      expect(actionA).toEqual(actionFactory({ route: { url: 'my-screen-a' } }))
-      expect(actionB).toEqual(actionFactory({ route: { url: 'my-screen-b' } }))
-      expect(actionC).toEqual(actionFactory({
-        route: {
-          url: 'my-screen-c',
-          httpAdditionalData: { method: 'post' },
-        },
-      }))
+      expect(actionA).toEqual(actionFactory({ url: 'my-screen-a' }))
+      expect(actionB).toEqual(actionFactory({ url: 'my-screen-b' }))
+      expect(actionC).toEqual(actionFactory({ url: 'my-screen-c', method: 'Post' }))
     }
 
     it('should create actions to push', () => {
@@ -57,8 +51,8 @@ describe('Navigator', () => {
     it('should create action to popToView', () => {
       const actionA = navigator.popTo(screenA)
       const actionC = navigator.popTo(screenC)
-      expect(actionA).toEqual(popTo({ route: 'my-screen-a' }))
-      expect(actionC).toEqual(popTo({ route: 'my-screen-c' }))
+      expect(actionA).toEqual(popTo({ url: 'my-screen-a' }))
+      expect(actionC).toEqual(popTo({ url: 'my-screen-c' }))
     })
   })
 
@@ -87,42 +81,38 @@ describe('Navigator', () => {
     }
 
     function testAllPopActions(options: any, expectedParams: any, screen: Screen = screenA) {
-      testActionWithOptions(screen, navigator.pop, options, pop(omit(expectedParams, 'route')))
+      testActionWithOptions(screen, navigator.pop, options, pop(expectedParams))
+
+    }
+
+    function testAllPopToActions(options: any, expectedParams: any, screen: Screen = screenA) {
       testActionWithOptions(screen, navigator.popTo, options, popTo(expectedParams))
     }
 
     it('should create action with request body', () => {
-      const body = { a: 1, b: 2, c: '3' }
+      const data = { a: 1, b: 2, c: '3' }
       testAllPushResetActions(
-        { body },
-        { route: { url: expect.any(String), httpAdditionalData: { body, method: 'post' } } },
+        { data },
+        { url: expect.any(String), data, method: 'Post' },
         { screen: screenC },
-      )
-    })
-
-    it('should create action with controllerId', () => {
-      const controllerId = 'test'
-      testAllPushResetActions(
-        { controllerId },
-        { route: { url: expect.any(String) }, controllerId },
-        { exclude: ['pushView'] },
       )
     })
 
     it('should create action with fallback', () => {
       const fallback = new Component({ name: 'fallback' })
-      testAllPushResetActions({ fallback }, { route: { url: expect.any(String), fallback } })
+      testAllPushResetActions({ fallback }, { url: expect.any(String), fallback })
     })
 
     it('should create action with headers', () => {
       const headers = { 'my-header': 'my-value' }
-      testAllPushResetActions({ headers }, { route: { url: expect.any(String), httpAdditionalData: { headers } } })
+      testAllPushResetActions({ headers }, { url: expect.any(String), headers })
     })
 
     it('should create action with navigationState', () => {
       const navigationState = { address: { zip: '00000000' } }
-      testAllPushResetActions({ navigationState }, { route: { url: expect.any(String) }, navigationState })
-      testAllPopActions({ navigationState }, { route: expect.any(String), navigationState })
+      testAllPushResetActions({ navigationState }, { url: expect.any(String), navigationState })
+      testAllPopActions({ navigationState }, { navigationState })
+      testAllPopToActions({ navigationState }, { url: expect.any(String), navigationState })
     })
 
     it('should create action with query params', () => {
@@ -130,9 +120,9 @@ describe('Navigator', () => {
       const expectedUrl = expect.stringMatching(/\?((a=hello%20world&b=%26%3F)|(b=%26%3F&a=hello%20world))$/)
       testAllPushResetActions(
         { query },
-        { route: { url: expectedUrl },
-      })
-      testActionWithOptions(screenA, navigator.popTo, { query }, popTo({ route: expectedUrl }))
+        { url: expectedUrl },
+      )
+      testActionWithOptions(screenA, navigator.popTo, { query }, popTo({ url: expectedUrl }))
     })
 
     it('should create action with route params', () => {
@@ -140,15 +130,15 @@ describe('Navigator', () => {
       const expectedUrl = 'my-screen-d/a%20%26%20b/test'
       testAllPushResetActions(
         { routeParams },
-        { route: { url: expectedUrl } },
+        { url: expectedUrl },
         { screen: screenD },
       )
-      testActionWithOptions(screenD, navigator.popTo, { routeParams }, popTo({ route: expectedUrl }))
+      testActionWithOptions(screenD, navigator.popTo, { routeParams }, popTo({ url: expectedUrl }))
     })
 
-    it('should create action with shouldPrefetch', () => {
-      const shouldPrefetch = true
-      testAllPushResetActions({ shouldPrefetch }, { route: { url: expect.any(String), shouldPrefetch } })
+    it('should create action with prefetch', () => {
+      const prefetch = true
+      testAllPushResetActions({ prefetch }, { url: expect.any(String), prefetch })
     })
   })
 })

@@ -7,11 +7,11 @@ export interface ContainerProps extends BoxProps {
    */
   stretch?: boolean,
   /**
-   * @default start
+   * @default 'start'
   */
   crossAxisAlignment?: 'start' | 'end' | 'center',
   /**
-   * @default start
+   * @default 'start'
   */
   mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly',
 }
