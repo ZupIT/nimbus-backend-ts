@@ -30,10 +30,12 @@ interface GenericRemoteNavigation {
 export class Navigator {
   /**
    * @param routeMap the same routeMap received by NimbusApplication.
-   * @param basePath the same basePath received by NimbusApplication options.
+   * @param basePath the same navigatorBasePath received by NimbusApplication options, if none, options.basePath is
+   * used.
    */
-  constructor(routeMap: RouteMap) {
+  constructor(routeMap: RouteMap, basePath?: string) {
     this.screenMap = new Map()
+    this.basePath = basePath ?? ''
     forEach(routeMap, (value, key) => this.screenMap.set(
       typeof value === 'function' ? value : value.screen,
       { path: key, method: typeof value === 'function' ? undefined : value.method },
@@ -41,6 +43,7 @@ export class Navigator {
   }
 
   private screenMap: Map<FC<any>, RouteConfig>
+  private basePath: string
 
   private getPathAndMethod(screen: FC<any>) {
     if (!this.screenMap.has(screen)) {
@@ -57,7 +60,7 @@ export class Navigator {
       (_, name) => name in routeParams ? encodeURIComponent(routeParams[name]) : `:${name}`,
     )
     const queryParts = map(query, (value, key) => `${key}=${encodeURIComponent(value)}`)
-    return isEmpty(queryParts) ? withRouteParams : `${withRouteParams}?${queryParts.join('&')}`
+    return `${this.basePath}${isEmpty(queryParts) ? withRouteParams : `${withRouteParams}?${queryParts.join('&')}`}`
   }
 
   private buildRoute({ type, screen, properties = {} }: GenericRemoteNavigation) {
