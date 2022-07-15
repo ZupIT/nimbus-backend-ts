@@ -1,11 +1,11 @@
 import { FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
-import { Margin, Size } from '@zup-it/nimbus-backend-core/model/style'
+import { Size } from '@zup-it/nimbus-backend-core/model/style'
 import { Color } from '@zup-it/nimbus-backend-core/model/style/color'
 import { InterpolatedText } from '@zup-it/nimbus-backend-core/types'
 import { childrenToInterpolatedText } from '@zup-it/nimbus-backend-core/utils'
 
-export interface TextProps extends Margin, Size {
+export interface TextProps extends Size {
   /**
    * @default 12.0
    */

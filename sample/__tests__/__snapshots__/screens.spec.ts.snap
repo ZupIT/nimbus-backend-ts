@@ -1378,7 +1378,7 @@ Object {
             "value": "@{onSuccess.data}",
           },
         ],
-        "url": "http://localhost:3000/products",
+        "url": "http://localhost:3000/data/products",
       },
     ],
     "style": Object {

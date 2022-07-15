@@ -16,4 +16,4 @@ export const expressListener = expressApp.listen(port, () => {
 })
 
 applyRoutes(expressApp)
-new NimbusApp(expressApp, nimbusRoutes, { basePath: '/nimbus' })
+new NimbusApp(expressApp, nimbusRoutes, { basePath: '' })

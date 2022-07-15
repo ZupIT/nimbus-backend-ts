@@ -21,10 +21,14 @@ export const Product: Screen = () => {
           <Text color="#212121" size={24} weight="semiBold">{product.get('title')}</Text>
           <Row marginVertical={18}>
             <RemoteImage url={product.get('image').toString()} scale="center" width={260} height={260} />
-            <Text marginVertical={30}>{formatPrice(product.get('price'), 'BRL')}</Text>
+            <Row marginVertical={30}>
+              <Text>{formatPrice(product.get('price'), 'BRL')}</Text>
+            </Row>
             <If condition={contains(cart, product)}>
               <Then>
-                <Text color="#2E8B57" size={18} weight="bold" marginBottom={24}>In cart ✓</Text>
+                <Row marginBottom={24}>
+                  <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
+                </Row>
               </Then>
               <Else>
                 <Button text="Add to cart" onPress={addToCart} />
