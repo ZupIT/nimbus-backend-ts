@@ -49,11 +49,11 @@ describe('Nimbus App', () => {
     const express = createMockedExpress()
     new NimbusApp(express, {
       'defaultRoute': { screen: testScreen },
-      'getRoute': { method: 'get', screen: testScreen },
-      'putRoute': { method: 'put', screen: testScreen },
-      'postRoute': { method: 'post', screen: testScreen },
-      'deleteRoute': { method: 'delete', screen: testScreen },
-      'patchRoute': { method: 'patch', screen: testScreen },
+      'getRoute': { method: 'Get', screen: testScreen },
+      'putRoute': { method: 'Put', screen: testScreen },
+      'postRoute': { method: 'Post', screen: testScreen },
+      'deleteRoute': { method: 'Delete', screen: testScreen },
+      'patchRoute': { method: 'Patch', screen: testScreen },
     })
     expect(express.get).toHaveBeenCalledTimes(2)
     expect(express.get).toHaveBeenNthCalledWith(1, 'defaultRoute', expect.any(Function))
@@ -74,7 +74,7 @@ describe('Nimbus App', () => {
       express,
       {
         'route1': testScreen,
-        'route2': { method: 'put', screen: testScreen },
+        'route2': { method: 'Put', screen: testScreen },
       },
       { basePath: 'nimbus/' },
     )

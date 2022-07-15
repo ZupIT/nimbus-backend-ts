@@ -5,7 +5,7 @@ interface WithMethod {
   /**
    * The HttpMethod for the route.
    *
-   * @defaultValue `'get'`
+   * @defaultValue `'Get'`
    */
   method?: HttpMethod,
 }

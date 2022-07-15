@@ -1,5 +1,4 @@
 import { LocalState } from './state/types'
-import { Style } from './style'
 
 export interface WithState {
   /**
@@ -23,13 +22,6 @@ export interface WithAccessibility {
     label?: string,
     isHeader?: boolean,
   },
-}
-
-export interface WithStyle<T = Style> {
-  /**
-   * The style for this component. Use it to customize the background, layout, borders, etc.
-   */
-  style?: T,
 }
 
 /**

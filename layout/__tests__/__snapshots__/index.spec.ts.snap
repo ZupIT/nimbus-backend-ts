@@ -4,7 +4,6 @@ exports[`Layout module should export 1`] = `
 Object {
   "Box": "function",
   "Column": "function",
-  "Container": "function",
   "FlowColumn": "function",
   "FlowRow": "function",
   "Lifecycle": "function",

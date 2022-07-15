@@ -3,7 +3,7 @@ import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
 
 export interface ScrollViewProps extends Required<WithChildren> {
   /**
-   * @default both
+   * @default 'both'
    */
   direction?: 'vertical' | 'horizontal' | 'both',
   /**
@@ -12,19 +12,8 @@ export interface ScrollViewProps extends Required<WithChildren> {
   scrollIndicator?: boolean,
 }
 
-export const ScrollView: FC<ScrollViewProps> = ({
-  id,
-  children,
-  direction = 'both',
-  scrollIndicator = true,
-  ...props
-}) => (
-  <component
-    id={id}
-    namespace={genericNamespace}
-    name="scrollView"
-    properties={{ direction, scrollIndicator, ...props }}
-  >
+export const ScrollView: FC<ScrollViewProps> = ({ id, children, ...props }) => (
+  <component id={id} namespace={genericNamespace} name="scrollView" properties={props}>
     {children}
   </component>
 )

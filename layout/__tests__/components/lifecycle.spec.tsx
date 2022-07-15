@@ -19,7 +19,7 @@ describe('Components', () => {
     const options: ComponentTestOptions = {
       id,
       children: props.children,
-      properties: omit(props, ['style', 'children']),
+      properties: omit(props, ['children']),
     }
 
     it('should create component', () => {

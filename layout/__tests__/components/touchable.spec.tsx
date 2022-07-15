@@ -1,6 +1,5 @@
 import { NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { setState } from '@zup-it/nimbus-backend-core/actions/set-state'
-import { omit } from 'lodash'
 import { Text, Touchable, TouchableProps } from 'src/api'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
@@ -8,34 +7,24 @@ describe('Components', () => {
   describe('Touchable', () => {
     const name = 'touchable'
     const id = 'test-touchable'
-    const props: TouchableProps = {
+    const properties: Omit<TouchableProps, 'children'> = {
       onPress: [
         setState({ path: 'global', value: 'Touchable pressed' }),
       ],
-      children: <Text>This is the children test case.</Text>,
       accessibility: {
         isHeader: false,
         label: 'Test Touchable',
       },
     }
+    const children = <Text>This is the children test case.</Text>
     const options: ComponentTestOptions = {
       id,
-      children: props.children,
-      properties: omit(props, ['children']),
+      children,
+      properties,
     }
 
     it('should create component', () => {
-      expectComponentToBeCorrect(
-        <Touchable
-          id={id}
-          onPress={props.onPress}
-          accessibility={props.accessibility}
-        >
-          {props.children}
-        </Touchable>,
-        name,
-        options,
-      )
+      expectComponentToBeCorrect(<Touchable id={id} {...properties}>{children}</Touchable>, name, options)
     })
   })
 })

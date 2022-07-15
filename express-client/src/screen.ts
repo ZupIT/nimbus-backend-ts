@@ -3,8 +3,8 @@ import { State, Component, DeepExpression } from '@zup-it/nimbus-backend-core'
 import { Navigator } from './navigator'
 import { NimbusHeaders, IsRequired } from './utils/types'
 
-export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Body = any, Query = any>
-  extends Request<RouteParams, any, Body, Query> {
+export interface RequestWithCustomHeaders<RouteParams = any, Headers = any, Data = any, Query = any>
+  extends Request<RouteParams, any, Data, Query> {
   /**
    * The request headers of the request.
    */
@@ -50,9 +50,9 @@ export interface ScreenRequest {
    */
   query?: Record<string, string>,
   /**
-   * The type of the request body. If a JSON is expected, specify here the object interface.
+   * The type of the request data. If a JSON is expected, specify here the object interface.
    */
-  body?: unknown,
+  data?: unknown,
   /**
    * The type of the navigation state of this screen. If it's an order page and you expect to receive both the order
    * id and the address from the navigation state, this should be:
@@ -71,6 +71,7 @@ export interface ScreenRequest {
 interface ScreenProps<T extends ScreenRequest> {
   /**
    * The navigation state of this screen.
+   *
    * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
    * release, and the functionality may change
    */
@@ -78,7 +79,7 @@ interface ScreenProps<T extends ScreenRequest> {
   /**
    * The request object from express.
    */
-  request: RequestWithCustomHeaders<T['routeParams'], T['headers'], T['body'], T['query']>,
+  request: RequestWithCustomHeaders<T['routeParams'], T['headers'], T['data'], T['query']>,
   /**
    * The response object from express.
    */
@@ -131,7 +132,7 @@ interface ScreenProps<T extends ScreenRequest> {
  * and contain the request, response, navigation state and navigator.
  *
  * It is extremely important to type `T` in `Screen<T>`. `T` tells Typescript what to expect from this screen when
- * building it and when navigating to it, i.e. it tells the type of the headers, query, route parameters, body and
+ * building it and when navigating to it, i.e. it tells the type of the headers, query, route parameters, data and
  * navigation state.
  */
 export type Screen<T extends ScreenRequest = ScreenRequest> = (props: ScreenProps<T>) => JSX.Element
@@ -143,7 +144,7 @@ interface BaseScreenNavigation {
    * Use it carefully though, making useless requests is not good. You should use this when the user will most certainly
    * access this screen next.
    */
-  shouldPrefetch?: boolean,
+  prefetch?: boolean,
   /**
    * An UI to show if the request fails.
    */
@@ -166,11 +167,11 @@ interface WithHeaders<T> {
   headers: T,
 }
 
-interface WithBody<T> {
+interface WithData<T> {
   /**
-   * The request body. Invalid for "GET" requests.
+   * The request data. Invalid for "GET" requests.
    */
-  body: T,
+  data: T,
 }
 
 interface WithQuery<T> {
@@ -198,7 +199,7 @@ export type ScreenNavigation<T extends ScreenRequest> = BaseScreenNavigation
   & (IsRequired<T, 'routeParams'> extends true
     ? WithRouteParams<T['routeParams']> : Partial<WithRouteParams<T['routeParams']>>)
   & (IsRequired<T, 'headers'> extends true ? WithHeaders<T['headers']> : Partial<WithHeaders<T['headers']>>)
-  & (IsRequired<T, 'body'> extends true ? WithBody<T['body']> : Partial<WithBody<T['body']>>)
+  & (IsRequired<T, 'data'> extends true ? WithData<T['data']> : Partial<WithData<T['data']>>)
   & (IsRequired<T, 'query'> extends true ? WithQuery<T['query']> : Partial<WithQuery<T['query']>>)
   & (IsRequired<T, 'navigationState'> extends true
     ? WithNavigationState<T['navigationState']> : Partial<WithNavigationState<T['navigationState']>>)

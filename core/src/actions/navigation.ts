@@ -30,52 +30,6 @@ function formatNavigationState(data: any) {
   }
 }
 
-export interface LocalView {
-  /**
-   * The component tree of this route. The root of this tree tree must have an id.
-   */
-  screen: Component,
-}
-
-export interface HttpAdditionalData {
-  /**
-   * The HTTP method to use when fetching the screen.
-   *
-   * @defaultValue `'get'`
-   */
-  method?: HttpMethod,
-  /**
-   * The headers to send with the request.
-   */
-  headers?: Record<string, string>,
-  /**
-   * The body to send with the request. Invalid for GET requests.
-   */
-  body?: any,
-}
-
-export interface RemoteView {
-  /**
-   * The URL of the screen to fetch.
-   */
-  url: Expression<string>,
-  /**
-   * When set to true, the front-end application will load this as soon as possible instead of waiting the navigation
-   * action to be triggered.
-   */
-  shouldPrefetch?: boolean,
-  /**
-   * Component tree to show if the screen can't be fetched.
-   */
-  fallback?: Component,
-  /**
-   * Further customization for the request.
-   */
-  httpAdditionalData?: HttpAdditionalData,
-}
-
-export type Route = LocalView | RemoteView
-
 export interface BaseNavigationParams {
   /**
    * The navigation state to set in this navigation. Each route (screen) can have a navigation-scoped state and
@@ -88,31 +42,55 @@ export interface BaseNavigationParams {
    * the user back to the "finish-order" screen (popView) and send the address in the navigation state.
    *
    * By default, nothing is sent here.
+   *
+   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
+   * release, and the functionality may change.
    */
   navigationState?: unknown,
 }
 
-export interface RouteNavigationParams<T extends (Route | string) = Route> extends BaseNavigationParams {
+export interface PushProperties extends BaseNavigationParams {
   /**
-   * The route to navigate to. It can be either a remote view, fetched from the backend, or a local view, which is
-   * just a new component tree. When it's local, the root of the tree must have an id, this will be used as the name
-   * of the route in the local navigator.
+   * The URL of the screen to fetch.
    */
-  route: T,
+  url: Expression<string>,
+  /**
+   * When set to true, the front-end application will load this as soon as possible instead of waiting the navigation
+   * action to be triggered.
+   */
+  prefetch?: boolean,
+  /**
+   * Component tree to show if the screen can't be fetched.
+   */
+  fallback?: Component,
+  /**
+   * The HTTP method to use when fetching the screen.
+   *
+   * @default 'Get'
+   */
+   method?: HttpMethod,
+   /**
+    * The headers to send with the request.
+    */
+   headers?: Record<string, string>,
+   /**
+    * The data to send with the request. Invalid for GET requests.
+    */
+   data?: any,
 }
 
-export type PushParams = RouteNavigationParams
-export type PopParams = BaseNavigationParams
-export type PopToParams = RouteNavigationParams<string>
-export type PresentParams = RouteNavigationParams
-export type DismissParams = BaseNavigationParams
+export interface PopToProperties extends BaseNavigationParams {
+  url: string,
+}
+
+export type Route = PushProperties | PopToProperties
 
 const navigator = {
-  push: createCoreAction<PushParams>('push'),
-  pop: createCoreAction<PopParams>('pop'),
-  popTo: createCoreAction<PopToParams>('popTo'),
-  present: createCoreAction<PresentParams>('present'),
-  dismiss: createCoreAction<DismissParams>('dismiss'),
+  push: createCoreAction<PushProperties>('push'),
+  pop: createCoreAction<BaseNavigationParams>('pop'),
+  popTo: createCoreAction<PopToProperties>('popTo'),
+  present: createCoreAction<PushProperties>('present'),
+  dismiss: createCoreAction<BaseNavigationParams>('dismiss'),
 }
 
 interface PushFunction {
@@ -128,7 +106,7 @@ interface PushFunction {
    * Adds the provided route to the current navigation stack.
    *
    * @param props the parameters for this navigation:
-   * - route the screen to load. A {@link LocalView} or a {@link RemoteView}.
+   * - route the screen to load.
    * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
@@ -148,7 +126,7 @@ interface PresentFunction {
    * Adds the provided route to the current navigation stack.
    *
    * @param props the parameters for this navigation:
-   * - route the screen to load. A {@link LocalView} or a {@link RemoteView}.
+   * - route the screen to load.
    * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
@@ -160,8 +138,7 @@ interface PopToFunction {
    * Goes back to the route identified by the string passed as parameter. If the route doesn't exist in the current
    * navigation stack, nothing happens.
    *
-   * @param url the identifier of the route to go back to. For RemoteViews, this identifier
-   * will be the url. For LocalViews, it will the id of the root component.
+   * @param url the identifier of the route to go back to.
    * @returns an instance of Action
    */
    (url: Expression<string>): Action,
@@ -216,13 +193,12 @@ interface DismissFunction {
 
 function getParams(props: any, isPopToView?: boolean) {
   const isParamASingleUrl = typeof props === 'string' || isDynamicExpression(props)
-  if (isParamASingleUrl) return { route: isPopToView ? props : { url: props } }
-  if (props?.route?.screen && !props.route.screen.id) {
-    throw new Error(`
-      The screen component must have an id, to perform a local navigation.
-      Root component: "${props?.route?.screen?.namespace ?? 'namespace'}:${props?.route?.screen?.name ?? 'name'}".
-    `)
+  if (isParamASingleUrl) {
+    return {
+      route: isPopToView ? props : { url: props },
+    }
   }
+
   const { navigationState, ...other } = props
   return { navigationState: formatNavigationState(navigationState), ...other }
 }

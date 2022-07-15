@@ -3,12 +3,12 @@ import { Component, createStateNode } from '../../../api'
 import { coreNamespace } from '../../../constants'
 import { ForEachProps } from './types'
 
-interface IForEach {
+interface ForEachFC {
   <T>(props: ForEachProps<T>): Component,
 }
 
-export const ForEach: IForEach = ({ children, state, ...props }) => (
-  <component namespace={coreNamespace} name="forEach" state={state} properties={props}>
-    {children(createStateNode(props.key ?? 'item'))}
+export const ForEach: ForEachFC = ({ key = 'item', indexName = 'index', children, ...props }) => (
+  <component namespace={coreNamespace} name="forEach" properties={{ key, indexName, ...props }}>
+    {children(createStateNode(key), createStateNode(indexName))}
   </component>
 )

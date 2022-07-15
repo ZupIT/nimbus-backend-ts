@@ -20,7 +20,7 @@ const properties: SendRequestParams<User> = {
   url: 'https://my-api.com/resource',
   data: { id: 1, name: 'test' },
   headers: { test: 'test' },
-  method: 'put',
+  method: 'Put',
   onError: response => new Action({
     name: 'test-error',
     properties: { message: response.get('message') },
@@ -52,7 +52,7 @@ describe('Actions', () => {
 
     it('should compose sendRequest', () => {
       const updateUser = request<User>()
-        .compose(({ id, user }: CompositeOptions) => ({ url: `https://api.com/user/${id}`, method: 'put', data: user }))
+        .compose(({ id, user }: CompositeOptions) => ({ url: `https://api.com/user/${id}`, method: 'Put', data: user }))
 
       const properties: Parameters<typeof updateUser>[0] = {
         id: '1',
@@ -71,7 +71,7 @@ describe('Actions', () => {
 
       const processed = {
         url: 'https://api.com/user/1',
-        method: 'put',
+        method: 'Put',
         data: properties.user,
         onSuccess: properties.onSuccess!(new StateNode('onSuccess') as MapStateNode<ResponseState<User>>),
       }

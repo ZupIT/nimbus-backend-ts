@@ -1,6 +1,5 @@
 import { FC, NimbusJSX, WithChildren } from '@zup-it/nimbus-backend-core'
 import { genericNamespace } from '@zup-it/nimbus-backend-core/constants'
-import { StyledComponent } from './styled'
 import { BoxProps } from './types/box'
 
 type Alignment =
@@ -16,7 +15,7 @@ type Alignment =
 
 export interface PositionedProps extends Omit<BoxProps, 'children'>, Required<WithChildren> {
   /**
-   * @default topStart
+   * @default 'topStart'
    */
   alignment?: Alignment,
   /**
@@ -29,24 +28,8 @@ export interface PositionedProps extends Omit<BoxProps, 'children'>, Required<Wi
   y?: number,
 }
 
-export const Positioned: FC<PositionedProps> = ({
-  id,
-  state,
-  children,
-  style,
-  alignment = 'topStart',
-  x = 0,
-  y = 0,
-  ...props
-}) => (
-  <StyledComponent
-    id={id}
-    namespace={genericNamespace}
-    name="positioned"
-    state={state}
-    style={style}
-    properties={{ alignment, x, y, ...props }}
-  >
+export const Positioned: FC<PositionedProps> = ({ id, state, children, ...props }) => (
+  <component id={id} namespace={genericNamespace} name="positioned" state={state} properties={props}>
     {children}
-  </StyledComponent>
+  </component>
 )

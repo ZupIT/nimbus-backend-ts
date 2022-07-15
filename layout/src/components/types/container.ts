@@ -1,21 +1,17 @@
-import { WithStyle } from '@zup-it/nimbus-backend-core/model/component'
-import { BoxProps, BoxStyle } from './box'
+import { BoxProps } from './box'
 
-export interface ContainerStyle extends BoxStyle {
+export interface ContainerProps extends BoxProps {
   flex?: number,
   /**
    * @default false
    */
   stretch?: boolean,
   /**
-   * @default start
+   * @default 'start'
   */
   crossAxisAlignment?: 'start' | 'end' | 'center',
   /**
-   * @default start
+   * @default 'start'
   */
   mainAxisAlignment?: 'start' | 'end' | 'center' | 'spaceBetween' | 'spaceAround' | 'spaceEvenly',
-}
-
-export interface ContainerProps extends Omit<BoxProps, 'style'>, WithStyle<ContainerStyle> {
 }

@@ -5,40 +5,10 @@ import { AddressModel, PaymentCard } from '../../models/order'
 import { globalState } from '../global-state'
 import { updateCartIndicator } from '../actions'
 import { localNavigator } from '../local-navigator'
-import { Container, ContainerStyle, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { Column, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { Button } from '../components/button'
 import { log } from '@zup-it/nimbus-backend-core/actions'
-import { Margin } from '@zup-it/nimbus-backend-core/model/style'
 import { TextInput } from '../components/text-input'
-
-interface PageStyle {
-  wrapper: ContainerStyle,
-  formItem: Margin,
-  buyRow: ContainerStyle,
-  content: ContainerStyle,
-}
-
-const styles: PageStyle = {
-  wrapper: {
-    flex: 1,
-    padding: 12,
-    mainAxisAlignment: 'center',
-    crossAxisAlignment: 'start',
-  },
-  formItem: {
-    margin: 8,
-  },
-  buyRow: {
-    mainAxisAlignment: 'end',
-    crossAxisAlignment: 'end',
-  },
-  content: {
-    flex: 1,
-    marginTop: 12,
-    marginHorizontal: 12,
-    mainAxisAlignment: 'spaceBetween'
-  },
-}
 
 export const Payment: Screen = () => {
   const cart = globalState.get('cart')
@@ -64,24 +34,25 @@ export const Payment: Screen = () => {
       value={card.get(name)}
       placeholder={placeholder}
       onChange={value => card.get(name).set(value)}
-      style={{ ...(shouldExpand ? { flex: 1 } : {}), ...styles.formItem }}
+      margin={8}
+      { ...(shouldExpand ? { flex: 1 } : {}) }
     />
   )
 
   return (
     <ScreenComponent title="Payment" state={card}>
-      <Container style={styles.content}>
-        <Container>
+      <Column flex={1} marginTop={12} marginHorizontal={12} mainAxisAlignment="spaceBetween">
+        <Row>
           {createInput('Card number', 'number', false)}
           <Row>
             {createInput('MM/YY', 'expirationDate')}
             {createInput('CVC', 'cvc')}
           </Row>
-        </Container>
-        <Row style={{ ...styles.buyRow, ...styles.formItem  }}>
-          <Button onPress={makeOrder}>Buy</Button>
         </Row>
-      </Container>
+        <Row margin={8} mainAxisAlignment="end" crossAxisAlignment="end">
+          <Button text="Buy" onPress={makeOrder} />
+        </Row>
+      </Column>
     </ScreenComponent>
   )
 }

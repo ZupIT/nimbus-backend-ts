@@ -14,7 +14,7 @@ export interface Shadow {
    */
   blur?: number,
   /**
-   *  @default #000
+   *  @default '#000'
    */
   color?: Color,
 }

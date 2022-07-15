@@ -13,8 +13,8 @@ export interface ScreenProps extends WithState, Required<WithChildren> {
   showBackButton?: boolean,
 }
 
-export const ScreenComponent: FC<ScreenProps> = ({ id, state, children, showBackButton = true, ...props }) => (
-  <component id={id} state={state} name="screen" namespace={genericNamespace} properties={{ showBackButton, ...props }}>
+export const ScreenComponent: FC<ScreenProps> = ({ id, state, children, ...props }) => (
+  <component id={id} state={state} name="screen" namespace={genericNamespace} properties={props}>
     {children}
   </component>
 )

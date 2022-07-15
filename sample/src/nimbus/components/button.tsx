@@ -1,14 +1,14 @@
 import { NimbusJSX, FC, Actions, Operation } from '@zup-it/nimbus-backend-core'
-import { WithStyle } from '@zup-it/nimbus-backend-core/model/component'
+import { Margin } from '@zup-it/nimbus-backend-core/model/style'
 import { Expression, InterpolatedText } from '@zup-it/nimbus-backend-core/types'
 import { customComponentNamespace } from './shared'
 
-export interface ButtonProps extends WithStyle {
+export interface ButtonProps extends Margin {
   onPress?: Actions,
-  children: InterpolatedText,
-  enabled?: Expression<boolean> | Operation<boolean>,
+  text: Expression<string>,
+  enabled?: Expression<boolean>,
 }
 
-export const Button: FC<ButtonProps> = ({ id, style, enabled = true, ...props }) => (
-  <component id={id} namespace={customComponentNamespace} name="button" properties={{ ...style, enabled, ...props } } />
+export const Button: FC<ButtonProps> = ({ id, enabled = true, ...props }) => (
+  <component id={id} namespace={customComponentNamespace} name="button" properties={{ enabled, ...props } } />
 )
