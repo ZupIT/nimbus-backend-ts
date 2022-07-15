@@ -1,17 +1,19 @@
 import { NimbusJSX, createState, ForEach } from '@zup-it/nimbus-backend-core'
-import { contains } from '@zup-it/nimbus-backend-core/operations'
+import { contains, insert, length, subtract } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Product } from '../../models/product'
+import { Product as ProductModel } from '../../models/product'
 import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
 import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
 import { Column, Lifecycle, Row, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
 import { log } from '@zup-it/nimbus-backend-core/actions'
+import { eq } from 'lodash'
+import { Product } from './product'
 
 interface ProductData {
   isLoading: boolean,
-  data: Product[],
+  data: ProductModel[],
 }
 
 export const Products: Screen = ({ navigator }) => {
@@ -27,9 +29,9 @@ export const Products: Screen = ({ navigator }) => {
     <ScreenComponent title="Products" state={products}>
       <Lifecycle onInit={onInit}>
         <ScrollView>
-          <Column backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start">
+          <Column backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start" padding={12}>
             <Loading isLoading={products.get('isLoading')}>
-              <ForEach items={products.get('data')} key="product">
+              <ForEach items={products.get('data')} iteratorName="product">
                 {(product, index) => (
                   <Row>
                     <ProductItem
@@ -37,7 +39,10 @@ export const Products: Screen = ({ navigator }) => {
                       title={product.get('title')}
                       price={product.get('price')}
                       inCart={contains(cart, product)}
-                      onPressBuy={log({ message: '', level: 'Info' })}
+                      onPressBuy={globalState.get('cart').set(insert(globalState.get('cart'), product))}
+                      onPressDetails={[globalState.get('currentProduct').set(product), navigator.push(Product)]}
+                      isFirst={eq(index, 0)}
+                      isLast={eq(index, subtract(length(products.get('data')), 1))}
                     />
                   </Row>
                 )}

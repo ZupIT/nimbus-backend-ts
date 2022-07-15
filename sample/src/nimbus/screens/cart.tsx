@@ -32,7 +32,9 @@ export const Cart: Screen = ({ navigator }) => {
                     cornerRadius={8}
                   >
                     <RemoteImage url={item.get('image')} width={50} height={50} scale="center" />
-                    <Text marginEnd={15}>{item.get('title')}</Text>
+                    <Row marginEnd={15}>
+                      <Text>{item.get('title')}</Text>
+                    </Row>
                     <Text>{formatPrice(item.get('price'), 'BRL')}</Text>
                   </Row>
                 )}

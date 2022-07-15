@@ -37,7 +37,7 @@ const Section: FC<SectionProps> = ({ title, children }) => {
       {children}
     </Column>
   )
-  return title ? (<><Text marginVertical={12}>{title}</Text>{card}</>) : card
+  return title ? (<><Text>{title}</Text>{card}</>) : card
 }
 
 interface DefinitionItemProps extends ContainerProps {
@@ -73,11 +73,11 @@ export const Order: Screen<Props> = ({ request: { params } }) => {
               <DefinitionItem title="Status:" definition={order.get('state')} />
             </Section>
             <Section title="Products" marginVertical={12}>
-              <ForEach items={order.get('products')}>
-                {(item, index) => (
+              <ForEach items={order.get('products')} iteratorName="product">
+                {(product, index) => (
                   <DefinitionItem
-                    title={item.get('title')}
-                    definition={formatPrice(item.get('price'), 'BRL')}
+                    title={product.get('title')}
+                    definition={formatPrice(product.get('price'), 'BRL')}
                     mainAxisAlignment="spaceBetween"
                     paddingVertical={5}
                   />

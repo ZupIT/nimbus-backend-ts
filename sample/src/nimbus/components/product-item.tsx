@@ -1,15 +1,18 @@
-import { Actions, NimbusJSX, FC, If, Then, Else, Operation } from '@zup-it/nimbus-backend-core'
+import { Actions, NimbusJSX, FC, If, Then, Else, Operation, Expression } from '@zup-it/nimbus-backend-core'
 import { PrimitiveStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
-import { Column, RemoteImage, Text } from '@zup-it/nimbus-backend-layout'
+import { Column, RemoteImage, Row, Text, Touchable } from '@zup-it/nimbus-backend-layout'
 import { formatPrice } from '../operations'
 import { Button } from './button'
 
 export interface ProductItemProps {
-  image: PrimitiveStateNode<string> | string,
-  title: PrimitiveStateNode<string> | string,
-  price: PrimitiveStateNode<number> | number,
-  inCart?: Operation<boolean> | boolean,
+  image: Expression<string>,
+  title: Expression<string>,
+  price: Expression<number>,
+  inCart?: Expression<boolean>,
   onPressBuy: Actions,
+  onPressDetails: Actions,
+  isFirst: Expression<boolean>
+  isLast: Expression<boolean>
 }
 
 export const ProductItem: FC<ProductItemProps> = ({
@@ -19,6 +22,9 @@ export const ProductItem: FC<ProductItemProps> = ({
   price,
   inCart,
   onPressBuy,
+  onPressDetails,
+  isFirst,
+  isLast,
 }) => (
   <Column
     id={id}
@@ -26,20 +32,41 @@ export const ProductItem: FC<ProductItemProps> = ({
     borderColor="#e3e3e3"
     borderWidth={1}
     cornerRadius={12}
-    padding={12}
-    mainAxisAlignment="center"
-    margin={8}
+    paddingHorizontal={24}
+    paddingVertical={16}
+    marginVertical={6}
+    {...(isFirst ? { marginTop: 0 } : {})}
+    {...(isLast ? { marginBottom: 0 } : {})}
   >
-    <RemoteImage url={image.toString()} />
-    <Text minHeight={80} color="#212121" size={14} weight="light" marginTop={8}>{title}</Text>
-    <Text color="#212121" size={16} weight="semiBold" marginVertical={14}>{formatPrice(price, 'BRL')}</Text>
-    <If condition={inCart ?? false}>
-      <Then>
-        <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
-      </Then>
-      <Else>
-        <Button text="Add to cart" onPress={onPressBuy} />
-      </Else>
-    </If>
+    <Row>
+      <Column width={104} crossAxisAlignment="center">
+        <Touchable onPress={onPressDetails}>
+          <RemoteImage url={image.toString()} width={80} height={100} scale="fillWidth" />
+        </Touchable>
+      </Column>
+      <Column crossAxisAlignment="center" mainAxisAlignment="center">
+        <Row paddingTop={8}>
+          <Touchable onPress={onPressDetails}>
+            <Text color="#212121" size={15} weight="light">{title}</Text>
+          </Touchable>
+        </Row>
+        <Row paddingTop={12}>
+          <Touchable onPress={onPressDetails}>
+            <Text color="#212121" size={17} weight="bold">{formatPrice(price, 'BRL')}</Text>
+          </Touchable>
+        </Row>
+      </Column>
+    </Row>
+    <Row height={1} borderColor="#e3e3e3" borderWidth={1} marginTop={20}></Row>
+    <Row mainAxisAlignment="center" paddingTop={16}>
+      <If condition={inCart ?? false}>
+        <Then>
+          <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
+        </Then>
+        <Else>
+          <Button text="Add to cart" onPress={onPressBuy} />
+        </Else>
+      </If>
+    </Row>
   </Column>
 )

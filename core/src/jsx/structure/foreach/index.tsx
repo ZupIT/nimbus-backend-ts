@@ -7,8 +7,8 @@ interface ForEachFC {
   <T>(props: ForEachProps<T>): Component,
 }
 
-export const ForEach: ForEachFC = ({ key = 'item', indexName = 'index', children, ...props }) => (
-  <component namespace={coreNamespace} name="forEach" properties={{ key, indexName, ...props }}>
-    {children(createStateNode(key), createStateNode(indexName))}
+export const ForEach: ForEachFC = ({ key, iteratorName, indexName, children, ...props }) => (
+  <component namespace={coreNamespace} name="forEach" properties={{ key, iteratorName, indexName, ...props }}>
+    {children(createStateNode(iteratorName ?? 'item'), createStateNode(indexName ?? 'index'))}
   </component>
 )
