@@ -174,7 +174,7 @@ const sendRequestKeys: (keyof SendRequestParams)[] = [
  * }
  *
  * export const fetchProductById = request<Product>()
- *  .compose(({ id }: Options) => ({ url: `https://myserver.com/products/${id}`, method: 'get' }))
+ *  .compose(({ id }: Options) => ({ url: `https://myserver.com/products/${id}`, method: 'Get' }))
  * ```
  *
  * Now, in the UI code, `fetchProductById` can be used by only passing the id, no url or method are needed:

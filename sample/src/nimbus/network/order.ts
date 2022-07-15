@@ -21,7 +21,7 @@ interface GetByIdOptions {
 }
 
 export const createOrder = request<CreateOrderResponse, CreateOrderError>()
-  .compose(({ data }: CreateOptions) => ({ url: `${baseUrl}/order`, method: 'post', data }))
+  .compose(({ data }: CreateOptions) => ({ url: `${baseUrl}/order`, method: 'Post', data }))
 
 export const getOrderById = request<Order>()
   .compose(({ id }: GetByIdOptions) => ({ url: `${baseUrl}/order/${id}` }))
