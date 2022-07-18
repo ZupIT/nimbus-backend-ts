@@ -47,12 +47,12 @@ export const ProductItem: FC<ProductItemProps> = ({
       <Column crossAxisAlignment="center" mainAxisAlignment="center">
         <Row paddingTop={8}>
           <Touchable onPress={onPressDetails}>
-            <Text color="#212121" size={15} weight="light">{title}</Text>
+            <Text size={15} weight="light">{title}</Text>
           </Touchable>
         </Row>
         <Row paddingTop={12}>
           <Touchable onPress={onPressDetails}>
-            <Text color="#212121" size={17} weight="bold">{formatPrice(price, 'BRL')}</Text>
+            <Text size={17} weight="bold">{formatPrice(price, 'BRL')}</Text>
           </Touchable>
         </Row>
       </Column>

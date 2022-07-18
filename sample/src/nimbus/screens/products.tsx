@@ -28,28 +28,30 @@ export const Products: Screen = ({ navigator }) => {
   return (
     <ScreenComponent title="Products" state={products}>
       <Lifecycle onInit={[onInit]}>
-        <ScrollView>
-          <Column backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start" padding={12}>
-            <Loading isLoading={products.get('isLoading')}>
-              <ForEach items={products.get('data')} iteratorName="product">
-                {(product, index) => (
-                  <Row>
-                    <ProductItem
-                      image={product.get('image')}
-                      title={product.get('title')}
-                      price={product.get('price')}
-                      inCart={contains(cart, product)}
-                      onPressBuy={globalState.get('cart').set(insert(globalState.get('cart'), product))}
-                      onPressDetails={[globalState.get('currentProduct').set(product), navigator.push(Product)]}
-                      isFirst={eq(index, 0)}
-                      isLast={eq(index, subtract(length(products.get('data')), 1))}
-                    />
-                  </Row>
-                )}
-              </ForEach>
-            </Loading>
-          </Column>
-        </ScrollView>
+        <Column backgroundColor="#eee" flex={1}>
+          <Loading isLoading={products.get('isLoading')}>
+            <ScrollView>
+              <Column padding={12}>
+                <ForEach items={products.get('data')} iteratorName="product">
+                  {(product, index) => (
+                    <Row>
+                      <ProductItem
+                        image={product.get('image')}
+                        title={product.get('title')}
+                        price={product.get('price')}
+                        inCart={contains(cart, product)}
+                        onPressBuy={globalState.get('cart').set(insert(globalState.get('cart'), product))}
+                        onPressDetails={[globalState.get('currentProduct').set(product), navigator.push(Product)]}
+                        isFirst={eq(index, 0)}
+                        isLast={eq(index, subtract(length(products.get('data')), 1))}
+                      />
+                    </Row>
+                  )}
+                </ForEach>
+              </Column>
+            </ScrollView>
+          </Loading>
+        </Column>
       </Lifecycle>
     </ScreenComponent>
   )

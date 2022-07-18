@@ -14,7 +14,7 @@ export const Product: Screen = () => {
     <ScreenComponent title="Product details">
       <ScrollView>
         <Column flex={1} padding={24} mainAxisAlignment="start" crossAxisAlignment="center">
-          <Text color="#212121" size={24} weight="normal">{product.get('title')}</Text>
+          <Text size={24} weight="normal">{product.get('title')}</Text>
           <Row stretch={true} marginVertical={28} mainAxisAlignment="center">
             <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} height={240} />
           </Row>
@@ -29,7 +29,7 @@ export const Product: Screen = () => {
               </Else>
             </If>
           </Row>
-          <Text color="#212121" size={17} weight="light">{product.get('description')}</Text>
+          <Text size={16} weight="light" color="#515151">{product.get('description')}</Text>
         </Column>
       </ScrollView>
     </ScreenComponent>
