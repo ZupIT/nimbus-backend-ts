@@ -9,33 +9,27 @@ import { formatPrice } from '../operations'
 export const Product: Screen = () => {
   const product = globalState.get('currentProduct')
   const cart = globalState.get('cart')
-  const addToCart = [
-    updateCartIndicator({ numberOfElementsInCart: sum(length(cart), 1) }),
-    cart.set(insert(cart, product)),
-  ]
 
   return (
     <ScreenComponent title="Product details">
       <ScrollView>
-        <Column flex={1} padding={12} mainAxisAlignment="center" crossAxisAlignment="start">
-          <Text color="#212121" size={24} weight="semiBold">{product.get('title')}</Text>
-          <Row marginVertical={18}>
-            <RemoteImage url={product.get('image').toString()} scale="center" width={260} height={260} />
-            <Row marginVertical={30}>
-              <Text>{formatPrice(product.get('price'), 'BRL')}</Text>
-            </Row>
+        <Column flex={1} padding={24} mainAxisAlignment="start" crossAxisAlignment="center">
+          <Text color="#212121" size={24} weight="normal">{product.get('title')}</Text>
+          <Row stretch={true} marginVertical={28} mainAxisAlignment="center">
+            <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} height={240} />
+          </Row>
+          <Text size={20} weight="bold">{formatPrice(product.get('price'), 'BRL')}</Text>
+          <Row stretch={true} marginVertical={36} mainAxisAlignment="center">
             <If condition={contains(cart, product)}>
               <Then>
-                <Row marginBottom={24}>
-                  <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
-                </Row>
+                <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
               </Then>
               <Else>
-                <Button text="Add to cart" onPress={addToCart} />
+                <Button text="Add to cart" onPress={globalState.get('cart').set(insert(globalState.get('cart'), product))} />
               </Else>
             </If>
           </Row>
-          <Text color="#212121" size={18} weight="light">{product.get('description')}</Text>
+          <Text color="#212121" size={17} weight="light">{product.get('description')}</Text>
         </Column>
       </ScrollView>
     </ScreenComponent>
