@@ -27,7 +27,7 @@ export const Products: Screen = ({ navigator }) => {
 
   return (
     <ScreenComponent title="Products" state={products}>
-      <Lifecycle onInit={onInit}>
+      <Lifecycle onInit={[onInit]}>
         <ScrollView>
           <Column backgroundColor="#eee" flex={1} crossAxisAlignment="start" mainAxisAlignment="start" padding={12}>
             <Loading isLoading={products.get('isLoading')}>
