@@ -92,3 +92,7 @@ export function createOrder({ products, address, payment }: CreateOrderData): st
 export function getOrderById(id: number): Order | undefined {
   return orders[`${id}`]
 }
+
+export function listOrders(): Order[] {
+  return Object.keys(orders).map(key => orders[key])
+}

@@ -1,5 +1,4 @@
 import { NimbusJSX, FC, Actions, Operation, Expression } from '@zup-it/nimbus-backend-core'
-import { PrimitiveStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Margin } from '@zup-it/nimbus-backend-core/model/style'
 import { customComponentNamespace } from './shared'
 

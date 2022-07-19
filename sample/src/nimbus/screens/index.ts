@@ -6,6 +6,7 @@ import { Order } from './order'
 import { Cart } from './cart'
 import { Address } from './address'
 import { Payment } from './payment'
+import { Orders } from './orders'
 
 export const routes: RouteMap = {
   '/products': Products,
@@ -13,6 +14,7 @@ export const routes: RouteMap = {
   '/cart': Cart,
   '/address': Address,
   '/payment': Payment,
-  '/order/:id': Order,
+  '/orders': Orders,
+  '/order': Order,
   '/welcome': Welcome,
 }

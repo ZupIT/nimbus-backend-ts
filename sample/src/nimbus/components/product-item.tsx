@@ -1,5 +1,4 @@
 import { Actions, NimbusJSX, FC, If, Then, Else, Operation, Expression } from '@zup-it/nimbus-backend-core'
-import { PrimitiveStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Column, RemoteImage, Row, Text, Touchable } from '@zup-it/nimbus-backend-layout'
 import { formatPrice } from '../operations'
 import { Button } from './button'
