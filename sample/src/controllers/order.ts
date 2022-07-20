@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { createOrder, CreateOrderData, getOrderById } from '../services/order'
+import { createOrder, CreateOrderData, getOrderById, listOrders } from '../services/order'
 
 export async function createOrderController(request: Request<unknown, unknown, CreateOrderData>, response: Response) {
   try {
@@ -25,4 +25,9 @@ export async function getOrderController(request: Request<{ id: number }>, respo
     return
   }
   response.status(200).send(order)
+}
+
+export async function listOrdersController(response: Response) {
+  await new Promise(resolve => setTimeout(resolve, 300))
+  response.status(200).send(listOrders())
 }

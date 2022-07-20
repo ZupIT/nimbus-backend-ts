@@ -10,12 +10,12 @@ const intrinsicComponentName = 'component'
 let fragmentFactory: FragmentFactory = nimbusFragmentFactory
 
 /**
- * By default, Nimbus interprets a fragment as the components "nimbus:text" or "nimbus:container" depending if the
+ * By default, Nimbus interprets a fragment as the components "nimbus:text" or "nimbus:column" depending if the
  * children property is a string or another JSX element.
  *
  * A fragment is identified by `<>` and `</>`.
  *
- * If the components "text" and "container" in the namespace "nimbus" don't exist in your project, you won't be able
+ * If the components "text" and "column" in the namespace "nimbus" don't exist in your project, you won't be able
  * to use fragments unless you use this function to set it up.
  *
  * @param factory a function that receives the children and returns the JSX.Element that should be used

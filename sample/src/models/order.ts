@@ -10,9 +10,11 @@ export interface AddressModel {
   neighborhood: string,
 }
 
+export type OrderStatus = 'AWAITING_PAYMENT' | 'PAYMENT_ACCEPTED' | 'PREPARING' | 'SENT' | 'COMPLETED' | 'CANCELED'
+
 export interface Order {
   id: string,
-  state: 'AWAITING_PAYMENT' | 'PAYMENT_ACCEPTED' | 'PREPARING' | 'SENT' | 'COMPLETED' | 'CANCELED',
+  state: OrderStatus,
   products: Pick<Product, 'title' | 'price' | 'image' | 'id' | 'description' | 'category'>[],
   total: number,
   address: AddressModel,

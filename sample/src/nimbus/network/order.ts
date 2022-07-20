@@ -24,3 +24,6 @@ export const createOrder = request<CreateOrderResponse, CreateOrderError>()
 
 export const getOrderById = request<Order>()
   .compose(({ id }: GetByIdOptions) => ({ url: '/order/${id}' }))
+
+export const listOrders = request<Order[]>()
+  .compose(() => ({ url: '/data/orders' }))
