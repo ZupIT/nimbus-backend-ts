@@ -32,14 +32,12 @@ export const Cart: Screen = ({ navigator }) => {
                     {(product, index) => (
                       <Row
                         padding={12}
-                        marginVertical={6}
+                        marginBottom={12}
                         borderColor="#e3e3e3"
                         borderWidth={1}
                         backgroundColor="#fff"
                         cornerRadius={12}
                         crossAxisAlignment="center"
-                        {...(eq(index, 0) ? { marginTop: 0 } : {})}
-                        {...(eq(index, subtract(length(cart), 1)) ? { marginBottom: 0 } : {})}
                       >
                         <Touchable onPress={goToDetails(product)}>
                           <RemoteImage url={product.get('image')} width={50} height={50} scale="fillWidth" />

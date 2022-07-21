@@ -10,8 +10,6 @@ export interface ProductItemProps {
   inCart?: Expression<boolean>,
   onPressBuy: Actions,
   onPressDetails: Actions,
-  isFirst: Expression<boolean>
-  isLast: Expression<boolean>
 }
 
 export const ProductItem: FC<ProductItemProps> = ({
@@ -22,8 +20,6 @@ export const ProductItem: FC<ProductItemProps> = ({
   inCart,
   onPressBuy,
   onPressDetails,
-  isFirst,
-  isLast,
 }) => (
   <Column
     id={id}
@@ -33,9 +29,7 @@ export const ProductItem: FC<ProductItemProps> = ({
     cornerRadius={12}
     paddingHorizontal={24}
     paddingVertical={16}
-    marginVertical={6}
-    {...(isFirst ? { marginTop: 0 } : {})}
-    {...(isLast ? { marginBottom: 0 } : {})}
+    marginBottom={12}
   >
     <Row>
       <Column width={104} crossAxisAlignment="center">

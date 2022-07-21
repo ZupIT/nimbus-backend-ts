@@ -1,12 +1,31 @@
-import { Actions, capitalize, Expression, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { Actions, Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Column, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
+import { Column, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
 import { AddressModel } from '../../models/order'
 import { Button } from '../components/button'
 import { TextInput } from '../components/text-input'
 import { globalState } from '../global-state'
 import { fetchCepAddress } from '../network/address'
 import { Payment } from './payment'
+
+type AddressInputProps = {
+  placeholder: string,
+  name: keyof AddressModel,
+  addressState: MapStateNode<AddressModel>,
+  onBlur?: (value: Expression<string>) => Actions
+}
+const AddressInput: FC<AddressInputProps> = ({ placeholder, name, addressState: state, onBlur }) => {
+  const getField = (name: keyof AddressModel) => state.get(name)
+  const setField = (name: keyof AddressModel, value: Expression<string>) => state.get(name).set(value)
+  return (
+    <Row marginTop={4}>
+      <TextInput {...{ placeholder, onBlur }} value={getField(name)} onChange={value => setField(name, value)} />
+    </Row>
+  )
+}
+
+const AddressLabel: FC<{ text: string }> = ({ text }) => <Text size={12} weight="light" color="#666">{text}</Text>
 
 export const Address: Screen = ({ navigator }) => {
   const address = globalState.get('address')
@@ -20,44 +39,43 @@ export const Address: Screen = ({ navigator }) => {
     ]
   })
 
-  const createInput = ({ name, flex, onBlur }: {
-    name: keyof AddressModel,
-    flex?: number,
-    onBlur?: (value: Expression<string>) => Actions,
-  }) => (
-    <TextInput
-      placeholder={capitalize(name)}
-      { ...(flex ? { flex } : {}) }
-      marginVertical={10}
-      marginHorizontal={20}
-      value={address.get(name)}
-      onChange={value => address.get(name).set(value)}
-      onBlur={onBlur}
-    />
-  )
-
   return (
     <ScreenComponent title="Address">
-      <Column flex={1}>
-        {createInput({ name: 'zip', onBlur: fillByZip })}
-        <Row mainAxisAlignment="spaceBetween">
-          {createInput({ name: 'street', flex: 2 })}
-          {createInput({ name: 'number', flex: 1 })}
-        </Row>
-        <Row mainAxisAlignment="spaceBetween">
-          {createInput({ name: 'city', flex: 3 })}
-          {createInput({ name: 'state', flex: 1 })}
-        </Row>
+      <Column backgroundColor="#f2f2f2" flex={1}>
+        <ScrollView>
+          <Column padding={12}>
+            <Row marginBottom={12}>
+              <Column>
+                <AddressLabel text="Zip Code" />
+                <AddressInput placeholder="Eg: 95010-000" name="zip" addressState={address} onBlur={fillByZip} />
+              </Column>
+            </Row>
+            <Row marginBottom={12}>
+              <Column marginEnd={6}>
+                <AddressLabel text="Street" />
+                <AddressInput placeholder="Eg: Rua das Árvores" name="street" addressState={address} />
+              </Column>
+              <Column marginStart={6} width={90}>
+                <AddressLabel text="Number" />
+                <AddressInput placeholder="Eg: 101" name="number" addressState={address} />
+              </Column>
+            </Row>
+            <Row marginBottom={48}>
+              <Column marginEnd={6}>
+                <AddressLabel text="City" />
+                <AddressInput placeholder="Eg: Uberlândia" name="city" addressState={address} />
+              </Column>
+              <Column marginStart={6} width={70}>
+                <AddressLabel text="State" />
+                <AddressInput placeholder="Eg: MG" name="state" addressState={address} />
+              </Column>
+            </Row>
+            <Row mainAxisAlignment="center">
+              <Button text="Next" onPress={[globalState.get('address').set(address), navigator.push(Payment)]} />
+            </Row>
+          </Column>
+        </ScrollView>
       </Column>
-      <Row mainAxisAlignment="spaceBetween">
-        <Button text="Cancel" onPress={navigator.pop()} marginVertical={10} marginHorizontal={20} />
-        <Button
-          text="Next"
-          onPress={navigator.push(Payment, { navigationState: { address }})}
-          marginVertical={10}
-          marginHorizontal={20}
-        />
-      </Row>
     </ScreenComponent>
   )
 }

@@ -42,8 +42,6 @@ export const Products: Screen = ({ navigator }) => {
                         inCart={contains(cart, product)}
                         onPressBuy={globalState.get('cart').set(insert(globalState.get('cart'), product))}
                         onPressDetails={[globalState.get('currentProduct').set(product), navigator.push(Product)]}
-                        isFirst={eq(index, 0)}
-                        isLast={eq(index, subtract(length(products.get('data')), 1))}
                       />
                     </Row>
                   )}
