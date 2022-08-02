@@ -1,4 +1,4 @@
-import { Actions, Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { Actions, createState, Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
@@ -10,68 +10,76 @@ import { fetchCepAddress } from '../network/address'
 import { Payment } from './payment'
 
 type AddressInputProps = {
+  label: string,
   placeholder: string,
   name: keyof AddressModel,
   addressState: MapStateNode<AddressModel>,
   onBlur?: (value: Expression<string>) => Actions
 }
-const AddressInput: FC<AddressInputProps> = ({ placeholder, name, addressState: state, onBlur }) => {
-  const getField = (name: keyof AddressModel) => state.get(name)
-  const setField = (name: keyof AddressModel, value: Expression<string>) => state.get(name).set(value)
-  return (
-    <Row marginTop={4}>
-      <TextInput {...{ placeholder, onBlur }} value={getField(name)} onChange={value => setField(name, value)} />
-    </Row>
-  )
-}
-
-const AddressLabel: FC<{ text: string }> = ({ text }) => <Text size={12} weight="light" color="#666">{text}</Text>
+const AddressInput: FC<AddressInputProps> = ({ placeholder, label, name, addressState, onBlur }) => (
+  <Row marginTop={4}>
+    <TextInput
+      placeholder={placeholder}
+      label={label}
+      value={addressState.get(name)}
+      onBlur={onBlur}
+      onChange={value => addressState.get(name).set(value)}
+    />
+  </Row>
+)
 
 export const Address: Screen = ({ navigator }) => {
-  const address = globalState.get('address')
+  const globalAddress = globalState.get('address')
+  const formAddress = createState<AddressModel>('formAddress')
+  formAddress.get('city').set(globalAddress.get('city'))
+  formAddress.get('neighborhood').set(globalAddress.get('neighborhood'))
+  formAddress.get('state').set(globalAddress.get('state'))
+  formAddress.get('street').set(globalAddress.get('street'))
+
   const fillByZip = (zip: Expression<string>) => fetchCepAddress({
     cep: zip,
     onSuccess: response => [
-      address.get('city').set(response.get('data').get('localidade')),
-      address.get('neighborhood').set(response.get('data').get('bairro')),
-      address.get('state').set(response.get('data').get('uf')),
-      address.get('street').set(response.get('data').get('logradouro')),
+      formAddress.get('city').set(response.get('data').get('localidade')),
+      formAddress.get('neighborhood').set(response.get('data').get('bairro')),
+      formAddress.get('state').set(response.get('data').get('uf')),
+      formAddress.get('street').set(response.get('data').get('logradouro')),
     ]
   })
 
   return (
     <ScreenComponent title="Address">
-      <Column backgroundColor="#f2f2f2" flex={1}>
+      <Column state={formAddress} backgroundColor="#f2f2f2" flex={1}>
         <ScrollView>
           <Column padding={12}>
             <Row marginBottom={12}>
               <Column>
-                <AddressLabel text="Zip Code" />
-                <AddressInput placeholder="Eg: 95010-000" name="zip" addressState={address} onBlur={fillByZip} />
+                <AddressInput
+                  label="Zip Code"
+                  placeholder="Eg: 95010-000"
+                  name="zip"
+                  addressState={formAddress}
+                  onBlur={fillByZip}
+                />
               </Column>
             </Row>
             <Row marginBottom={12}>
               <Column marginEnd={6}>
-                <AddressLabel text="Street" />
-                <AddressInput placeholder="Eg: Rua das Árvores" name="street" addressState={address} />
+                <AddressInput label="Street" placeholder="Eg: Rua das Árvores" name="street" addressState={formAddress} />
               </Column>
               <Column marginStart={6} width={90}>
-                <AddressLabel text="Number" />
-                <AddressInput placeholder="Eg: 101" name="number" addressState={address} />
+                <AddressInput label="Number" placeholder="Eg: 101" name="number" addressState={formAddress} />
               </Column>
             </Row>
             <Row marginBottom={48}>
               <Column marginEnd={6}>
-                <AddressLabel text="City" />
-                <AddressInput placeholder="Eg: Uberlândia" name="city" addressState={address} />
+                <AddressInput label="City" placeholder="Eg: Uberlândia" name="city" addressState={formAddress} />
               </Column>
               <Column marginStart={6} width={70}>
-                <AddressLabel text="State" />
-                <AddressInput placeholder="Eg: MG" name="state" addressState={address} />
+                <AddressInput label="State" placeholder="Eg: MG" name="state" addressState={formAddress} />
               </Column>
             </Row>
             <Row mainAxisAlignment="center">
-              <Button text="Next" onPress={[globalState.get('address').set(address), navigator.push(Payment)]} />
+              <Button text="Next" onPress={[globalState.get('address').set(formAddress), navigator.push(Payment)]} />
             </Row>
           </Column>
         </ScrollView>
