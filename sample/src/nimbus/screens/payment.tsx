@@ -4,7 +4,6 @@ import { createOrder } from '../network/order'
 import { PaymentCard } from '../../models/order'
 import { globalState } from '../global-state'
 import { updateCartIndicator } from '../actions'
-import { localNavigator } from '../local-navigator'
 import { Column, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
 import { Button } from '../components/button'
 import { log, push } from '@zup-it/nimbus-backend-core/actions'
@@ -18,7 +17,12 @@ const PaymentInput: FC<PaymentInputProps> = ({ placeholder, name, paymentState: 
   const setField = (name: keyof PaymentCard, value: Expression<string>) => state.get(name).set(value)
   return (
     <Row marginTop={4}>
-      <TextInput {...{ placeholder }} value={getField(name)} onChange={value => setField(name, value)} />
+      <TextInput
+        label={placeholder}
+        placeholder={placeholder}
+        value={getField(name)}
+        onChange={value => setField(name, value)}
+      />
     </Row>
   )
 }
