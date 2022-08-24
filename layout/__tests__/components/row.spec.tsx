@@ -9,9 +9,7 @@ describe('Components', () => {
     const state = createState('row-state-id')
     const properties: ContainerProps = {
       crossAxisAlignment: 'center',
-      flex: 1,
       mainAxisAlignment: 'spaceAround',
-      stretch: true,
       backgroundColor: '#fff',
       shadow: [
         {

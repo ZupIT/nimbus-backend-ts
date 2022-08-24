@@ -1,5 +1,4 @@
 import { createState, NimbusJSX } from '@zup-it/nimbus-backend-core'
-import { omit } from 'lodash'
 import { Column, ContainerProps, Text } from 'src/api'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 
@@ -10,9 +9,7 @@ describe('Components', () => {
     const state = createState('column-state-id')
     const properties: ContainerProps = {
       crossAxisAlignment: 'center',
-      flex: 1,
       mainAxisAlignment: 'spaceAround',
-      stretch: true,
       backgroundColor: '#fff',
       shadow: [
         {
