@@ -1,5 +1,4 @@
 import { createState, NimbusJSX } from '@zup-it/nimbus-backend-core'
-import { omit } from 'lodash'
 import { Column, ContainerProps, Text } from 'src/api'
 import { ComponentTestOptions, expectComponentToBeCorrect } from './utils'
 

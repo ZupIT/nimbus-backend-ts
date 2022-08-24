@@ -128,17 +128,17 @@ describe('JSX', () => {
       })
     })
 
-    it('should create Container if the children is more than one component', () => {
+    it('should create Column if the children is more than one component', () => {
       const component = <><component name="test1" /><component name="test2" /></>
       expect(component).toBeInstanceOf(Component)
       expect(omitUndefined(component)).toEqual({
-        name: 'container',
+        name: 'column',
         namespace: 'layout',
         children: [{ name: 'test1' }, { name: 'test2' }],
       })
     })
 
-    it('should create Container and Text components for mixed types of children', () => {
+    it('should create Column and Text components for mixed types of children', () => {
       const component = (
         <>
           <component name="test1" />
@@ -153,7 +153,7 @@ describe('JSX', () => {
         </>
       )
       expect(omitUndefined(component)).toEqual({
-        name: 'container',
+        name: 'column',
         namespace: 'layout',
         children: [
           { name: 'test1' },
