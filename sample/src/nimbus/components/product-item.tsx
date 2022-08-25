@@ -7,7 +7,7 @@ export interface ProductItemProps {
   image: Expression<string>,
   title: Expression<string>,
   price: Expression<number>,
-  inCart?: Expression<boolean>,
+  inCart: Expression<boolean>,
   onPressBuy: Actions,
   onPressDetails: Actions,
 }
@@ -23,36 +23,30 @@ export const ProductItem: FC<ProductItemProps> = ({
 }) => (
   <Column
     id={id}
-    backgroundColor="#fff"
+    backgroundColor="#FFFFFF"
     borderColor="#e3e3e3"
     borderWidth={1}
     cornerRadius={12}
     paddingHorizontal={24}
     paddingVertical={16}
-    marginBottom={12}
+    marginBottom={14}
+    width="expand"
+    shadow={[{ x: 1, y: 1, blur: 4, color: "#00000012" }]}
   >
-    <Row>
-      <Column width={104} crossAxisAlignment="center">
-        <Touchable onPress={onPressDetails}>
-          <RemoteImage url={image.toString()} width={80} height={100} scale="fillWidth" />
-        </Touchable>
-      </Column>
-      <Column crossAxisAlignment="center" mainAxisAlignment="center">
-        <Row paddingTop={8}>
-          <Touchable onPress={onPressDetails}>
-            <Text size={15} weight="light">{title}</Text>
-          </Touchable>
-        </Row>
-        <Row paddingTop={12}>
-          <Touchable onPress={onPressDetails}>
+    <Touchable onPress={onPressDetails}>
+      <Row>
+        <RemoteImage url={image.toString()} width={60} scale="fillWidth" />
+        <Column marginStart={30}>
+          <Text size={15}>{title}</Text>
+          <Row paddingTop={12}>
             <Text size={17} weight="bold">{formatPrice(price, 'BRL')}</Text>
-          </Touchable>
-        </Row>
-      </Column>
-    </Row>
-    <Row height={1} borderColor="#e3e3e3" borderWidth={1} marginTop={20}></Row>
-    <Row mainAxisAlignment="center" paddingTop={16}>
-      <If condition={inCart ?? false}>
+          </Row>
+        </Column>
+      </Row>
+    </Touchable>
+    <Row height={1} width="expand" backgroundColor="#E3E3E3" marginTop={20}></Row>
+    <Row mainAxisAlignment="center" paddingTop={16} width="expand">
+      <If condition={inCart}>
         <Then>
           <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
         </Then>

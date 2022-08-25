@@ -9,10 +9,8 @@ interface Props extends WithChildren {
 export const Loading: FC<Props> = ({ isLoading, children }) => (
   <If condition={isLoading}>
     <Then>
-      <Column mainAxisAlignment="center">
-        <Row mainAxisAlignment="center" height={50}>
-          <Spinner />
-        </Row>
+      <Column width="expand" height="expand" mainAxisAlignment="center" crossAxisAlignment="center">
+        <Spinner />
       </Column>
     </Then>
     <Else>

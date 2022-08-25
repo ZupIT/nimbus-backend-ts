@@ -16,6 +16,7 @@ type AddressInputProps = {
   addressState: MapStateNode<AddressModel>,
   onBlur?: (value: Expression<string>) => Actions
 }
+
 const AddressInput: FC<AddressInputProps> = ({ placeholder, label, name, addressState, onBlur }) => (
   <Row marginTop={4}>
     <TextInput
@@ -48,41 +49,38 @@ export const Address: Screen = ({ navigator }) => {
 
   return (
     <ScreenComponent title="Address">
-      <Column state={formAddress} backgroundColor="#f2f2f2" flex={1}>
-        <ScrollView>
-          <Column padding={12}>
-            <Row marginBottom={12}>
-              <Column>
-                <AddressInput
-                  label="Zip Code"
-                  placeholder="Eg: 95010-000"
-                  name="zip"
-                  addressState={formAddress}
-                  onBlur={fillByZip}
-                />
-              </Column>
-            </Row>
-            <Row marginBottom={12}>
-              <Column marginEnd={6}>
-                <AddressInput label="Street" placeholder="Eg: Rua das Árvores" name="street" addressState={formAddress} />
-              </Column>
-              <Column marginStart={6} width={90}>
-                <AddressInput label="Number" placeholder="Eg: 101" name="number" addressState={formAddress} />
-              </Column>
-            </Row>
-            <Row marginBottom={48}>
-              <Column marginEnd={6}>
-                <AddressInput label="City" placeholder="Eg: Uberlândia" name="city" addressState={formAddress} />
-              </Column>
-              <Column marginStart={6} width={70}>
-                <AddressInput label="State" placeholder="Eg: MG" name="state" addressState={formAddress} />
-              </Column>
-            </Row>
-            <Row mainAxisAlignment="center">
-              <Button text="Next" onPress={[globalState.get('address').set(formAddress), navigator.push(Payment)]} />
-            </Row>
-          </Column>
-        </ScrollView>
+      <Column state={formAddress} backgroundColor="#EEEEEE">
+        <Column padding={16} height="expand">
+          <Row marginBottom={16}>
+            <AddressInput
+              label="Zip Code"
+              placeholder="Eg: 95010-000"
+              name="zip"
+              addressState={formAddress}
+              onBlur={fillByZip}
+            />
+          </Row>
+          <Row marginBottom={12}>
+            <Column marginEnd={6}>
+              <AddressInput label="Street" placeholder="Eg: Rua das Árvores" name="street" addressState={formAddress} />
+            </Column>
+            <Column marginStart={6} width={90}>
+              <AddressInput label="Number" placeholder="Eg: 101" name="number" addressState={formAddress} />
+            </Column>
+          </Row>
+          <Row marginBottom={48}>
+            <Column marginEnd={6}>
+              <AddressInput label="City" placeholder="Eg: Uberlândia" name="city" addressState={formAddress} />
+            </Column>
+            <Column marginStart={6} width={70}>
+              <AddressInput label="State" placeholder="Eg: MG" name="state" addressState={formAddress} />
+            </Column>
+          </Row>
+        </Column>
+        <Row mainAxisAlignment="spaceBetween" width="expand" padding={16}>
+          <Button text="Cancel" onPress={navigator.pop()} />
+          <Button text="Next" onPress={[globalState.get('address').set(formAddress), navigator.push(Payment)]} />
+        </Row>
       </Column>
     </ScreenComponent>
   )

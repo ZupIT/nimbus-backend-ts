@@ -11,15 +11,18 @@ interface SectionProps extends WithChildren {
 
 const Section: FC<SectionProps> = ({ title, children }) => {
   return (
-    <Column stretch={true} crossAxisAlignment="center" marginBottom={24}>
-      <Text size={16} weight="light">{title}</Text>
+    <Column marginBottom={24}>
+      <Column width="expand" crossAxisAlignment="center" marginVertical={6}>
+        <Text size={20}>{title}</Text>
+      </Column>
       <Column
-        backgroundColor="#fff"
+        backgroundColor="#FFFFFF"
         padding={12}
         borderColor="#e3e3e3"
         borderWidth={1}
         cornerRadius={8}
         marginTop={6}
+        width="expand"
       >
         {children}
       </Column>
@@ -47,17 +50,17 @@ export const Order: Screen = ({ navigator }) => {
 
   return (
     <ScreenComponent title="Order">
-      <Column backgroundColor="#f2f2f2">
+      <Column backgroundColor="#EEEEEE" width="expand" height="expand">
         <ScrollView>
-          <Column padding={12}>
+          <Column padding={16}>
             <Section title="Details">
               <DefinitionItem title="Id:" definition={order.get('id')} />
               <DefinitionItem title="Status:" definition={order.get('state')} />
             </Section>
             <Section title="Products">
               <ForEach items={order.get('products')} iteratorName="product">
-                {(product, index) => (
-                  <Touchable onPress={[globalState.get('currentProduct').set(product), navigator.push(Product)]}>
+                {(product) => (
+                  <Touchable onPress={[globalState.get('currentProduct').set(product), navigator.present(Product)]}>
                     <DefinitionItem title={product.get('title')} definition={formatPrice(product.get('price'), 'BRL')} />
                   </Touchable>
                 )}
@@ -73,6 +76,6 @@ export const Order: Screen = ({ navigator }) => {
           </Column>
         </ScrollView>
       </Column>
-    </ScreenComponent >
+    </ScreenComponent>
   )
 }

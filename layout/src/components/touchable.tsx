@@ -4,7 +4,7 @@ import { Component, WithAccessibility } from '@zup-it/nimbus-backend-core/model/
 
 export interface TouchableProps extends WithAccessibility {
   onPress: Actions,
-  children: Component,
+  children: Component | Component[],
 }
 
 export const Touchable: FC<TouchableProps> = ({ id, children, ...props }) => (

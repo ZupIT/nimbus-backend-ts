@@ -30,6 +30,10 @@ export interface TextProps extends Size {
    * @default false
    */
   iosAdaptiveSize?: boolean,
+  /**
+   * Sets the alignment for multi lined texts. Default is "start".
+   */
+  alignment?: 'start' | 'center' | 'end',
 }
 
 export const Text: FC<TextProps> = ({ id, children, ...props }) => {

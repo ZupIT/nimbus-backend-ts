@@ -32,7 +32,7 @@ export const Orders: Screen = ({ navigator }) => {
   return (
     <ScreenComponent title="Orders" state={orders}>
       <Lifecycle onInit={[onInit]}>
-        <Column backgroundColor="#eee" flex={1}>
+        <Column backgroundColor="#eee">
           <Loading isLoading={orders.get('isLoading')}>
             <ScrollView>
               <Column padding={12}>
