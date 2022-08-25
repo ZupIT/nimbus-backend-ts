@@ -8,278 +8,283 @@ Object {
       "_:component": "layout:column",
       "children": Array [
         Object {
-          "_:component": "layout:scrollView",
+          "_:component": "layout:column",
           "children": Array [
             Object {
-              "_:component": "layout:column",
+              "_:component": "layout:row",
               "children": Array [
                 Object {
                   "_:component": "layout:row",
                   "children": Array [
                     Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "Zip Code",
-                                "onBlur": Array [
-                                  Object {
-                                    "_:action": "sendRequest",
-                                    "properties": Object {
-                                      "onSuccess": Array [
-                                        Object {
-                                          "_:action": "setState",
-                                          "properties": Object {
-                                            "path": "formAddress.city",
-                                            "value": "@{onSuccess.data.localidade}",
-                                          },
-                                        },
-                                        Object {
-                                          "_:action": "setState",
-                                          "properties": Object {
-                                            "path": "formAddress.neighborhood",
-                                            "value": "@{onSuccess.data.bairro}",
-                                          },
-                                        },
-                                        Object {
-                                          "_:action": "setState",
-                                          "properties": Object {
-                                            "path": "formAddress.state",
-                                            "value": "@{onSuccess.data.uf}",
-                                          },
-                                        },
-                                        Object {
-                                          "_:action": "setState",
-                                          "properties": Object {
-                                            "path": "formAddress.street",
-                                            "value": "@{onSuccess.data.logradouro}",
-                                          },
-                                        },
-                                      ],
-                                      "url": "https://viacep.com.br/ws/@{onBlur.value}/json",
-                                    },
-                                  },
-                                ],
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "formAddress.zip",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "Eg: 95010-000",
-                                "value": "@{formAddress.zip}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                  "properties": Object {
-                    "marginBottom": 12,
-                  },
-                },
-                Object {
-                  "_:component": "layout:row",
-                  "children": Array [
-                    Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "Street",
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "formAddress.street",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "Eg: Rua das Árvores",
-                                "value": "@{formAddress.street}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
+                      "_:component": "store:textInput",
                       "properties": Object {
-                        "marginEnd": 6,
-                      },
-                    },
-                    Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "Number",
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "formAddress.number",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "Eg: 101",
-                                "value": "@{formAddress.number}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
-                      "properties": Object {
-                        "marginStart": 6,
-                        "width": 90,
-                      },
-                    },
-                  ],
-                  "properties": Object {
-                    "marginBottom": 12,
-                  },
-                },
-                Object {
-                  "_:component": "layout:row",
-                  "children": Array [
-                    Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "City",
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "formAddress.city",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "Eg: Uberlândia",
-                                "value": "@{formAddress.city}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
-                      "properties": Object {
-                        "marginEnd": 6,
-                      },
-                    },
-                    Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "State",
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "formAddress.state",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "Eg: MG",
-                                "value": "@{formAddress.state}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
-                      "properties": Object {
-                        "marginStart": 6,
-                        "width": 70,
-                      },
-                    },
-                  ],
-                  "properties": Object {
-                    "marginBottom": 48,
-                  },
-                },
-                Object {
-                  "_:component": "layout:row",
-                  "children": Array [
-                    Object {
-                      "_:component": "store:button",
-                      "properties": Object {
-                        "enabled": true,
-                        "onPress": Array [
+                        "label": "Zip Code",
+                        "onBlur": Array [
                           Object {
-                            "_:action": "setState",
+                            "_:action": "sendRequest",
                             "properties": Object {
-                              "path": "global.address",
-                              "value": "@{formAddress}",
-                            },
-                          },
-                          Object {
-                            "_:action": "push",
-                            "properties": Object {
-                              "url": "/payment",
+                              "onSuccess": Array [
+                                Object {
+                                  "_:action": "setState",
+                                  "properties": Object {
+                                    "path": "formAddress.city",
+                                    "value": "@{onSuccess.data.localidade}",
+                                  },
+                                },
+                                Object {
+                                  "_:action": "setState",
+                                  "properties": Object {
+                                    "path": "formAddress.neighborhood",
+                                    "value": "@{onSuccess.data.bairro}",
+                                  },
+                                },
+                                Object {
+                                  "_:action": "setState",
+                                  "properties": Object {
+                                    "path": "formAddress.state",
+                                    "value": "@{onSuccess.data.uf}",
+                                  },
+                                },
+                                Object {
+                                  "_:action": "setState",
+                                  "properties": Object {
+                                    "path": "formAddress.street",
+                                    "value": "@{onSuccess.data.logradouro}",
+                                  },
+                                },
+                              ],
+                              "url": "https://viacep.com.br/ws/@{onBlur.value}/json",
                             },
                           },
                         ],
-                        "text": "Next",
+                        "onChange": Array [
+                          Object {
+                            "_:action": "setState",
+                            "properties": Object {
+                              "path": "formAddress.zip",
+                              "value": "@{onChange.value}",
+                            },
+                          },
+                        ],
+                        "placeholder": "Eg: 95010-000",
+                        "value": "@{formAddress.zip}",
                       },
                     },
                   ],
                   "properties": Object {
-                    "mainAxisAlignment": "center",
+                    "marginTop": 4,
                   },
                 },
               ],
               "properties": Object {
-                "padding": 12,
+                "marginBottom": 16,
+              },
+            },
+            Object {
+              "_:component": "layout:row",
+              "children": Array [
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:row",
+                      "children": Array [
+                        Object {
+                          "_:component": "store:textInput",
+                          "properties": Object {
+                            "label": "Street",
+                            "onChange": Array [
+                              Object {
+                                "_:action": "setState",
+                                "properties": Object {
+                                  "path": "formAddress.street",
+                                  "value": "@{onChange.value}",
+                                },
+                              },
+                            ],
+                            "placeholder": "Eg: Rua das Árvores",
+                            "value": "@{formAddress.street}",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "marginTop": 4,
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginEnd": 6,
+                  },
+                },
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:row",
+                      "children": Array [
+                        Object {
+                          "_:component": "store:textInput",
+                          "properties": Object {
+                            "label": "Number",
+                            "onChange": Array [
+                              Object {
+                                "_:action": "setState",
+                                "properties": Object {
+                                  "path": "formAddress.number",
+                                  "value": "@{onChange.value}",
+                                },
+                              },
+                            ],
+                            "placeholder": "Eg: 101",
+                            "value": "@{formAddress.number}",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "marginTop": 4,
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginStart": 6,
+                    "width": 90,
+                  },
+                },
+              ],
+              "properties": Object {
+                "marginBottom": 12,
+              },
+            },
+            Object {
+              "_:component": "layout:row",
+              "children": Array [
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:row",
+                      "children": Array [
+                        Object {
+                          "_:component": "store:textInput",
+                          "properties": Object {
+                            "label": "City",
+                            "onChange": Array [
+                              Object {
+                                "_:action": "setState",
+                                "properties": Object {
+                                  "path": "formAddress.city",
+                                  "value": "@{onChange.value}",
+                                },
+                              },
+                            ],
+                            "placeholder": "Eg: Uberlândia",
+                            "value": "@{formAddress.city}",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "marginTop": 4,
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginEnd": 6,
+                  },
+                },
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:row",
+                      "children": Array [
+                        Object {
+                          "_:component": "store:textInput",
+                          "properties": Object {
+                            "label": "State",
+                            "onChange": Array [
+                              Object {
+                                "_:action": "setState",
+                                "properties": Object {
+                                  "path": "formAddress.state",
+                                  "value": "@{onChange.value}",
+                                },
+                              },
+                            ],
+                            "placeholder": "Eg: MG",
+                            "value": "@{formAddress.state}",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "marginTop": 4,
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginStart": 6,
+                    "width": 70,
+                  },
+                },
+              ],
+              "properties": Object {
+                "marginBottom": 48,
               },
             },
           ],
+          "properties": Object {
+            "height": "expand",
+            "padding": 16,
+          },
+        },
+        Object {
+          "_:component": "layout:row",
+          "children": Array [
+            Object {
+              "_:component": "store:button",
+              "properties": Object {
+                "enabled": true,
+                "onPress": Array [
+                  Object {
+                    "_:action": "pop",
+                    "properties": Object {},
+                  },
+                ],
+                "text": "Cancel",
+              },
+            },
+            Object {
+              "_:component": "store:button",
+              "properties": Object {
+                "enabled": true,
+                "onPress": Array [
+                  Object {
+                    "_:action": "setState",
+                    "properties": Object {
+                      "path": "global.address",
+                      "value": "@{formAddress}",
+                    },
+                  },
+                  Object {
+                    "_:action": "push",
+                    "properties": Object {
+                      "url": "/payment",
+                    },
+                  },
+                ],
+                "text": "Next",
+              },
+            },
+          ],
+          "properties": Object {
+            "mainAxisAlignment": "spaceBetween",
+            "padding": 16,
+            "width": "expand",
+          },
         },
       ],
       "properties": Object {
-        "backgroundColor": "#f2f2f2",
-        "flex": 1,
+        "backgroundColor": "#EEEEEE",
       },
       "state": Object {
         "id": "formAddress",
@@ -297,36 +302,36 @@ Object {
   "_:component": "layout:screen",
   "children": Array [
     Object {
-      "_:component": "if",
+      "_:component": "layout:column",
       "children": Array [
         Object {
-          "_:component": "then",
+          "_:component": "if",
           "children": Array [
             Object {
-              "_:component": "layout:column",
+              "_:component": "then",
               "children": Array [
                 Object {
-                  "_:component": "layout:text",
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:text",
+                      "properties": Object {
+                        "alignment": "center",
+                        "text": "Your cart is empty. Go to the products page and add some products.",
+                      },
+                    },
+                  ],
                   "properties": Object {
-                    "color": "#aaa",
-                    "text": "Your cart is empty. Go to the products page and add some products.",
-                    "weight": "light",
+                    "crossAxisAlignment": "center",
+                    "height": "expand",
+                    "mainAxisAlignment": "center",
+                    "width": "expand",
                   },
                 },
               ],
-              "properties": Object {
-                "backgroundColor": "#f2f2f2",
-                "mainAxisAlignment": "center",
-                "padding": 24,
-              },
             },
-          ],
-        },
-        Object {
-          "_:component": "else",
-          "children": Array [
             Object {
-              "_:component": "layout:column",
+              "_:component": "else",
               "children": Array [
                 Object {
                   "_:component": "layout:scrollView",
@@ -338,47 +343,24 @@ Object {
                           "_:component": "forEach",
                           "children": Array [
                             Object {
-                              "_:component": "layout:row",
+                              "_:component": "layout:touchable",
                               "children": Array [
                                 Object {
-                                  "_:component": "layout:touchable",
+                                  "_:component": "layout:row",
                                   "children": Array [
                                     Object {
                                       "_:component": "layout:remoteImage",
                                       "properties": Object {
-                                        "height": 50,
                                         "scale": "fillWidth",
                                         "url": "@{item.image}",
                                         "width": 50,
                                       },
                                     },
-                                  ],
-                                  "properties": Object {
-                                    "onPress": Array [
-                                      Object {
-                                        "_:action": "setState",
-                                        "properties": Object {
-                                          "path": "global.currentProduct",
-                                          "value": "@{item}",
-                                        },
-                                      },
-                                      Object {
-                                        "_:action": "push",
-                                        "properties": Object {
-                                          "url": "/product",
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                                Object {
-                                  "_:component": "layout:row",
-                                  "children": Array [
                                     Object {
-                                      "_:component": "layout:column",
+                                      "_:component": "layout:row",
                                       "children": Array [
                                         Object {
-                                          "_:component": "layout:touchable",
+                                          "_:component": "layout:row",
                                           "children": Array [
                                             Object {
                                               "_:component": "layout:text",
@@ -390,50 +372,53 @@ Object {
                                             },
                                           ],
                                           "properties": Object {
-                                            "onPress": Array [
-                                              Object {
-                                                "_:action": "setState",
-                                                "properties": Object {
-                                                  "path": "global.currentProduct",
-                                                  "value": "@{item}",
-                                                },
-                                              },
-                                              Object {
-                                                "_:action": "push",
-                                                "properties": Object {
-                                                  "url": "/product",
-                                                },
-                                              },
-                                            ],
+                                            "marginEnd": 10,
+                                          },
+                                        },
+                                        Object {
+                                          "_:component": "layout:text",
+                                          "properties": Object {
+                                            "size": 14,
+                                            "text": "@{formatPrice(item.price, 'BRL')}",
+                                            "weight": "normal",
                                           },
                                         },
                                       ],
                                       "properties": Object {
-                                        "mainAxisAlignment": "center",
+                                        "mainAxisAlignment": "spaceBetween",
+                                        "marginStart": 16,
+                                        "width": "expand",
                                       },
                                     },
                                   ],
                                   "properties": Object {
-                                    "marginHorizontal": 16,
-                                  },
-                                },
-                                Object {
-                                  "_:component": "layout:text",
-                                  "properties": Object {
-                                    "size": 14,
-                                    "text": "@{formatPrice(item.price, 'BRL')}",
-                                    "weight": "normal",
+                                    "backgroundColor": "#FFFFFF",
+                                    "borderColor": "#e3e3e3",
+                                    "borderWidth": 1,
+                                    "cornerRadius": 12,
+                                    "crossAxisAlignment": "center",
+                                    "marginBottom": 14,
+                                    "padding": 12,
+                                    "width": "expand",
                                   },
                                 },
                               ],
                               "properties": Object {
-                                "backgroundColor": "#fff",
-                                "borderColor": "#e3e3e3",
-                                "borderWidth": 1,
-                                "cornerRadius": 12,
-                                "crossAxisAlignment": "center",
-                                "marginBottom": 12,
-                                "padding": 12,
+                                "onPress": Array [
+                                  Object {
+                                    "_:action": "setState",
+                                    "properties": Object {
+                                      "path": "global.currentProduct",
+                                      "value": "@{item}",
+                                    },
+                                  },
+                                  Object {
+                                    "_:action": "push",
+                                    "properties": Object {
+                                      "url": "/product",
+                                    },
+                                  },
+                                ],
                               },
                             },
                           ],
@@ -443,7 +428,7 @@ Object {
                         },
                       ],
                       "properties": Object {
-                        "padding": 12,
+                        "padding": 16,
                       },
                     },
                   ],
@@ -470,9 +455,6 @@ Object {
                           },
                         },
                       ],
-                      "properties": Object {
-                        "mainAxisAlignment": "center",
-                      },
                     },
                     Object {
                       "_:component": "store:button",
@@ -491,24 +473,28 @@ Object {
                     },
                   ],
                   "properties": Object {
-                    "backgroundColor": "#fff",
+                    "backgroundColor": "#FFFFFF",
                     "borderColor": "#e3e3e3",
                     "borderWidth": 1,
                     "crossAxisAlignment": "center",
                     "height": 70,
-                    "paddingHorizontal": 12,
+                    "mainAxisAlignment": "spaceBetween",
+                    "paddingHorizontal": 16,
+                    "width": "expand",
                   },
                 },
               ],
-              "properties": Object {
-                "backgroundColor": "#f2f2f2",
-              },
             },
           ],
+          "properties": Object {
+            "condition": "@{isEmpty(global.cart)}",
+          },
         },
       ],
       "properties": Object {
-        "condition": "@{isEmpty(global.cart)}",
+        "backgroundColor": "#EEEEEE",
+        "height": "expand",
+        "width": "expand",
       },
     },
   ],
@@ -561,227 +547,192 @@ Object {
       "_:component": "layout:column",
       "children": Array [
         Object {
-          "_:component": "layout:scrollView",
+          "_:component": "layout:column",
           "children": Array [
             Object {
-              "_:component": "layout:column",
+              "_:component": "layout:row",
               "children": Array [
                 Object {
                   "_:component": "layout:row",
                   "children": Array [
                     Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:text",
-                          "properties": Object {
-                            "color": "#666",
-                            "size": 12,
-                            "text": "Card number",
-                            "weight": "light",
-                          },
-                        },
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "0000 0000 0000 0000",
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "card.number",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "0000 0000 0000 0000",
-                                "value": "@{card.number}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                  "properties": Object {
-                    "marginBottom": 12,
-                  },
-                },
-                Object {
-                  "_:component": "layout:row",
-                  "children": Array [
-                    Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:text",
-                          "properties": Object {
-                            "color": "#666",
-                            "size": 12,
-                            "text": "Expiration Date",
-                            "weight": "light",
-                          },
-                        },
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "MM/YY",
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "card.expirationDate",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "MM/YY",
-                                "value": "@{card.expirationDate}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
+                      "_:component": "store:textInput",
                       "properties": Object {
-                        "marginEnd": 6,
-                      },
-                    },
-                    Object {
-                      "_:component": "layout:column",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:text",
-                          "properties": Object {
-                            "color": "#666",
-                            "size": 12,
-                            "text": "CVC",
-                            "weight": "light",
-                          },
-                        },
-                        Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:textInput",
-                              "properties": Object {
-                                "label": "000",
-                                "onChange": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "card.cvc",
-                                      "value": "@{onChange.value}",
-                                    },
-                                  },
-                                ],
-                                "placeholder": "000",
-                                "value": "@{card.cvc}",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "marginTop": 4,
-                          },
-                        },
-                      ],
-                      "properties": Object {
-                        "marginStart": 6,
-                      },
-                    },
-                  ],
-                  "properties": Object {
-                    "marginBottom": 48,
-                  },
-                },
-                Object {
-                  "_:component": "layout:row",
-                  "children": Array [
-                    Object {
-                      "_:component": "store:button",
-                      "properties": Object {
-                        "enabled": true,
-                        "onPress": Array [
+                        "label": "Card number",
+                        "onChange": Array [
                           Object {
-                            "_:action": "sendRequest",
+                            "_:action": "setState",
                             "properties": Object {
-                              "data": Object {
-                                "address": "@{global.address}",
-                                "payment": "@{card}",
-                                "products": "@{global.cart}",
-                              },
-                              "method": "Post",
-                              "onError": Array [
-                                Object {
-                                  "_:action": "log",
-                                  "properties": Object {
-                                    "level": "Error",
-                                    "message": "@{onError.data.error}",
-                                  },
-                                },
-                              ],
-                              "onSuccess": Array [
-                                Object {
-                                  "_:action": "setState",
-                                  "properties": Object {
-                                    "path": "global.cart",
-                                    "value": Array [],
-                                  },
-                                },
-                                Object {
-                                  "_:action": "layout:updateCartIndicator",
-                                  "properties": Object {
-                                    "numberOfElementsInCart": 0,
-                                  },
-                                },
-                                Object {
-                                  "_:action": "setState",
-                                  "properties": Object {
-                                    "path": "global.currentOrder",
-                                    "value": "@{onSuccess.data}",
-                                  },
-                                },
-                                Object {
-                                  "_:action": "popTo",
-                                  "properties": Object {
-                                    "url": "/order",
-                                  },
-                                },
-                              ],
-                              "url": "/order",
+                              "path": "card.number",
+                              "value": "@{onChange.value}",
                             },
                           },
                         ],
-                        "text": "Finish Buy",
+                        "placeholder": "0000 0000 0000 0000",
+                        "value": "@{card.number}",
                       },
                     },
                   ],
                   "properties": Object {
-                    "mainAxisAlignment": "center",
+                    "marginTop": 4,
                   },
                 },
               ],
               "properties": Object {
-                "padding": 12,
+                "marginBottom": 12,
+              },
+            },
+            Object {
+              "_:component": "layout:row",
+              "children": Array [
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:row",
+                      "children": Array [
+                        Object {
+                          "_:component": "store:textInput",
+                          "properties": Object {
+                            "label": "Expiration Date",
+                            "onChange": Array [
+                              Object {
+                                "_:action": "setState",
+                                "properties": Object {
+                                  "path": "card.expirationDate",
+                                  "value": "@{onChange.value}",
+                                },
+                              },
+                            ],
+                            "placeholder": "MM/YY",
+                            "value": "@{card.expirationDate}",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "marginTop": 4,
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginEnd": 6,
+                  },
+                },
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:row",
+                      "children": Array [
+                        Object {
+                          "_:component": "store:textInput",
+                          "properties": Object {
+                            "label": "CVC",
+                            "onChange": Array [
+                              Object {
+                                "_:action": "setState",
+                                "properties": Object {
+                                  "path": "card.cvc",
+                                  "value": "@{onChange.value}",
+                                },
+                              },
+                            ],
+                            "placeholder": "000",
+                            "value": "@{card.cvc}",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "marginTop": 4,
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginStart": 6,
+                  },
+                },
+              ],
+              "properties": Object {
+                "marginBottom": 48,
               },
             },
           ],
+          "properties": Object {
+            "height": "expand",
+            "padding": 16,
+          },
+        },
+        Object {
+          "_:component": "layout:row",
+          "children": Array [
+            Object {
+              "_:component": "store:button",
+              "properties": Object {
+                "enabled": true,
+                "onPress": Array [
+                  Object {
+                    "_:action": "sendRequest",
+                    "properties": Object {
+                      "data": Object {
+                        "address": "@{global.address}",
+                        "payment": "@{card}",
+                        "products": "@{global.cart}",
+                      },
+                      "method": "Post",
+                      "onError": Array [
+                        Object {
+                          "_:action": "log",
+                          "properties": Object {
+                            "level": "Error",
+                            "message": "@{onError.data.error}",
+                          },
+                        },
+                      ],
+                      "onSuccess": Array [
+                        Object {
+                          "_:action": "setState",
+                          "properties": Object {
+                            "path": "global.cart",
+                            "value": Array [],
+                          },
+                        },
+                        Object {
+                          "_:action": "layout:updateCartIndicator",
+                          "properties": Object {
+                            "numberOfElementsInCart": 0,
+                          },
+                        },
+                        Object {
+                          "_:action": "setState",
+                          "properties": Object {
+                            "path": "global.currentOrder",
+                            "value": "@{onSuccess.data}",
+                          },
+                        },
+                        Object {
+                          "_:action": "popTo",
+                          "properties": Object {
+                            "url": "/order",
+                          },
+                        },
+                      ],
+                      "url": "/order",
+                    },
+                  },
+                ],
+                "text": "Complete order",
+              },
+            },
+          ],
+          "properties": Object {
+            "mainAxisAlignment": "end",
+            "padding": 16,
+            "width": "expand",
+          },
         },
       ],
       "properties": Object {
-        "backgroundColor": "#f2f2f2",
-        "flex": 1,
+        "backgroundColor": "#EEEEEE",
       },
     },
   ],
@@ -818,7 +769,6 @@ Object {
                 Object {
                   "_:component": "layout:remoteImage",
                   "properties": Object {
-                    "height": 240,
                     "scale": "fillWidth",
                     "url": "@{global.currentProduct.image}",
                     "width": 160,
@@ -826,9 +776,7 @@ Object {
                 },
               ],
               "properties": Object {
-                "mainAxisAlignment": "center",
                 "marginVertical": 28,
-                "stretch": true,
               },
             },
             Object {
@@ -889,7 +837,6 @@ Object {
               "properties": Object {
                 "mainAxisAlignment": "center",
                 "marginVertical": 36,
-                "stretch": true,
               },
             },
             Object {
@@ -904,8 +851,6 @@ Object {
           ],
           "properties": Object {
             "crossAxisAlignment": "center",
-            "flex": 1,
-            "mainAxisAlignment": "start",
             "padding": 24,
           },
         },
@@ -938,21 +883,15 @@ Object {
                       "_:component": "layout:column",
                       "children": Array [
                         Object {
-                          "_:component": "layout:row",
-                          "children": Array [
-                            Object {
-                              "_:component": "store:spinner",
-                              "properties": Object {},
-                            },
-                          ],
-                          "properties": Object {
-                            "height": 50,
-                            "mainAxisAlignment": "center",
-                          },
+                          "_:component": "store:spinner",
+                          "properties": Object {},
                         },
                       ],
                       "properties": Object {
+                        "crossAxisAlignment": "center",
+                        "height": "expand",
                         "mainAxisAlignment": "center",
+                        "width": "expand",
                       },
                     },
                   ],
@@ -970,126 +909,41 @@ Object {
                               "_:component": "forEach",
                               "children": Array [
                                 Object {
-                                  "_:component": "layout:row",
+                                  "_:component": "layout:column",
                                   "children": Array [
                                     Object {
-                                      "_:component": "layout:column",
+                                      "_:component": "layout:touchable",
                                       "children": Array [
                                         Object {
                                           "_:component": "layout:row",
                                           "children": Array [
                                             Object {
-                                              "_:component": "layout:column",
-                                              "children": Array [
-                                                Object {
-                                                  "_:component": "layout:touchable",
-                                                  "children": Array [
-                                                    Object {
-                                                      "_:component": "layout:remoteImage",
-                                                      "properties": Object {
-                                                        "height": 100,
-                                                        "scale": "fillWidth",
-                                                        "url": "@{product.image}",
-                                                        "width": 80,
-                                                      },
-                                                    },
-                                                  ],
-                                                  "properties": Object {
-                                                    "onPress": Array [
-                                                      Object {
-                                                        "_:action": "setState",
-                                                        "properties": Object {
-                                                          "path": "global.currentProduct",
-                                                          "value": "@{product}",
-                                                        },
-                                                      },
-                                                      Object {
-                                                        "_:action": "push",
-                                                        "properties": Object {
-                                                          "url": "/product",
-                                                        },
-                                                      },
-                                                    ],
-                                                  },
-                                                },
-                                              ],
+                                              "_:component": "layout:remoteImage",
                                               "properties": Object {
-                                                "crossAxisAlignment": "center",
-                                                "width": 104,
+                                                "scale": "fillWidth",
+                                                "url": "@{product.image}",
+                                                "width": 60,
                                               },
                                             },
                                             Object {
                                               "_:component": "layout:column",
                                               "children": Array [
                                                 Object {
-                                                  "_:component": "layout:row",
-                                                  "children": Array [
-                                                    Object {
-                                                      "_:component": "layout:touchable",
-                                                      "children": Array [
-                                                        Object {
-                                                          "_:component": "layout:text",
-                                                          "properties": Object {
-                                                            "size": 15,
-                                                            "text": "@{product.title}",
-                                                            "weight": "light",
-                                                          },
-                                                        },
-                                                      ],
-                                                      "properties": Object {
-                                                        "onPress": Array [
-                                                          Object {
-                                                            "_:action": "setState",
-                                                            "properties": Object {
-                                                              "path": "global.currentProduct",
-                                                              "value": "@{product}",
-                                                            },
-                                                          },
-                                                          Object {
-                                                            "_:action": "push",
-                                                            "properties": Object {
-                                                              "url": "/product",
-                                                            },
-                                                          },
-                                                        ],
-                                                      },
-                                                    },
-                                                  ],
+                                                  "_:component": "layout:text",
                                                   "properties": Object {
-                                                    "paddingTop": 8,
+                                                    "size": 15,
+                                                    "text": "@{product.title}",
                                                   },
                                                 },
                                                 Object {
                                                   "_:component": "layout:row",
                                                   "children": Array [
                                                     Object {
-                                                      "_:component": "layout:touchable",
-                                                      "children": Array [
-                                                        Object {
-                                                          "_:component": "layout:text",
-                                                          "properties": Object {
-                                                            "size": 17,
-                                                            "text": "@{formatPrice(product.price, 'BRL')}",
-                                                            "weight": "bold",
-                                                          },
-                                                        },
-                                                      ],
+                                                      "_:component": "layout:text",
                                                       "properties": Object {
-                                                        "onPress": Array [
-                                                          Object {
-                                                            "_:action": "setState",
-                                                            "properties": Object {
-                                                              "path": "global.currentProduct",
-                                                              "value": "@{product}",
-                                                            },
-                                                          },
-                                                          Object {
-                                                            "_:action": "push",
-                                                            "properties": Object {
-                                                              "url": "/product",
-                                                            },
-                                                          },
-                                                        ],
+                                                        "size": 17,
+                                                        "text": "@{formatPrice(product.price, 'BRL')}",
+                                                        "weight": "bold",
                                                       },
                                                     },
                                                   ],
@@ -1099,85 +953,111 @@ Object {
                                                 },
                                               ],
                                               "properties": Object {
-                                                "crossAxisAlignment": "center",
-                                                "mainAxisAlignment": "center",
+                                                "marginStart": 30,
                                               },
                                             },
                                           ],
                                         },
-                                        Object {
-                                          "_:component": "layout:row",
-                                          "properties": Object {
-                                            "borderColor": "#e3e3e3",
-                                            "borderWidth": 1,
-                                            "height": 1,
-                                            "marginTop": 20,
+                                      ],
+                                      "properties": Object {
+                                        "onPress": Array [
+                                          Object {
+                                            "_:action": "setState",
+                                            "properties": Object {
+                                              "path": "global.currentProduct",
+                                              "value": "@{product}",
+                                            },
                                           },
-                                        },
+                                          Object {
+                                            "_:action": "present",
+                                            "properties": Object {
+                                              "url": "/product",
+                                            },
+                                          },
+                                        ],
+                                      },
+                                    },
+                                    Object {
+                                      "_:component": "layout:row",
+                                      "properties": Object {
+                                        "backgroundColor": "#E3E3E3",
+                                        "height": 1,
+                                        "marginTop": 20,
+                                        "width": "expand",
+                                      },
+                                    },
+                                    Object {
+                                      "_:component": "layout:row",
+                                      "children": Array [
                                         Object {
-                                          "_:component": "layout:row",
+                                          "_:component": "if",
                                           "children": Array [
                                             Object {
-                                              "_:component": "if",
+                                              "_:component": "then",
                                               "children": Array [
                                                 Object {
-                                                  "_:component": "then",
-                                                  "children": Array [
-                                                    Object {
-                                                      "_:component": "layout:text",
-                                                      "properties": Object {
-                                                        "color": "#2E8B57",
-                                                        "size": 18,
-                                                        "text": "In cart ✓",
-                                                        "weight": "bold",
-                                                      },
-                                                    },
-                                                  ],
-                                                },
-                                                Object {
-                                                  "_:component": "else",
-                                                  "children": Array [
-                                                    Object {
-                                                      "_:component": "store:button",
-                                                      "properties": Object {
-                                                        "enabled": true,
-                                                        "onPress": Array [
-                                                          Object {
-                                                            "_:action": "setState",
-                                                            "properties": Object {
-                                                              "path": "global.cart",
-                                                              "value": "@{insert(global.cart, product)}",
-                                                            },
-                                                          },
-                                                        ],
-                                                        "text": "Add to cart",
-                                                      },
-                                                    },
-                                                  ],
+                                                  "_:component": "layout:text",
+                                                  "properties": Object {
+                                                    "color": "#2E8B57",
+                                                    "size": 18,
+                                                    "text": "In cart ✓",
+                                                    "weight": "bold",
+                                                  },
                                                 },
                                               ],
-                                              "properties": Object {
-                                                "condition": "@{contains(global.cart, product)}",
-                                              },
+                                            },
+                                            Object {
+                                              "_:component": "else",
+                                              "children": Array [
+                                                Object {
+                                                  "_:component": "store:button",
+                                                  "properties": Object {
+                                                    "enabled": true,
+                                                    "onPress": Array [
+                                                      Object {
+                                                        "_:action": "setState",
+                                                        "properties": Object {
+                                                          "path": "global.cart",
+                                                          "value": "@{insert(global.cart, product)}",
+                                                        },
+                                                      },
+                                                    ],
+                                                    "text": "Add to cart",
+                                                  },
+                                                },
+                                              ],
                                             },
                                           ],
                                           "properties": Object {
-                                            "mainAxisAlignment": "center",
-                                            "paddingTop": 16,
+                                            "condition": "@{contains(global.cart, product)}",
                                           },
                                         },
                                       ],
                                       "properties": Object {
-                                        "backgroundColor": "#fff",
-                                        "borderColor": "#e3e3e3",
-                                        "borderWidth": 1,
-                                        "cornerRadius": 12,
-                                        "marginBottom": 12,
-                                        "paddingHorizontal": 24,
-                                        "paddingVertical": 16,
+                                        "mainAxisAlignment": "center",
+                                        "paddingTop": 16,
+                                        "width": "expand",
                                       },
                                     },
                                   ],
+                                  "properties": Object {
+                                    "backgroundColor": "#FFFFFF",
+                                    "borderColor": "#e3e3e3",
+                                    "borderWidth": 1,
+                                    "cornerRadius": 12,
+                                    "marginBottom": 14,
+                                    "paddingHorizontal": 24,
+                                    "paddingVertical": 16,
+                                    "shadow": Array [
+                                      Object {
+                                        "blur": 4,
+                                        "color": "#00000012",
+                                        "x": 1,
+                                        "y": 1,
+                                      },
+                                    ],
+                                    "width": "expand",
+                                  },
                                 },
                               ],
                               "properties": Object {
@@ -1187,7 +1067,7 @@ Object {
                             },
                           ],
                           "properties": Object {
-                            "padding": 12,
+                            "padding": 16,
                           },
                         },
                       ],
@@ -1201,8 +1081,9 @@ Object {
             },
           ],
           "properties": Object {
-            "backgroundColor": "#eee",
-            "flex": 1,
+            "backgroundColor": "#EEEEEE",
+            "height": "expand",
+            "width": "expand",
           },
         },
       ],
