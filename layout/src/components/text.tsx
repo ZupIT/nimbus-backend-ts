@@ -22,6 +22,18 @@ export interface TextProps extends Size {
    * The text to print.
    */
   children: InterpolatedText,
+  /**
+   * On iOS, the text can be compressed to a single line when inside a Column or Row that tries to be as small as
+   * possible given min or max size constraints. Setting this property to true prevents this from happening. This has
+   * no effect on other platforms.
+   *
+   * @default false
+   */
+  iosAdaptiveSize?: boolean,
+  /**
+   * Sets the alignment for multi lined texts. Default is "start".
+   */
+  alignment?: 'start' | 'center' | 'end',
 }
 
 export const Text: FC<TextProps> = ({ id, children, ...props }) => {

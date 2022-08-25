@@ -11,14 +11,20 @@ import { TextInput } from '../components/text-input'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Order } from './order'
 
-type PaymentInputProps = { placeholder: string, name: keyof PaymentCard, paymentState: MapStateNode<PaymentCard> }
-const PaymentInput: FC<PaymentInputProps> = ({ placeholder, name, paymentState: state }) => {
+type PaymentInputProps = {
+  label: string,
+  placeholder: string,
+  name: keyof PaymentCard,
+  paymentState: MapStateNode<PaymentCard>,
+}
+
+const PaymentInput: FC<PaymentInputProps> = ({ label, placeholder, name, paymentState: state }) => {
   const getField = (name: keyof PaymentCard) => state.get(name)
   const setField = (name: keyof PaymentCard, value: Expression<string>) => state.get(name).set(value)
   return (
     <Row marginTop={4}>
       <TextInput
-        label={placeholder}
+        label={label}
         placeholder={placeholder}
         value={getField(name)}
         onChange={value => setField(name, value)}
@@ -26,8 +32,6 @@ const PaymentInput: FC<PaymentInputProps> = ({ placeholder, name, paymentState: 
     </Row>
   )
 }
-
-const PaymentLabel: FC<{ text: string }> = ({ text }) => <Text size={12} weight="light" color="#666">{text}</Text>
 
 export const Payment: Screen = ({ navigator }) => {
   const cart = globalState.get('cart')
@@ -51,30 +55,23 @@ export const Payment: Screen = ({ navigator }) => {
 
   return (
     <ScreenComponent title="Payment" state={card}>
-      <Column backgroundColor="#f2f2f2" flex={1}>
-        <ScrollView>
-          <Column padding={12}>
-            <Row marginBottom={12}>
-              <Column>
-                <PaymentLabel text="Card number" />
-                <PaymentInput placeholder="0000 0000 0000 0000" name="number" paymentState={card} />
-              </Column>
-            </Row>
-            <Row marginBottom={48}>
-              <Column marginEnd={6}>
-                <PaymentLabel text="Expiration Date" />
-                <PaymentInput placeholder="MM/YY" name="expirationDate" paymentState={card} />
-              </Column>
-              <Column marginStart={6}>
-                <PaymentLabel text="CVC" />
-                <PaymentInput placeholder="000" name="cvc" paymentState={card} />
-              </Column>
-            </Row>
-            <Row mainAxisAlignment="center">
-              <Button text="Finish Buy" onPress={makeOrder} />
-            </Row>
-          </Column>
-        </ScrollView>
+      <Column backgroundColor="#EEEEEE">
+        <Column padding={16} height="expand">
+          <Row marginBottom={12}>
+            <PaymentInput label="Card number" placeholder="0000 0000 0000 0000" name="number" paymentState={card} />
+          </Row>
+          <Row marginBottom={48}>
+            <Column marginEnd={6}>
+              <PaymentInput label="Expiration Date" placeholder="MM/YY" name="expirationDate" paymentState={card} />
+            </Column>
+            <Column marginStart={6}>
+              <PaymentInput label="CVC" placeholder="000" name="cvc" paymentState={card} />
+            </Column>
+          </Row>
+        </Column>
+        <Row mainAxisAlignment="end" width="expand" padding={16}>
+          <Button text="Complete order" onPress={makeOrder} />
+        </Row>
       </Column>
     </ScreenComponent>
   )

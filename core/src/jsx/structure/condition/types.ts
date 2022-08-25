@@ -6,5 +6,5 @@ export interface IfProps {
 }
 
 export interface ThenElseProps {
-  children: JSX.Element,
+  children: JSX.Element | JSX.Element[],
 }

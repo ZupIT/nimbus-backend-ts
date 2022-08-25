@@ -13,13 +13,13 @@ export const Product: Screen = () => {
   return (
     <ScreenComponent title="Product details">
       <ScrollView>
-        <Column flex={1} padding={24} mainAxisAlignment="start" crossAxisAlignment="center">
+        <Column padding={24} crossAxisAlignment="center">
           <Text size={24} weight="normal">{product.get('title')}</Text>
-          <Row stretch={true} marginVertical={28} mainAxisAlignment="center">
-            <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} height={240} />
+          <Row marginVertical={28}>
+            <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} />
           </Row>
           <Text size={20} weight="bold">{formatPrice(product.get('price'), 'BRL')}</Text>
-          <Row stretch={true} marginVertical={36} mainAxisAlignment="center">
+          <Row marginVertical={36} mainAxisAlignment="center">
             <If condition={contains(cart, product)}>
               <Then>
                 <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>

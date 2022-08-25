@@ -1,6 +1,8 @@
+export type AdaptiveSize = number | 'fitContent' | 'expand'
+
 export interface Size {
-  width?: number,
-  height?: number,
+  width?: AdaptiveSize,
+  height?: AdaptiveSize,
   minWidth?: number,
   minHeight?: number,
   maxWidth?: number,

@@ -8,7 +8,6 @@ import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
 import { Column, Lifecycle, Row, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
 import { log } from '@zup-it/nimbus-backend-core/actions'
-import { eq } from 'lodash'
 import { Product } from './product'
 
 interface ProductData {
@@ -28,22 +27,20 @@ export const Products: Screen = ({ navigator }) => {
   return (
     <ScreenComponent title="Products" state={products}>
       <Lifecycle onInit={[onInit]}>
-        <Column backgroundColor="#eee" flex={1}>
+        <Column backgroundColor="#EEEEEE" width="expand" height="expand">
           <Loading isLoading={products.get('isLoading')}>
             <ScrollView>
-              <Column padding={12}>
+              <Column padding={16}>
                 <ForEach items={products.get('data')} iteratorName="product">
-                  {(product, index) => (
-                    <Row>
-                      <ProductItem
-                        image={product.get('image')}
-                        title={product.get('title')}
-                        price={product.get('price')}
-                        inCart={contains(cart, product)}
-                        onPressBuy={globalState.get('cart').set(insert(globalState.get('cart'), product))}
-                        onPressDetails={[globalState.get('currentProduct').set(product), navigator.push(Product)]}
-                      />
-                    </Row>
+                  {(product) => (
+                    <ProductItem
+                      image={product.get('image')}
+                      title={product.get('title')}
+                      price={product.get('price')}
+                      inCart={contains(cart, product)}
+                      onPressBuy={globalState.get('cart').set(insert(globalState.get('cart'), product))}
+                      onPressDetails={[globalState.get('currentProduct').set(product), navigator.present(Product)]}
+                    />
                   )}
                 </ForEach>
               </Column>
