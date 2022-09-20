@@ -9,6 +9,6 @@ export interface ButtonProps extends Margin {
   enabled?: Expression<boolean>,
 }
 
-export const Button: FC<ButtonProps> = ({ id, enabled = true, ...props }) => (
+export const Button: FC<ButtonProps> = ({ id, enabled, ...props }) => (
   <component id={id} namespace={customComponentNamespace} name="button" properties={{ enabled, ...props } } />
 )

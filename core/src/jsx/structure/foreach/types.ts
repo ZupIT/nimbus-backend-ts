@@ -1,6 +1,6 @@
-import { Expression, State } from '../../../api'
+import { Expression, State, WithState } from '../../../api'
 
-export interface ForEachProps<T> {
+export interface ForEachProps<T> extends WithState {
   items?: Expression<T[]>,
   /**
    * @default 'item'
@@ -10,6 +10,6 @@ export interface ForEachProps<T> {
    * @default 'index'
    */
   indexName?: string,
-  key?: string,
+  key?: keyof T,
   children: (item: State<T>, index: State<number>) => JSX.Element,
 }

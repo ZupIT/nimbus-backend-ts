@@ -13,7 +13,7 @@ import { Product } from './product'
 export const Cart: Screen = ({ navigator }) => {
   const cart = globalState.get('cart')
   const goToDetails = (product: MapStateNode<ProductModel>) => [
-    globalState.get('currentProduct').set(product), navigator.push(Product)
+    globalState.get('currentProduct').set(product), navigator.present(Product)
   ]
 
   return (
@@ -21,7 +21,7 @@ export const Cart: Screen = ({ navigator }) => {
       <Column width="expand" height="expand" backgroundColor="#EEEEEE">
         <If condition={isEmpty(cart)}>
           <Then>
-            <Column width="expand" height="expand" mainAxisAlignment="center" crossAxisAlignment="center">
+            <Column width="expand" height="expand" padding={20} mainAxisAlignment="center" crossAxisAlignment="center">
               <Text alignment="center">Your cart is empty. Go to the products page and add some products.</Text>
             </Column>
           </Then>

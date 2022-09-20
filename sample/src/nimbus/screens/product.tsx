@@ -1,14 +1,12 @@
-import { contains, Else, If, insert, length, NimbusJSX, sum, Then } from '@zup-it/nimbus-backend-core'
+import { eq, Else, If, insert, NimbusJSX, Then } from '@zup-it/nimbus-backend-core'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, RemoteImage, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
-import { updateCartIndicator } from '../actions'
 import { Button } from '../components/button'
 import { globalState } from '../global-state'
 import { formatPrice } from '../operations'
 
 export const Product: Screen = () => {
   const product = globalState.get('currentProduct')
-  const cart = globalState.get('cart')
 
   return (
     <ScreenComponent title="Product details">
@@ -20,12 +18,15 @@ export const Product: Screen = () => {
           </Row>
           <Text size={20} weight="bold">{formatPrice(product.get('price'), 'BRL')}</Text>
           <Row marginVertical={36} mainAxisAlignment="center">
-            <If condition={contains(cart, product)}>
+            <If condition={eq(product.get('inCart'), true)}>
               <Then>
                 <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
               </Then>
               <Else>
-                <Button text="Add to cart" onPress={globalState.get('cart').set(insert(globalState.get('cart'), product))} />
+                <Button text="Add to cart" onPress={[
+                  globalState.get('cart').set(insert(globalState.get('cart'), product)),
+                  product.get('inCart').set(true),
+                ]} />
               </Else>
             </If>
           </Row>
