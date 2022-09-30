@@ -243,7 +243,6 @@ Object {
             Object {
               "_:component": "store:button",
               "properties": Object {
-                "enabled": true,
                 "onPress": Array [
                   Object {
                     "_:action": "pop",
@@ -256,7 +255,6 @@ Object {
             Object {
               "_:component": "store:button",
               "properties": Object {
-                "enabled": true,
                 "onPress": Array [
                   Object {
                     "_:action": "setState",
@@ -325,6 +323,7 @@ Object {
                     "crossAxisAlignment": "center",
                     "height": "expand",
                     "mainAxisAlignment": "center",
+                    "padding": 20,
                     "width": "expand",
                   },
                 },
@@ -413,7 +412,7 @@ Object {
                                     },
                                   },
                                   Object {
-                                    "_:action": "push",
+                                    "_:action": "present",
                                     "properties": Object {
                                       "url": "/product",
                                     },
@@ -668,7 +667,6 @@ Object {
             Object {
               "_:component": "store:button",
               "properties": Object {
-                "enabled": true,
                 "onPress": Array [
                   Object {
                     "_:action": "sendRequest",
@@ -813,13 +811,19 @@ Object {
                         Object {
                           "_:component": "store:button",
                           "properties": Object {
-                            "enabled": true,
                             "onPress": Array [
                               Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "global.cart",
                                   "value": "@{insert(global.cart, global.currentProduct)}",
+                                },
+                              },
+                              Object {
+                                "_:action": "setState",
+                                "properties": Object {
+                                  "path": "global.currentProduct.inCart",
+                                  "value": true,
                                 },
                               },
                             ],
@@ -830,7 +834,7 @@ Object {
                     },
                   ],
                   "properties": Object {
-                    "condition": "@{contains(global.cart, global.currentProduct)}",
+                    "condition": "@{eq(global.currentProduct.inCart, true)}",
                   },
                 },
               ],
@@ -1012,13 +1016,19 @@ Object {
                                                 Object {
                                                   "_:component": "store:button",
                                                   "properties": Object {
-                                                    "enabled": true,
                                                     "onPress": Array [
                                                       Object {
                                                         "_:action": "setState",
                                                         "properties": Object {
                                                           "path": "global.cart",
                                                           "value": "@{insert(global.cart, product)}",
+                                                        },
+                                                      },
+                                                      Object {
+                                                        "_:action": "setState",
+                                                        "properties": Object {
+                                                          "path": "product.inCart",
+                                                          "value": true,
                                                         },
                                                       },
                                                     ],
@@ -1029,7 +1039,7 @@ Object {
                                             },
                                           ],
                                           "properties": Object {
-                                            "condition": "@{contains(global.cart, product)}",
+                                            "condition": "@{eq(product.inCart, true)}",
                                           },
                                         },
                                       ],

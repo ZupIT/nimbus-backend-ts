@@ -1,12 +1,12 @@
 import { NimbusJSX, createState, ForEach } from '@zup-it/nimbus-backend-core'
-import { contains, insert, length, subtract } from '@zup-it/nimbus-backend-core/operations'
+import { eq, insert } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Product as ProductModel } from '../../models/product'
 import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
 import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
-import { Column, Lifecycle, Row, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
+import { Column, Lifecycle, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
 import { log } from '@zup-it/nimbus-backend-core/actions'
 import { Product } from './product'
 
@@ -37,8 +37,11 @@ export const Products: Screen = ({ navigator }) => {
                       image={product.get('image')}
                       title={product.get('title')}
                       price={product.get('price')}
-                      inCart={contains(cart, product)}
-                      onPressBuy={globalState.get('cart').set(insert(globalState.get('cart'), product))}
+                      inCart={eq(product.get('inCart'), true)}
+                      onPressBuy={[
+                        globalState.get('cart').set(insert(globalState.get('cart'), product)),
+                        product.get('inCart').set(true),
+                      ]}
                       onPressDetails={[globalState.get('currentProduct').set(product), navigator.present(Product)]}
                     />
                   )}

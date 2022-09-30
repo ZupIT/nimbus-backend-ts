@@ -2,8 +2,9 @@ import { NimbusJSX, DynamicExpression, FC, WithChildren, If, Then, Else } from '
 import { Column, Row } from '@zup-it/nimbus-backend-layout'
 import { Spinner } from '../components/spinner'
 
-interface Props extends WithChildren {
+interface Props {
   isLoading: DynamicExpression<boolean>,
+  children: JSX.Element | JSX.Element[],
 }
 
 export const Loading: FC<Props> = ({ isLoading, children }) => (
@@ -14,9 +15,7 @@ export const Loading: FC<Props> = ({ isLoading, children }) => (
       </Column>
     </Then>
     <Else>
-      <>
-        {children}
-      </>
+      {children}
     </Else>
   </If>
 )
