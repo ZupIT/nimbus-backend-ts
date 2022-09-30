@@ -5,6 +5,8 @@ export interface LifecycleProps extends Required<WithChildren> {
   onInit?: Actions,
 }
 
-export const Lifecycle: FC<LifecycleProps> = ({ id, children, ...props }) => (
-  <component id={id} namespace={genericNamespace} name="lifecycle" properties={props}>{children}</component>
+export const Lifecycle: FC<LifecycleProps> = ({ id, children, state, ...props }) => (
+  <component id={id} state={state} namespace={genericNamespace} name="lifecycle" properties={props}>
+    {children}
+  </component>
 )

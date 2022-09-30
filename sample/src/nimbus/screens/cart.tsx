@@ -26,34 +26,38 @@ export const Cart: Screen = ({ navigator }) => {
             </Column>
           </Then>
           <Else>
-            <ScrollView>
-              <Column padding={16}>
-                <ForEach items={cart}>
-                  {(product) => (
-                    <Touchable onPress={goToDetails(product)}>
-                      <Row
-                        padding={12}
-                        marginBottom={14}
-                        borderColor="#e3e3e3"
-                        borderWidth={1}
-                        backgroundColor="#FFFFFF"
-                        cornerRadius={12}
-                        crossAxisAlignment="center"
-                        width="expand"
-                      >
-                        <RemoteImage url={product.get('image')} width={50} scale="fillWidth" />
-                        <Row marginStart={16} width="expand" mainAxisAlignment="spaceBetween">
-                          <Row marginEnd={10}>
-                            <Text size={14} weight="light">{product.get('title')}</Text>
+            <Column height="expand">
+              <ScrollView>
+                <Column padding={16}>
+                  <ForEach items={cart} key="id">
+                    {(product) => (
+                      <Touchable onPress={goToDetails(product)}>
+                        <Row
+                          padding={12}
+                          marginBottom={14}
+                          borderColor="#e3e3e3"
+                          borderWidth={1}
+                          backgroundColor="#FFFFFF"
+                          cornerRadius={12}
+                          crossAxisAlignment="center"
+                          width="expand"
+                        >
+                          <RemoteImage url={product.get('image')} width={50} scale="fillWidth" />
+                          <Row marginStart={16} width="expand" mainAxisAlignment="spaceBetween">
+                            { /* todo: by removing the following row with expand, the Text in Android acts differently
+                            than the text on iOS. We should check this when we can. */}
+                            <Row width="expand" marginEnd={10}>
+                              <Text size={14} weight="light">{product.get('title')}</Text>
+                            </Row>
+                            <Text size={14} weight="normal">{formatPrice(product.get('price'), 'BRL')}</Text>
                           </Row>
-                          <Text size={14} weight="normal">{formatPrice(product.get('price'), 'BRL')}</Text>
                         </Row>
-                      </Row>
-                    </Touchable>
-                  )}
-                </ForEach>
-              </Column>
-            </ScrollView>
+                      </Touchable>
+                    )}
+                  </ForEach>
+                </Column>
+              </ScrollView>
+            </Column>
             <Row
               height={70}
               paddingHorizontal={16}
