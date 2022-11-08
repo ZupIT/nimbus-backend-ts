@@ -53,8 +53,9 @@ export interface ScreenRequest {
    * The type of the request data. If a JSON is expected, specify here the object interface.
    */
   data?: unknown,
-
-
+  /**
+   * The map of states that will be created on the next screen.
+   */
   params?: Record<string, any>,
 }
 
@@ -145,10 +146,7 @@ interface WithRouteParams<T> {
 
 interface WithStateParams<T extends Record<string, any> | undefined> {
   /**
-   * TODO Arthur
-   * The parameters for the url.
-   *
-   * Example: if the route is "/user/:userId/books/:bookId", this could be `{ userId: '1', bookId: '302' }`.
+   * The map of states that will be created on the next screen.
    */
   params: T,
 }
