@@ -4,9 +4,7 @@ import { Product } from '../models/product'
 
 export interface GlobalState {
   cart: Product[],
-  currentProduct?: Product,
   address: AddressModel,
-  currentOrder?: Order,
 }
 
 export const globalState = getGlobalState<GlobalState>()

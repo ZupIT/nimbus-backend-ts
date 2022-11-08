@@ -10,6 +10,7 @@ import { log, push } from '@zup-it/nimbus-backend-core/actions'
 import { TextInput } from '../components/text-input'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Order } from './order'
+import { Products } from './products'
 
 type PaymentInputProps = {
   label: string,
@@ -46,10 +47,17 @@ export const Payment: Screen = ({ navigator }) => {
       onSuccess: (response) => [
         cart.set([]),
         updateCartIndicator({ numberOfElementsInCart: 0 }),
-        globalState.get('currentOrder').set(response.get('data')),
-        navigator.popTo(Order)
+        navigator.popTo(Products),
+        navigator.present(Order, {
+          params: {
+            currentOrder: response.get('data'),
+          }
+        })
       ],
-      onError: response => log({ message: response.get('data').get('error').toString(), level: 'Error' })
+      onError: response => log({
+        message: response.get('data').get('error').toString(),
+        level: 'Error'
+      })
     },
   )
 

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { State, Component, DeepExpression } from '@zup-it/nimbus-backend-core'
+import { Component } from '@zup-it/nimbus-backend-core'
 import { Navigator } from './navigator'
 import { NimbusHeaders, IsRequired } from './utils/types'
 
@@ -53,29 +53,12 @@ export interface ScreenRequest {
    * The type of the request data. If a JSON is expected, specify here the object interface.
    */
   data?: unknown,
-  /**
-   * The type of the navigation state of this screen. If it's an order page and you expect to receive both the order
-   * id and the address from the navigation state, this should be:
-   * ```typescript
-   * {
-   *   orderId: string,
-   *   address: Address,
-   * }
-   * ```
-   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
-   * release and the functionality may change
-   */
-  navigationState?: unknown,
+
+
+  params?: Record<string, any>,
 }
 
 interface ScreenProps<T extends ScreenRequest> {
-  /**
-   * The navigation state of this screen.
-   *
-   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
-   * release, and the functionality may change
-   */
-  navigationState: State<T['navigationState']>,
   /**
    * The request object from express.
    */
@@ -160,6 +143,16 @@ interface WithRouteParams<T> {
   routeParams: T,
 }
 
+interface WithStateParams<T extends Record<string, any> | undefined> {
+  /**
+   * TODO Arthur
+   * The parameters for the url.
+   *
+   * Example: if the route is "/user/:userId/books/:bookId", this could be `{ userId: '1', bookId: '302' }`.
+   */
+  params: T,
+}
+
 interface WithHeaders<T> {
   /**
    * The headers to send in the request.
@@ -183,15 +176,6 @@ interface WithQuery<T> {
   query: T,
 }
 
-interface WithNavigationState<T> {
-  /**
-   * The properties to set in the navigation state of the next screen (previous, if this is a pop navigation).
-   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
-   * release, and the functionality may change
-   */
-   navigationState: DeepExpression<T>,
-}
-
 /**
  * Type of the navigation parameters in the Navigator.
  */
@@ -201,5 +185,7 @@ export type ScreenNavigation<T extends ScreenRequest> = BaseScreenNavigation
   & (IsRequired<T, 'headers'> extends true ? WithHeaders<T['headers']> : Partial<WithHeaders<T['headers']>>)
   & (IsRequired<T, 'data'> extends true ? WithData<T['data']> : Partial<WithData<T['data']>>)
   & (IsRequired<T, 'query'> extends true ? WithQuery<T['query']> : Partial<WithQuery<T['query']>>)
-  & (IsRequired<T, 'navigationState'> extends true
-    ? WithNavigationState<T['navigationState']> : Partial<WithNavigationState<T['navigationState']>>)
+  & (IsRequired<T, 'params'> extends true
+    ? WithStateParams<T['params']>
+    : Partial<WithStateParams<T['params']>>)
+

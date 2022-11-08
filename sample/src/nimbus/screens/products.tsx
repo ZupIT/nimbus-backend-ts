@@ -42,7 +42,13 @@ export const Products: Screen = ({ navigator }) => {
                         globalState.get('cart').set(insert(globalState.get('cart'), product)),
                         product.get('inCart').set(true),
                       ]}
-                      onPressDetails={[globalState.get('currentProduct').set(product), navigator.present(Product)]}
+                      onPressDetails={[
+                        navigator.present(Product, {
+                          params: {
+                            currentProduct: product,
+                          }
+                        })
+                      ]}
                     />
                   )}
                 </ForEach>
