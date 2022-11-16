@@ -333,104 +333,114 @@ Object {
               "_:component": "else",
               "children": Array [
                 Object {
-                  "_:component": "layout:scrollView",
+                  "_:component": "layout:column",
                   "children": Array [
                     Object {
-                      "_:component": "layout:column",
+                      "_:component": "layout:scrollView",
                       "children": Array [
                         Object {
-                          "_:component": "forEach",
+                          "_:component": "layout:column",
                           "children": Array [
                             Object {
-                              "_:component": "layout:touchable",
+                              "_:component": "forEach",
                               "children": Array [
                                 Object {
-                                  "_:component": "layout:row",
+                                  "_:component": "layout:touchable",
                                   "children": Array [
-                                    Object {
-                                      "_:component": "layout:remoteImage",
-                                      "properties": Object {
-                                        "scale": "fillWidth",
-                                        "url": "@{item.image}",
-                                        "width": 50,
-                                      },
-                                    },
                                     Object {
                                       "_:component": "layout:row",
                                       "children": Array [
                                         Object {
+                                          "_:component": "layout:remoteImage",
+                                          "properties": Object {
+                                            "scale": "fillWidth",
+                                            "url": "@{item.image}",
+                                            "width": 50,
+                                          },
+                                        },
+                                        Object {
                                           "_:component": "layout:row",
                                           "children": Array [
+                                            Object {
+                                              "_:component": "layout:row",
+                                              "children": Array [
+                                                Object {
+                                                  "_:component": "layout:text",
+                                                  "properties": Object {
+                                                    "size": 14,
+                                                    "text": "@{item.title}",
+                                                    "weight": "light",
+                                                  },
+                                                },
+                                              ],
+                                              "properties": Object {
+                                                "marginEnd": 10,
+                                                "width": "expand",
+                                              },
+                                            },
                                             Object {
                                               "_:component": "layout:text",
                                               "properties": Object {
                                                 "size": 14,
-                                                "text": "@{item.title}",
-                                                "weight": "light",
+                                                "text": "@{formatPrice(item.price, 'BRL')}",
+                                                "weight": "normal",
                                               },
                                             },
                                           ],
                                           "properties": Object {
-                                            "marginEnd": 10,
-                                          },
-                                        },
-                                        Object {
-                                          "_:component": "layout:text",
-                                          "properties": Object {
-                                            "size": 14,
-                                            "text": "@{formatPrice(item.price, 'BRL')}",
-                                            "weight": "normal",
+                                            "mainAxisAlignment": "spaceBetween",
+                                            "marginStart": 16,
+                                            "width": "expand",
                                           },
                                         },
                                       ],
                                       "properties": Object {
-                                        "mainAxisAlignment": "spaceBetween",
-                                        "marginStart": 16,
+                                        "backgroundColor": "#FFFFFF",
+                                        "borderColor": "#e3e3e3",
+                                        "borderWidth": 1,
+                                        "cornerRadius": 12,
+                                        "crossAxisAlignment": "center",
+                                        "marginBottom": 14,
+                                        "padding": 12,
                                         "width": "expand",
                                       },
                                     },
                                   ],
                                   "properties": Object {
-                                    "backgroundColor": "#FFFFFF",
-                                    "borderColor": "#e3e3e3",
-                                    "borderWidth": 1,
-                                    "cornerRadius": 12,
-                                    "crossAxisAlignment": "center",
-                                    "marginBottom": 14,
-                                    "padding": 12,
-                                    "width": "expand",
+                                    "onPress": Array [
+                                      Object {
+                                        "_:action": "setState",
+                                        "properties": Object {
+                                          "path": "global.currentProduct",
+                                          "value": "@{item}",
+                                        },
+                                      },
+                                      Object {
+                                        "_:action": "present",
+                                        "properties": Object {
+                                          "url": "/product",
+                                        },
+                                      },
+                                    ],
                                   },
                                 },
                               ],
                               "properties": Object {
-                                "onPress": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "global.currentProduct",
-                                      "value": "@{item}",
-                                    },
-                                  },
-                                  Object {
-                                    "_:action": "present",
-                                    "properties": Object {
-                                      "url": "/product",
-                                    },
-                                  },
-                                ],
+                                "items": "@{global.cart}",
+                                "key": "id",
                               },
                             },
                           ],
                           "properties": Object {
-                            "items": "@{global.cart}",
+                            "padding": 16,
                           },
                         },
                       ],
-                      "properties": Object {
-                        "padding": 16,
-                      },
                     },
                   ],
+                  "properties": Object {
+                    "height": "expand",
+                  },
                 },
                 Object {
                   "_:component": "layout:row",
