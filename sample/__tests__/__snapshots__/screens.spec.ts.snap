@@ -257,15 +257,11 @@ Object {
               "properties": Object {
                 "onPress": Array [
                   Object {
-                    "_:action": "setState",
-                    "properties": Object {
-                      "path": "global.address",
-                      "value": "@{formAddress}",
-                    },
-                  },
-                  Object {
                     "_:action": "push",
                     "properties": Object {
+                      "params": Object {
+                        "address": "@{formAddress}",
+                      },
                       "url": "/payment",
                     },
                   },
@@ -678,7 +674,7 @@ Object {
                     "_:action": "sendRequest",
                     "properties": Object {
                       "data": Object {
-                        "address": "@{global.address}",
+                        "address": "@{address}",
                         "payment": "@{card}",
                         "products": "@{global.cart}",
                       },
@@ -709,6 +705,15 @@ Object {
                         Object {
                           "_:action": "popTo",
                           "properties": Object {
+                            "url": "/products",
+                          },
+                        },
+                        Object {
+                          "_:action": "present",
+                          "properties": Object {
+                            "params": Object {
+                              "currentOrder": "@{onSuccess.data}",
+                            },
                             "url": "/order",
                           },
                         },

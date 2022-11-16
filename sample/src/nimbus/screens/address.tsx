@@ -1,11 +1,10 @@
-import { Actions, createState, Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { Actions, createState, createStateNode, Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Column, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
 import { AddressModel } from '../../models/order'
 import { Button } from '../components/button'
 import { TextInput } from '../components/text-input'
-import { globalState } from '../global-state'
 import { fetchCepAddress } from '../network/address'
 import { Payment } from './payment'
 
@@ -30,13 +29,7 @@ const AddressInput: FC<AddressInputProps> = ({ placeholder, label, name, address
 )
 
 export const Address: Screen = ({ navigator }) => {
-  const globalAddress = globalState.get('address')
   const formAddress = createState<AddressModel>('formAddress')
-  formAddress.get('city').set(globalAddress.get('city'))
-  formAddress.get('neighborhood').set(globalAddress.get('neighborhood'))
-  formAddress.get('state').set(globalAddress.get('state'))
-  formAddress.get('street').set(globalAddress.get('street'))
-
   const fillByZip = (zip: Expression<string>) => fetchCepAddress({
     cep: zip,
     onSuccess: response => [
@@ -79,7 +72,7 @@ export const Address: Screen = ({ navigator }) => {
         </Column>
         <Row mainAxisAlignment="spaceBetween" width="expand" padding={16}>
           <Button text="Cancel" onPress={navigator.pop()} />
-          <Button text="Next" onPress={[globalState.get('address').set(formAddress), navigator.push(Payment)]} />
+          <Button text="Next" onPress={[navigator.push(Payment, { params: { address: formAddress } })]} />
         </Row>
       </Column>
     </ScreenComponent>

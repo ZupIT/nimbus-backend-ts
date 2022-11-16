@@ -1,16 +1,17 @@
-import { NimbusJSX, createState, FC, Expression } from '@zup-it/nimbus-backend-core'
-import { Screen } from '@zup-it/nimbus-backend-express'
+import { NimbusJSX, createState, FC, Expression, createStateNode } from '@zup-it/nimbus-backend-core'
+import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { createOrder } from '../network/order'
 import { PaymentCard } from '../../models/order'
 import { globalState } from '../global-state'
 import { updateCartIndicator } from '../actions'
-import { Column, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
+import { Column, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { Button } from '../components/button'
-import { log, push } from '@zup-it/nimbus-backend-core/actions'
+import { log } from '@zup-it/nimbus-backend-core/actions'
 import { TextInput } from '../components/text-input'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Order } from './order'
 import { Products } from './products'
+import { AddressModel } from '../../models/order'
 
 type PaymentInputProps = {
   label: string,
@@ -34,14 +35,21 @@ const PaymentInput: FC<PaymentInputProps> = ({ label, placeholder, name, payment
   )
 }
 
-export const Payment: Screen = ({ navigator }) => {
+interface PaymentScreenProps extends ScreenRequest {
+  params: {
+    address: AddressModel | MapStateNode<AddressModel>,
+  }
+}
+
+export const Payment: Screen<PaymentScreenProps> = ({ navigator }) => {
   const cart = globalState.get('cart')
+  const address = createStateNode<AddressModel>('address')
   const card = createState<PaymentCard>('card')
   const makeOrder = createOrder(
     {
       data: {
         products: cart,
-        address: globalState.get('address'),
+        address: address,
         payment: card,
       },
       onSuccess: (response) => [
