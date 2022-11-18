@@ -1,6 +1,6 @@
 import { forEach } from 'lodash'
 import { Express } from 'express'
-import { serialize, createStateNode, HttpMethod } from '@zup-it/nimbus-backend-core'
+import { serialize, HttpMethod } from '@zup-it/nimbus-backend-core'
 import { RouteConfig, RouteMap } from './route'
 import { RequestWithCustomHeaders, Screen } from './screen'
 import { Navigator } from './navigator'
@@ -29,7 +29,6 @@ interface Options {
  *
  * - request: the current express request object;
  * - response: the current express response object;
- * - navigationState: the Nimbus's navigationState for this screen;
  * - navigator: a Navigator, i.e. a strictly typed structure that makes it easier and safer to use navigation actions.
  */
 export class NimbusApp {
@@ -54,7 +53,6 @@ export class NimbusApp {
 
   private responseHeaders: Record<string, any>
   private basePath: string
-  private navigationState = createStateNode('navigationState')
   private navigator: Navigator
 
   private expressMethodParser = (method?: HttpMethod | undefined): 'get' | 'patch' | 'put' | 'post' | 'delete' => {
@@ -76,7 +74,6 @@ export class NimbusApp {
       const componentTree = screen({
         request: req as RequestWithCustomHeaders,
         response: res,
-        navigationState: this.navigationState,
         navigator: this.navigator,
       })
       res.send(serialize(componentTree))

@@ -16,6 +16,7 @@
     "reactNamespace": "NimbusJSX",
     "lib": ["es6"],
     "baseUrl": "./",
+    "keyofStringsOnly": true,
     "paths": {
       "@zup-it/nimbus-backend-core": ["./core/src"],
       "@zup-it/nimbus-backend-core/*": ["./core/src/*"]

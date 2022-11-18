@@ -1,4 +1,4 @@
-import { Component, createStateNode, serialize } from '@zup-it/nimbus-backend-core'
+import { Component, serialize } from '@zup-it/nimbus-backend-core'
 import { Express, RequestParamHandler, Request, Response } from 'express'
 import { NimbusApp, RouteMap } from 'src'
 
@@ -102,12 +102,11 @@ describe('Nimbus App', () => {
       expect(response.type).toHaveBeenCalledWith('application/json')
     })
 
-    it('should call the screen function with the request, response, navigationState and navigator', () => {
+    it('should call the screen function with the request, response and navigator', () => {
       expect(testScreen).toHaveBeenCalledTimes(1)
       expect(testScreen).toHaveBeenCalledWith({
         request,
         response,
-        navigationState: createStateNode('navigationState'),
         navigator: { routes },
       })
     })

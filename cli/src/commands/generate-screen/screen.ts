@@ -13,7 +13,6 @@ export const generateScreenCodeFromBoilerplate = async (screenName: string, opti
     ...(options.withHeaders ? { headers: { your: 'headers' } } : {}),
     ...(options.withBody ? { body: { your: 'body' } } : {}),
     ...(options.withQuery ? { query: { your: 'query' } } : {}),
-    ...(options.withNavigationState ? { navigationState: { your: 'navigationState' } } : {}),
   }
   const screenHasProps = Object.keys(screenProps).length > 0
   const screenPropsName = `${formattedScreenName}Props`

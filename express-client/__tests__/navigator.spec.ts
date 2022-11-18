@@ -80,15 +80,6 @@ describe('Navigator', () => {
       }
     }
 
-    function testAllPopActions(options: any, expectedParams: any, screen: Screen = screenA) {
-      testActionWithOptions(screen, navigator.pop, options, pop(expectedParams))
-
-    }
-
-    function testAllPopToActions(options: any, expectedParams: any, screen: Screen = screenA) {
-      testActionWithOptions(screen, navigator.popTo, options, popTo(expectedParams))
-    }
-
     it('should create action with request body', () => {
       const data = { a: 1, b: 2, c: '3' }
       testAllPushResetActions(
@@ -106,13 +97,6 @@ describe('Navigator', () => {
     it('should create action with headers', () => {
       const headers = { 'my-header': 'my-value' }
       testAllPushResetActions({ headers }, { url: expect.any(String), headers })
-    })
-
-    it('should create action with navigationState', () => {
-      const navigationState = { address: { zip: '00000000' } }
-      testAllPushResetActions({ navigationState }, { url: expect.any(String), navigationState })
-      testAllPopActions({ navigationState }, { navigationState })
-      testAllPopToActions({ navigationState }, { url: expect.any(String), navigationState })
     })
 
     it('should create action with query params', () => {

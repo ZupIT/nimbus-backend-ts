@@ -257,15 +257,11 @@ Object {
               "properties": Object {
                 "onPress": Array [
                   Object {
-                    "_:action": "setState",
-                    "properties": Object {
-                      "path": "global.address",
-                      "value": "@{formAddress}",
-                    },
-                  },
-                  Object {
                     "_:action": "push",
                     "properties": Object {
+                      "params": Object {
+                        "address": "@{formAddress}",
+                      },
                       "url": "/payment",
                     },
                   },
@@ -409,15 +405,11 @@ Object {
                                   "properties": Object {
                                     "onPress": Array [
                                       Object {
-                                        "_:action": "setState",
-                                        "properties": Object {
-                                          "path": "global.currentProduct",
-                                          "value": "@{item}",
-                                        },
-                                      },
-                                      Object {
                                         "_:action": "present",
                                         "properties": Object {
+                                          "params": Object {
+                                            "currentProduct": "@{item}",
+                                          },
                                           "url": "/product",
                                         },
                                       },
@@ -682,7 +674,7 @@ Object {
                     "_:action": "sendRequest",
                     "properties": Object {
                       "data": Object {
-                        "address": "@{global.address}",
+                        "address": "@{address}",
                         "payment": "@{card}",
                         "products": "@{global.cart}",
                       },
@@ -711,15 +703,17 @@ Object {
                           },
                         },
                         Object {
-                          "_:action": "setState",
+                          "_:action": "popTo",
                           "properties": Object {
-                            "path": "global.currentOrder",
-                            "value": "@{onSuccess.data}",
+                            "url": "/products",
                           },
                         },
                         Object {
-                          "_:action": "popTo",
+                          "_:action": "present",
                           "properties": Object {
+                            "params": Object {
+                              "currentOrder": "@{onSuccess.data}",
+                            },
                             "url": "/order",
                           },
                         },
@@ -767,7 +761,7 @@ Object {
               "_:component": "layout:text",
               "properties": Object {
                 "size": 24,
-                "text": "@{global.currentProduct.title}",
+                "text": "@{currentProduct.title}",
                 "weight": "normal",
               },
             },
@@ -778,7 +772,7 @@ Object {
                   "_:component": "layout:remoteImage",
                   "properties": Object {
                     "scale": "fillWidth",
-                    "url": "@{global.currentProduct.image}",
+                    "url": "@{currentProduct.image}",
                     "width": 160,
                   },
                 },
@@ -791,7 +785,7 @@ Object {
               "_:component": "layout:text",
               "properties": Object {
                 "size": 20,
-                "text": "@{formatPrice(global.currentProduct.price, 'BRL')}",
+                "text": "@{formatPrice(currentProduct.price, 'BRL')}",
                 "weight": "bold",
               },
             },
@@ -826,13 +820,13 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "global.cart",
-                                  "value": "@{insert(global.cart, global.currentProduct)}",
+                                  "value": "@{insert(global.cart, currentProduct)}",
                                 },
                               },
                               Object {
                                 "_:action": "setState",
                                 "properties": Object {
-                                  "path": "global.currentProduct.inCart",
+                                  "path": "currentProduct.inCart",
                                   "value": true,
                                 },
                               },
@@ -844,7 +838,7 @@ Object {
                     },
                   ],
                   "properties": Object {
-                    "condition": "@{eq(global.currentProduct.inCart, true)}",
+                    "condition": "@{eq(currentProduct.inCart, true)}",
                   },
                 },
               ],
@@ -858,7 +852,7 @@ Object {
               "properties": Object {
                 "color": "#515151",
                 "size": 16,
-                "text": "@{global.currentProduct.description}",
+                "text": "@{currentProduct.description}",
                 "weight": "light",
               },
             },
@@ -917,7 +911,7 @@ Object {
                       "_:component": "layout:scrollView",
                       "children": Array [
                         Object {
-                          "_:component": "layout:column",
+                          "_:component": "layout:lazyColumn",
                           "children": Array [
                             Object {
                               "_:component": "forEach",
@@ -976,15 +970,11 @@ Object {
                                       "properties": Object {
                                         "onPress": Array [
                                           Object {
-                                            "_:action": "setState",
-                                            "properties": Object {
-                                              "path": "global.currentProduct",
-                                              "value": "@{product}",
-                                            },
-                                          },
-                                          Object {
                                             "_:action": "present",
                                             "properties": Object {
+                                              "params": Object {
+                                                "currentProduct": "@{product}",
+                                              },
                                               "url": "/product",
                                             },
                                           },
