@@ -6,7 +6,7 @@ import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
 import { globalState } from '../global-state'
 import { Loading } from '../fragments/loading'
-import { Column, Lifecycle, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
+import { Column, LazyColumn, Lifecycle, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
 import { log } from '@zup-it/nimbus-backend-core/actions'
 import { Product } from './product'
 
@@ -30,7 +30,7 @@ export const Products: Screen = ({ navigator }) => {
         <Column backgroundColor="#EEEEEE" width="expand" height="expand">
           <Loading isLoading={products.get('isLoading')}>
             <ScrollView>
-              <Column padding={16}>
+              <LazyColumn padding={16}>
                 <ForEach items={products.get('data')} iteratorName="product">
                   {(product) => (
                     <ProductItem
@@ -52,7 +52,7 @@ export const Products: Screen = ({ navigator }) => {
                     />
                   )}
                 </ForEach>
-              </Column>
+              </LazyColumn>
             </ScrollView>
           </Loading>
         </Column>

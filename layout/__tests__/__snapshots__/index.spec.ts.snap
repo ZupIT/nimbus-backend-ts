@@ -6,6 +6,8 @@ Object {
   "Column": "function",
   "FlowColumn": "function",
   "FlowRow": "function",
+  "LazyColumn": "function",
+  "LazyRow": "function",
   "Lifecycle": "function",
   "LocalImage": "function",
   "Positioned": "function",
