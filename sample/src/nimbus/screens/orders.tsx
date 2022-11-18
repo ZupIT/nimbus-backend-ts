@@ -25,8 +25,11 @@ export const Orders: Screen = ({ navigator }) => {
     onFinish: orders.get('isLoading').set(false),
   })
   const goToDetails = (order: MapStateNode<OrderModel>) => [
-    globalState.get('currentOrder').set(order),
-    navigator.push(Order)
+    navigator.push(Order, {
+      params: {
+        currentOrder: order
+      }
+    })
   ]
 
   return (

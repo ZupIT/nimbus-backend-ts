@@ -257,15 +257,11 @@ Object {
               "properties": Object {
                 "onPress": Array [
                   Object {
-                    "_:action": "setState",
-                    "properties": Object {
-                      "path": "global.address",
-                      "value": "@{formAddress}",
-                    },
-                  },
-                  Object {
                     "_:action": "push",
                     "properties": Object {
+                      "params": Object {
+                        "address": "@{formAddress}",
+                      },
                       "url": "/payment",
                     },
                   },
@@ -333,104 +329,110 @@ Object {
               "_:component": "else",
               "children": Array [
                 Object {
-                  "_:component": "layout:scrollView",
+                  "_:component": "layout:column",
                   "children": Array [
                     Object {
-                      "_:component": "layout:column",
+                      "_:component": "layout:scrollView",
                       "children": Array [
                         Object {
-                          "_:component": "forEach",
+                          "_:component": "layout:column",
                           "children": Array [
                             Object {
-                              "_:component": "layout:touchable",
+                              "_:component": "forEach",
                               "children": Array [
                                 Object {
-                                  "_:component": "layout:row",
+                                  "_:component": "layout:touchable",
                                   "children": Array [
-                                    Object {
-                                      "_:component": "layout:remoteImage",
-                                      "properties": Object {
-                                        "scale": "fillWidth",
-                                        "url": "@{item.image}",
-                                        "width": 50,
-                                      },
-                                    },
                                     Object {
                                       "_:component": "layout:row",
                                       "children": Array [
                                         Object {
+                                          "_:component": "layout:remoteImage",
+                                          "properties": Object {
+                                            "scale": "fillWidth",
+                                            "url": "@{item.image}",
+                                            "width": 50,
+                                          },
+                                        },
+                                        Object {
                                           "_:component": "layout:row",
                                           "children": Array [
+                                            Object {
+                                              "_:component": "layout:row",
+                                              "children": Array [
+                                                Object {
+                                                  "_:component": "layout:text",
+                                                  "properties": Object {
+                                                    "size": 14,
+                                                    "text": "@{item.title}",
+                                                    "weight": "light",
+                                                  },
+                                                },
+                                              ],
+                                              "properties": Object {
+                                                "marginEnd": 10,
+                                                "width": "expand",
+                                              },
+                                            },
                                             Object {
                                               "_:component": "layout:text",
                                               "properties": Object {
                                                 "size": 14,
-                                                "text": "@{item.title}",
-                                                "weight": "light",
+                                                "text": "@{formatPrice(item.price, 'BRL')}",
+                                                "weight": "normal",
                                               },
                                             },
                                           ],
                                           "properties": Object {
-                                            "marginEnd": 10,
-                                          },
-                                        },
-                                        Object {
-                                          "_:component": "layout:text",
-                                          "properties": Object {
-                                            "size": 14,
-                                            "text": "@{formatPrice(item.price, 'BRL')}",
-                                            "weight": "normal",
+                                            "mainAxisAlignment": "spaceBetween",
+                                            "marginStart": 16,
+                                            "width": "expand",
                                           },
                                         },
                                       ],
                                       "properties": Object {
-                                        "mainAxisAlignment": "spaceBetween",
-                                        "marginStart": 16,
+                                        "backgroundColor": "#FFFFFF",
+                                        "borderColor": "#e3e3e3",
+                                        "borderWidth": 1,
+                                        "cornerRadius": 12,
+                                        "crossAxisAlignment": "center",
+                                        "marginBottom": 14,
+                                        "padding": 12,
                                         "width": "expand",
                                       },
                                     },
                                   ],
                                   "properties": Object {
-                                    "backgroundColor": "#FFFFFF",
-                                    "borderColor": "#e3e3e3",
-                                    "borderWidth": 1,
-                                    "cornerRadius": 12,
-                                    "crossAxisAlignment": "center",
-                                    "marginBottom": 14,
-                                    "padding": 12,
-                                    "width": "expand",
+                                    "onPress": Array [
+                                      Object {
+                                        "_:action": "present",
+                                        "properties": Object {
+                                          "params": Object {
+                                            "currentProduct": "@{item}",
+                                          },
+                                          "url": "/product",
+                                        },
+                                      },
+                                    ],
                                   },
                                 },
                               ],
                               "properties": Object {
-                                "onPress": Array [
-                                  Object {
-                                    "_:action": "setState",
-                                    "properties": Object {
-                                      "path": "global.currentProduct",
-                                      "value": "@{item}",
-                                    },
-                                  },
-                                  Object {
-                                    "_:action": "present",
-                                    "properties": Object {
-                                      "url": "/product",
-                                    },
-                                  },
-                                ],
+                                "items": "@{global.cart}",
+                                "key": "id",
                               },
                             },
                           ],
                           "properties": Object {
-                            "items": "@{global.cart}",
+                            "padding": 16,
                           },
                         },
                       ],
-                      "properties": Object {
-                        "padding": 16,
-                      },
                     },
                   ],
+                  "properties": Object {
+                    "height": "expand",
+                  },
                 },
                 Object {
                   "_:component": "layout:row",
@@ -672,7 +674,7 @@ Object {
                     "_:action": "sendRequest",
                     "properties": Object {
                       "data": Object {
-                        "address": "@{global.address}",
+                        "address": "@{address}",
                         "payment": "@{card}",
                         "products": "@{global.cart}",
                       },
@@ -701,15 +703,17 @@ Object {
                           },
                         },
                         Object {
-                          "_:action": "setState",
+                          "_:action": "popTo",
                           "properties": Object {
-                            "path": "global.currentOrder",
-                            "value": "@{onSuccess.data}",
+                            "url": "/products",
                           },
                         },
                         Object {
-                          "_:action": "popTo",
+                          "_:action": "present",
                           "properties": Object {
+                            "params": Object {
+                              "currentOrder": "@{onSuccess.data}",
+                            },
                             "url": "/order",
                           },
                         },
@@ -757,7 +761,7 @@ Object {
               "_:component": "layout:text",
               "properties": Object {
                 "size": 24,
-                "text": "@{global.currentProduct.title}",
+                "text": "@{currentProduct.title}",
                 "weight": "normal",
               },
             },
@@ -768,7 +772,7 @@ Object {
                   "_:component": "layout:remoteImage",
                   "properties": Object {
                     "scale": "fillWidth",
-                    "url": "@{global.currentProduct.image}",
+                    "url": "@{currentProduct.image}",
                     "width": 160,
                   },
                 },
@@ -781,7 +785,7 @@ Object {
               "_:component": "layout:text",
               "properties": Object {
                 "size": 20,
-                "text": "@{formatPrice(global.currentProduct.price, 'BRL')}",
+                "text": "@{formatPrice(currentProduct.price, 'BRL')}",
                 "weight": "bold",
               },
             },
@@ -816,13 +820,13 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "global.cart",
-                                  "value": "@{insert(global.cart, global.currentProduct)}",
+                                  "value": "@{insert(global.cart, currentProduct)}",
                                 },
                               },
                               Object {
                                 "_:action": "setState",
                                 "properties": Object {
-                                  "path": "global.currentProduct.inCart",
+                                  "path": "currentProduct.inCart",
                                   "value": true,
                                 },
                               },
@@ -834,7 +838,7 @@ Object {
                     },
                   ],
                   "properties": Object {
-                    "condition": "@{eq(global.currentProduct.inCart, true)}",
+                    "condition": "@{eq(currentProduct.inCart, true)}",
                   },
                 },
               ],
@@ -848,7 +852,7 @@ Object {
               "properties": Object {
                 "color": "#515151",
                 "size": 16,
-                "text": "@{global.currentProduct.description}",
+                "text": "@{currentProduct.description}",
                 "weight": "light",
               },
             },
@@ -966,15 +970,11 @@ Object {
                                       "properties": Object {
                                         "onPress": Array [
                                           Object {
-                                            "_:action": "setState",
-                                            "properties": Object {
-                                              "path": "global.currentProduct",
-                                              "value": "@{product}",
-                                            },
-                                          },
-                                          Object {
                                             "_:action": "present",
                                             "properties": Object {
+                                              "params": Object {
+                                                "currentProduct": "@{product}",
+                                              },
                                               "url": "/product",
                                             },
                                           },

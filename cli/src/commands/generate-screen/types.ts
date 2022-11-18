@@ -15,8 +15,4 @@ export interface GenerateScreenOptions {
    * The screen will have properties in the urls query.
    */
   withQuery: boolean,
-  /**
-   * The screen will have properties to be set in the navigation state.
-   */
-  withNavigationState: boolean,
 }

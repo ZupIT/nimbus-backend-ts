@@ -1,12 +1,20 @@
-import { eq, Else, If, insert, NimbusJSX, Then } from '@zup-it/nimbus-backend-core'
-import { Screen } from '@zup-it/nimbus-backend-express'
+import { eq, Else, If, insert, NimbusJSX, Then, createStateNode } from '@zup-it/nimbus-backend-core'
+import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
+import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { Column, RemoteImage, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
+import { Product as ProductModel } from '../../models/product'
 import { Button } from '../components/button'
 import { globalState } from '../global-state'
 import { formatPrice } from '../operations'
 
-export const Product: Screen = () => {
-  const product = globalState.get('currentProduct')
+interface ProductScreenProps extends ScreenRequest {
+  params: {
+    currentProduct: ProductModel | MapStateNode<ProductModel>,
+  }
+}
+
+export const Product: Screen<ProductScreenProps> = () => {
+  const product = createStateNode<ProductModel>('currentProduct')
 
   return (
     <ScreenComponent title="Product details">
