@@ -13,7 +13,11 @@ import { Product } from './product'
 export const Cart: Screen = ({ navigator }) => {
   const cart = globalState.get('cart')
   const goToDetails = (product: MapStateNode<ProductModel>) => [
-    globalState.get('currentProduct').set(product), navigator.present(Product)
+    navigator.present(Product, {
+      params: {
+        currentProduct: product,
+      }
+    })
   ]
 
   return (

@@ -44,7 +44,7 @@ export class StateNode<T> {
  * in a common programming language. It is important to remember that the state is only a reference, since the actual
  * value will be calculated in the front-end only, when running the server-driven screen.
  *
- * Attention: this should only be used for referring to the "globalState", "navigationState" or any implicit state.
+ * Attention: this should only be used for referring to the "globalState" or any implicit state.
  * To declare a new state, please use: `createState` instead.
  *
  * Implicit states are generally used in actions or components, the sendRequest action, for instance, has the

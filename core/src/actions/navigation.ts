@@ -4,52 +4,7 @@ import { Component } from '../model/component'
 import { isDynamicExpression } from '../utils'
 import { createCoreAction } from './core-action'
 
-/**
- * Transforms anything into the navigation state expected by the frontend, i.e. an object with `path` and `value`.
- * `path` will be undefined if it's not possible to extract a common path from the argument `data`.
- *
- * Example: `{ user: { address: { position: { lat: 58.8, lng: -136.5 } } } }` becomes
- * `{ path: 'user.address.position', value: { lat: 58.8, lng: -136.5 } }`.
- *
- * @param data the data to transform into a navigation state
- * @returns the navigation state
- */
-function formatNavigationState(data: any) {
-  if (!data) return
-  const keyParts: string[] = []
-
-  while (data && !isDynamicExpression(data) && typeof data === 'object' && Object.keys(data).length === 1) {
-    const currentKey = Object.keys(data)[0]
-    keyParts.push(currentKey)
-    data = data[currentKey]
-  }
-
-  return {
-    path: keyParts.length ? keyParts.join('.') : undefined,
-    value: data,
-  }
-}
-
-export interface BaseNavigationParams {
-  /**
-   * The navigation state to set in this navigation. Each route (screen) can have a navigation-scoped state and
-   * this is the way to set it. For instance, once we click in a "Buy now" button, we may want to send the user to
-   * "/product", but "/product" might need to know which product we're talking about, one way to pass this information
-   * is via the navigation state.
-   *
-   * Another use-case for this feature is when we want to return to a page with a new information. For example, when
-   * finishing an order, we might need to ask the user for his/her address. After obtaining the address, we can send
-   * the user back to the "finish-order" screen (popView) and send the address in the navigation state.
-   *
-   * By default, nothing is sent here.
-   *
-   * @see navigationState feature is not implemented yet, so the usage of this feature will not work until further
-   * release, and the functionality may change.
-   */
-  navigationState?: unknown,
-}
-
-export interface PushProperties extends BaseNavigationParams {
+export interface PushProperties {
   /**
    * The URL of the screen to fetch.
    */
@@ -77,9 +32,11 @@ export interface PushProperties extends BaseNavigationParams {
     * The data to send with the request. Invalid for GET requests.
     */
    data?: any,
+
+   params?: Record<string, any>,
 }
 
-export interface PopToProperties extends BaseNavigationParams {
+export interface PopToProperties {
   url: string,
 }
 
@@ -87,10 +44,10 @@ export type Route = PushProperties | PopToProperties
 
 const navigator = {
   push: createCoreAction<PushProperties>('push'),
-  pop: createCoreAction<BaseNavigationParams>('pop'),
+  pop: createCoreAction<void>('pop'),
   popTo: createCoreAction<PopToProperties>('popTo'),
   present: createCoreAction<PushProperties>('present'),
-  dismiss: createCoreAction<BaseNavigationParams>('dismiss'),
+  dismiss: createCoreAction<void>('dismiss'),
 }
 
 interface PushFunction {
@@ -107,7 +64,6 @@ interface PushFunction {
    *
    * @param props the parameters for this navigation:
    * - route the screen to load.
-   * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.push>): ReturnType<typeof navigator.push>,
@@ -127,7 +83,6 @@ interface PresentFunction {
    *
    * @param props the parameters for this navigation:
    * - route the screen to load.
-   * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.present>): ReturnType<typeof navigator.present>,
@@ -149,7 +104,6 @@ interface PopToFunction {
    *
    * @param props the parameters for this navigation:
    * - route: the identifier for the screen to go back to.
-   * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.popTo>): ReturnType<typeof navigator.popTo>,
@@ -167,7 +121,6 @@ interface PopFunction {
    * Goes back to the previous route.
    *
    * @param props the parameters for this navigation:
-   * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.pop>): ReturnType<typeof navigator.pop>,
@@ -185,7 +138,6 @@ interface DismissFunction {
    * Goes back to the previous route.
    *
    * @param props the parameters for this navigation:
-   * - navigationState: the State for this navigation. See {@link BaseNavigationParams}.
    * @returns an instance of Action
    */
   (...args: Parameters<typeof navigator.dismiss>): ReturnType<typeof navigator.dismiss>,
@@ -198,9 +150,7 @@ function getParams(props: any, isPopToView?: boolean) {
       route: isPopToView ? props : { url: props },
     }
   }
-
-  const { navigationState, ...other } = props
-  return { navigationState: formatNavigationState(navigationState), ...other }
+  return props
 }
 
 /** @category Actions */

@@ -5,12 +5,12 @@ import { HasRequiredProperty } from '../utils/types'
 
 type Push<T extends ScreenRequest> = ScreenNavigation<T>
 type Present<T extends ScreenRequest> = ScreenNavigation<T>
-type Pop<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState'>
-type Dismiss<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState'>
-type PopTo<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'navigationState' | 'routeParams' | 'query'>
+type PopTo<T extends ScreenRequest> = Pick<ScreenNavigation<T>, 'routeParams' | 'query'>
 
-type NavigationAction<T extends ScreenRequest, N> = HasRequiredProperty<T> extends true
-  ? [screen: Screen<T>, properties: N] : [screen: Screen<T>, properties?: N]
+type NavigationAction<T extends ScreenRequest, N, OP = false> =
+  HasRequiredProperty<OP extends true ? Omit<T, 'params'> : T> extends true
+    ? [screen: Screen<T>, properties: N]
+    : [screen: Screen<T>, properties?: N]
 
 export interface PushAction {
   /**
@@ -41,7 +41,7 @@ export interface PopAction {
    * @param properties the navigation state to set.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(properties?: Pop<T>): Action,
+  (): Action,
 }
 
 export interface DismissAction {
@@ -51,7 +51,7 @@ export interface DismissAction {
    * @param properties the navigation state to set.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(properties?: Dismiss<T>): Action,
+  (): Action,
 }
 
 export interface PopToAction {
@@ -63,5 +63,5 @@ export interface PopToAction {
    * @param properties the data to send with this navigation.
    * @returns an instance of Action.
    */
-  <T extends ScreenRequest>(...args: NavigationAction<T, PopTo<T>>): Action,
+  <T extends ScreenRequest>(...args: NavigationAction<T, PopTo<T>, true>): Action,
 }

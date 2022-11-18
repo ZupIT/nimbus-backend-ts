@@ -1,9 +1,10 @@
-import { NimbusJSX, FC, WithChildren, Expression, ForEach } from '@zup-it/nimbus-backend-core'
-import { Screen } from '@zup-it/nimbus-backend-express'
+import { NimbusJSX, FC, WithChildren, Expression, ForEach, createStateNode } from '@zup-it/nimbus-backend-core'
+import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
+import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { Column, ContainerProps, Row, ScreenComponent, ScrollView, Text, Touchable } from '@zup-it/nimbus-backend-layout'
-import { globalState } from '../global-state'
 import { formatPrice } from '../operations'
 import { Product } from './product'
+import { Order as OrderModel } from '../../models/order'
 
 interface SectionProps extends WithChildren {
   title: string
@@ -44,8 +45,14 @@ const DefinitionItem: FC<DefinitionItemProps> = ({ title, definition }) => (
   </Row>
 )
 
-export const Order: Screen = ({ navigator }) => {
-  const order = globalState.get('currentOrder')
+interface OrderScreenProps extends ScreenRequest {
+  params: {
+    currentOrder: OrderModel | MapStateNode<OrderModel>,
+  }
+}
+
+export const Order: Screen<OrderScreenProps> = ({ navigator }) => {
+  const order = createStateNode<OrderModel>('currentOrder')
   const address = order.get('address')
 
   return (
@@ -60,7 +67,7 @@ export const Order: Screen = ({ navigator }) => {
             <Section title="Products">
               <ForEach items={order.get('products')} iteratorName="product">
                 {(product) => (
-                  <Touchable onPress={[globalState.get('currentProduct').set(product), navigator.present(Product)]}>
+                  <Touchable onPress={[navigator.present(Product, { params: { currentProduct: product } })]}>
                     <DefinitionItem title={product.get('title')} definition={formatPrice(product.get('price'), 'BRL')} />
                   </Touchable>
                 )}

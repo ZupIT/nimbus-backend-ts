@@ -62,13 +62,13 @@ export class Navigator {
   }
 
   private buildRouteProperties({ type, screen, properties = {} }: GenericRemoteNavigation) {
-    const { routeParams, headers, data, prefetch, fallback, query, navigationState } = properties
+    const { routeParams, headers, data, prefetch, fallback, query, params } = properties
 
-    if (type === 'pop' || type === 'dismiss') return navigationState ? { navigationState } : undefined
+    if (type === 'pop' || type === 'dismiss') return undefined
 
     const { path, method } = this.getPathAndMethod(screen!)
     const url = this.buildUrl(path, routeParams, query)
-    if (type === 'popTo') return { url, navigationState } as PopToProperties
+    if (type === 'popTo') return { url } as PopToProperties
 
     const routeProperties: PushProperties = {
       url,
@@ -77,7 +77,7 @@ export class Navigator {
       headers,
       fallback,
       data,
-      navigationState,
+      params,
     }
 
     return routeProperties
@@ -89,11 +89,11 @@ export class Navigator {
 
   push: PushAction = (...[screen, properties]) => this.navigateRemote({ type: 'push', screen, properties })
 
-  pop: PopAction = (properties) => this.navigateRemote({ type: 'pop', properties })
+  pop: PopAction = () => this.navigateRemote({ type: 'pop' })
 
   popTo: PopToAction = (...[screen, properties]) => this.navigateRemote({ type: 'popTo', screen, properties })
 
   present: PresentAction = (...[screen, properties]) => this.navigateRemote({ type: 'present', screen, properties })
 
-  dismiss: DismissAction = (properties) => this.navigateRemote({ type: 'dismiss', properties })
+  dismiss: DismissAction = () => this.navigateRemote({ type: 'dismiss' })
 }
