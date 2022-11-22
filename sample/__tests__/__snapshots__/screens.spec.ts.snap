@@ -911,7 +911,7 @@ Object {
                       "_:component": "layout:scrollView",
                       "children": Array [
                         Object {
-                          "_:component": "layout:column",
+                          "_:component": "layout:lazyColumn",
                           "children": Array [
                             Object {
                               "_:component": "forEach",
