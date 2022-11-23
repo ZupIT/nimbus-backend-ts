@@ -1,6 +1,7 @@
 {
   "private": true,
   "workspaces": [
+    "cli",
     "core",
     "layout",
     "express-client",
@@ -10,12 +11,13 @@
     "node": ">=13.2"
   },
   "scripts": {
+    "cli": "yarn workspace @zup-it/nimbus-backend-cli",
     "core": "yarn workspace @zup-it/nimbus-backend-core",
     "express": "yarn workspace @zup-it/nimbus-backend-express",
     "layout": "yarn workspace @zup-it/nimbus-backend-layout",
     "sample": "yarn workspace @zup-it/nimbus-backend-sample",
     "build": "yarn core build && yarn express build && yarn layout build",
-    "clean": "yarn core clean && yarn express clean && yarn layout clean && yarn sample clean",
+    "clean": "yarn core clean && yarn express clean && yarn layout clean && yarn cli clean && yarn sample clean",
     "lint": "yarn eslint ./",
     "test": "yarn core test && yarn express test && yarn layout test",
     "create-api-docs": "typedoc"
