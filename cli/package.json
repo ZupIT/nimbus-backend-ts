@@ -4,6 +4,7 @@
   "description": "CLI for Nimbus Backend using TypeScript",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec npm run server",
+    "clean": "del dist",
     "build": "webpack"
   },
   "bin": {
