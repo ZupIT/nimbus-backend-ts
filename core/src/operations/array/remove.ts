@@ -1,5 +1,5 @@
 import { Operation } from '../../api'
-import { DynamicExpression } from '../../types'
+import { DynamicExpression, ValueOrResultOfExpression } from '../../types'
 import { Element } from './types'
 
 /**
@@ -12,5 +12,5 @@ import { Element } from './types'
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
 export const remove = <T>(array: DynamicExpression<T[]>, element: Element<T>) => (
-  new Operation<T[]>('remove', [array, element])
+  new Operation<ValueOrResultOfExpression<T>[]>('remove', [array, element])
 )

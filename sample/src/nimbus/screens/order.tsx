@@ -1,5 +1,4 @@
-import { NimbusJSX, FC, WithChildren, Expression, ForEach, createStateNode } from '@zup-it/nimbus-backend-core'
-import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
+import { NimbusJSX, FC, WithChildren, Expression, ForEach, multiply } from '@zup-it/nimbus-backend-core'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { Column, ContainerProps, Row, ScreenComponent, ScrollView, Text, Touchable } from '@zup-it/nimbus-backend-layout'
 import { formatPrice } from '../operations'
@@ -47,17 +46,16 @@ const DefinitionItem: FC<DefinitionItemProps> = ({ title, definition }) => (
 
 interface OrderScreenProps extends ScreenRequest {
   params: {
-    currentOrder: OrderModel | MapStateNode<OrderModel>,
+    order: OrderModel,
   }
 }
 
-export const Order: Screen<OrderScreenProps> = ({ navigator }) => {
-  const order = createStateNode<OrderModel>('currentOrder')
+export const Order: Screen<OrderScreenProps> = ({ navigator, getViewState }) => {
+  const order = getViewState('order')
   const address = order.get('address')
-
   return (
     <ScreenComponent title="Order">
-      <Column backgroundColor="#EEEEEE" width="expand" height="expand">
+      <Column width="expand" height="expand">
         <ScrollView>
           <Column padding={16}>
             <Section title="Details">
@@ -65,10 +63,13 @@ export const Order: Screen<OrderScreenProps> = ({ navigator }) => {
               <DefinitionItem title="Status:" definition={order.get('state')} />
             </Section>
             <Section title="Products">
-              <ForEach items={order.get('products')} iteratorName="product">
+              <ForEach items={order.get('products')} iteratorName="product" key="id">
                 {(product) => (
-                  <Touchable onPress={[navigator.present(Product, { params: { currentProduct: product } })]}>
-                    <DefinitionItem title={product.get('title')} definition={formatPrice(product.get('price'), 'BRL')} />
+                  <Touchable onPress={[navigator.present(Product, { params: { product } })]}>
+                    <DefinitionItem
+                      title={`(${product.get('quantity')}) ${product.get('title')}`}
+                      definition={formatPrice(multiply(product.get('quantity'), product.get('price')), 'BRL')}
+                    />
                   </Touchable>
                 )}
               </ForEach>

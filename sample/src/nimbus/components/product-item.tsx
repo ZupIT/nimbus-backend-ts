@@ -7,7 +7,6 @@ export interface ProductItemProps {
   image: Expression<string>,
   title: Expression<string>,
   price: Expression<number>,
-  inCart: Expression<boolean>,
   onPressBuy: Actions,
   onPressDetails: Actions,
 }
@@ -17,7 +16,6 @@ export const ProductItem: FC<ProductItemProps> = ({
   image,
   title,
   price,
-  inCart,
   onPressBuy,
   onPressDetails,
 }) => (
@@ -46,14 +44,7 @@ export const ProductItem: FC<ProductItemProps> = ({
     </Touchable>
     <Row height={1} width="expand" backgroundColor="#E3E3E3" marginTop={20}></Row>
     <Row mainAxisAlignment="center" paddingTop={16} width="expand">
-      <If condition={inCart}>
-        <Then>
-          <Text color="#2E8B57" size={18} weight="bold">In cart ✓</Text>
-        </Then>
-        <Else>
-          <Button text="Add to cart" onPress={onPressBuy} />
-        </Else>
-      </If>
+      <Button text="Add to cart" onPress={onPressBuy} />
     </Row>
   </Column>
 )

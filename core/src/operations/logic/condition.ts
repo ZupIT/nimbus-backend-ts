@@ -1,6 +1,6 @@
 import { Operation } from '../../api'
 import { ValidOperationAttribute } from '../../model/operation/types'
-import { Expression } from '../../types'
+import { Expression, ValueOrResultOfExpression } from '../../types'
 
 /**
  * If the first parameter resolves to true, the second parameter is returned. Otherwise, the third parameter is
@@ -16,4 +16,7 @@ export const condition = <WhenTrue extends ValidOperationAttribute, WhenFalse ex
   premise: Expression<boolean>,
   ifTrue: WhenTrue,
   otherwise: WhenFalse,
-) => new Operation<WhenTrue | WhenFalse>('condition', [premise, ifTrue, otherwise])
+) => new Operation<ValueOrResultOfExpression<WhenTrue> | ValueOrResultOfExpression<WhenFalse>>(
+  'condition',
+  [premise, ifTrue, otherwise],
+)

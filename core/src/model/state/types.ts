@@ -74,6 +74,8 @@ type ArrayRootState<T> = PrimitiveRootState<T> & {
  * This type helper correctly identifies the type of RootState<T> and returns the appropriate type of
  * {@link RootState}.
  */
-export type LocalState<T> = T extends Primitive ? PrimitiveRootState<T> : (
-  T extends any[] ? ArrayRootState<T> : MapRootState<T>
+export type LocalState<T> = T extends boolean ? PrimitiveRootState<boolean> :(
+  T extends Primitive ? PrimitiveRootState<T> : (
+    T extends any[] ? ArrayRootState<T> : MapRootState<T>
+  )
 )

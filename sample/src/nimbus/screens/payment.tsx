@@ -1,17 +1,16 @@
-import { NimbusJSX, createState, FC, Expression, createStateNode } from '@zup-it/nimbus-backend-core'
+import { NimbusJSX, createState, FC, Expression } from '@zup-it/nimbus-backend-core'
 import { Screen, ScreenRequest } from '@zup-it/nimbus-backend-express'
 import { createOrder } from '../network/order'
 import { PaymentCard } from '../../models/order'
 import { globalState } from '../global-state'
-import { updateCartIndicator } from '../actions'
 import { Column, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { Button } from '../components/button'
 import { log } from '@zup-it/nimbus-backend-core/actions'
 import { TextInput } from '../components/text-input'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
-import { Order } from './order'
-import { Products } from './products'
 import { AddressModel } from '../../models/order'
+import { Cart } from './cart'
+import { changeBottomNavigatorRoute } from '../actions'
 
 type PaymentInputProps = {
   label: string,
@@ -37,33 +36,30 @@ const PaymentInput: FC<PaymentInputProps> = ({ label, placeholder, name, payment
 
 interface PaymentScreenProps extends ScreenRequest {
   params: {
-    address: AddressModel | MapStateNode<AddressModel>,
+    address: AddressModel,
   }
 }
 
-export const Payment: Screen<PaymentScreenProps> = ({ navigator }) => {
+export const Payment: Screen<PaymentScreenProps> = ({ navigator, getViewState }) => {
   const cart = globalState.get('cart')
-  const address = createStateNode<AddressModel>('address')
+  const orders = globalState.get('orders')
+  const address = getViewState('address')
   const card = createState<PaymentCard>('card')
   const makeOrder = createOrder(
     {
       data: {
-        products: cart,
         address: address,
         payment: card,
       },
-      onSuccess: (response) => [
-        cart.set([]),
-        updateCartIndicator({ numberOfElementsInCart: 0 }),
-        navigator.popTo(Products),
-        navigator.present(Order, {
-          params: {
-            currentOrder: response.get('data'),
-          }
-        })
+      onSuccess: response => [
+        cart.get('products').set([]),
+        cart.get('total').set(0),
+        orders.set(response.get('data')),
+        navigator.popTo(Cart),
+        changeBottomNavigatorRoute({ route: 'Orders' })
       ],
       onError: response => log({
-        message: response.get('data').get('error').toString(),
+        message: response.get('message'),
         level: 'Error'
       })
     },

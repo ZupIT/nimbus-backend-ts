@@ -1,4 +1,5 @@
 import { NimbusJSX, RootState, Component, WithChildren, setFragmentFactory } from 'src'
+import { coreNamespace } from 'src/constants'
 import { nimbusFragmentFactory } from 'src/jsx/structure'
 import { omitUndefined } from './utils'
 
@@ -108,59 +109,13 @@ describe('JSX', () => {
   })
 
   describe('Fragments', () => {
-    it('should create a Text component if the child is a string', () => {
-      const component = <>Hello World!</>
-      expect(component).toBeInstanceOf(Component)
-      expect(component).toEqual({
-        name: 'text',
-        namespace: 'layout',
-        properties: { text: 'Hello World!' },
-      })
-    })
-
-    it('should combine multiple types in a single Text component', () => {
-      const component = <>Hello {5} World {true} {[1, 2]} {{ test: 'hi' }}!</>
-      expect(component).toBeInstanceOf(Component)
-      expect(component).toEqual({
-        name: 'text',
-        namespace: 'layout',
-        properties: { text: 'Hello 5 World true [1,2] {"test":"hi"}!' },
-      })
-    })
-
-    it('should create Column if the children is more than one component', () => {
+    it('should create the component Fragment', () => {
       const component = <><component name="test1" /><component name="test2" /></>
       expect(component).toBeInstanceOf(Component)
       expect(omitUndefined(component)).toEqual({
-        name: 'column',
-        namespace: 'layout',
+        name: 'fragment',
+        namespace: coreNamespace,
         children: [{ name: 'test1' }, { name: 'test2' }],
-      })
-    })
-
-    it('should create Column and Text components for mixed types of children', () => {
-      const component = (
-        <>
-          <component name="test1" />
-          Text 1
-          Text 2
-          <component name="test2" />
-          {true}
-          {5}
-          {4}
-          3
-          Text 3
-        </>
-      )
-      expect(omitUndefined(component)).toEqual({
-        name: 'column',
-        namespace: 'layout',
-        children: [
-          { name: 'test1' },
-          { name: 'text', namespace: 'layout', properties: { text: 'Text 1 Text 2' } },
-          { name: 'test2' },
-          { name: 'text', namespace: 'layout', properties: { text: 'true543 Text 3' } },
-        ],
       })
     })
 

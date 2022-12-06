@@ -3,6 +3,6 @@ import { createOrderController, getOrderController, listOrdersController } from 
 
 export function applyRoutes(app: Express) {
   app.get('/data/orders', (_, res) => listOrdersController(res))
-  app.post('/order', createOrderController)
-  app.get('/order/:id', getOrderController)
+  app.post('/data/order', createOrderController)
+  app.get('/data/order/:id', getOrderController)
 }
