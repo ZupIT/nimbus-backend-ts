@@ -24,6 +24,16 @@ Object {
                           Object {
                             "_:action": "sendRequest",
                             "properties": Object {
+                              "onError": Array [
+                                Object {
+                                  "_:action": "log",
+                                  "properties": Object {
+                                    "level": "Error",
+                                    "message": "Error while retrieving zip-code data: @{onBlur}.
+@{onError.message}",
+                                  },
+                                },
+                              ],
                               "onSuccess": Array [
                                 Object {
                                   "_:action": "setState",
@@ -54,7 +64,7 @@ Object {
                                   },
                                 },
                               ],
-                              "url": "https://viacep.com.br/ws/@{onBlur.value}/json",
+                              "url": "https://viacep.com.br/ws/@{onBlur}/json",
                             },
                           },
                         ],
@@ -63,7 +73,7 @@ Object {
                             "_:action": "setState",
                             "properties": Object {
                               "path": "formAddress.zip",
-                              "value": "@{onChange.value}",
+                              "value": "@{onChange}",
                             },
                           },
                         ],
@@ -99,7 +109,7 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "formAddress.street",
-                                  "value": "@{onChange.value}",
+                                  "value": "@{onChange}",
                                 },
                               },
                             ],
@@ -132,7 +142,7 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "formAddress.number",
-                                  "value": "@{onChange.value}",
+                                  "value": "@{onChange}",
                                 },
                               },
                             ],
@@ -174,7 +184,7 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "formAddress.city",
-                                  "value": "@{onChange.value}",
+                                  "value": "@{onChange}",
                                 },
                               },
                             ],
@@ -207,7 +217,7 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "formAddress.state",
-                                  "value": "@{onChange.value}",
+                                  "value": "@{onChange}",
                                 },
                               },
                             ],
@@ -299,196 +309,292 @@ Object {
       "_:component": "layout:column",
       "children": Array [
         Object {
-          "_:component": "if",
+          "_:component": "layout:lifecycle",
           "children": Array [
             Object {
-              "_:component": "then",
+              "_:component": "if",
               "children": Array [
                 Object {
-                  "_:component": "layout:column",
-                  "children": Array [
-                    Object {
-                      "_:component": "layout:text",
-                      "properties": Object {
-                        "alignment": "center",
-                        "text": "Your cart is empty. Go to the products page and add some products.",
-                      },
-                    },
-                  ],
-                  "properties": Object {
-                    "crossAxisAlignment": "center",
-                    "height": "expand",
-                    "mainAxisAlignment": "center",
-                    "padding": 20,
-                    "width": "expand",
-                  },
-                },
-              ],
-            },
-            Object {
-              "_:component": "else",
-              "children": Array [
-                Object {
-                  "_:component": "layout:column",
-                  "children": Array [
-                    Object {
-                      "_:component": "layout:scrollView",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:column",
-                          "children": Array [
-                            Object {
-                              "_:component": "forEach",
-                              "children": Array [
-                                Object {
-                                  "_:component": "layout:touchable",
-                                  "children": Array [
-                                    Object {
-                                      "_:component": "layout:row",
-                                      "children": Array [
-                                        Object {
-                                          "_:component": "layout:remoteImage",
-                                          "properties": Object {
-                                            "scale": "fillWidth",
-                                            "url": "@{item.image}",
-                                            "width": 50,
-                                          },
-                                        },
-                                        Object {
-                                          "_:component": "layout:row",
-                                          "children": Array [
-                                            Object {
-                                              "_:component": "layout:row",
-                                              "children": Array [
-                                                Object {
-                                                  "_:component": "layout:text",
-                                                  "properties": Object {
-                                                    "size": 14,
-                                                    "text": "@{item.title}",
-                                                    "weight": "light",
-                                                  },
-                                                },
-                                              ],
-                                              "properties": Object {
-                                                "marginEnd": 10,
-                                                "width": "expand",
-                                              },
-                                            },
-                                            Object {
-                                              "_:component": "layout:text",
-                                              "properties": Object {
-                                                "size": 14,
-                                                "text": "@{formatPrice(item.price, 'BRL')}",
-                                                "weight": "normal",
-                                              },
-                                            },
-                                          ],
-                                          "properties": Object {
-                                            "mainAxisAlignment": "spaceBetween",
-                                            "marginStart": 16,
-                                            "width": "expand",
-                                          },
-                                        },
-                                      ],
-                                      "properties": Object {
-                                        "backgroundColor": "#FFFFFF",
-                                        "borderColor": "#e3e3e3",
-                                        "borderWidth": 1,
-                                        "cornerRadius": 12,
-                                        "crossAxisAlignment": "center",
-                                        "marginBottom": 14,
-                                        "padding": 12,
-                                        "width": "expand",
-                                      },
-                                    },
-                                  ],
-                                  "properties": Object {
-                                    "onPress": Array [
-                                      Object {
-                                        "_:action": "present",
-                                        "properties": Object {
-                                          "params": Object {
-                                            "currentProduct": "@{item}",
-                                          },
-                                          "url": "/product",
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              "properties": Object {
-                                "items": "@{global.cart}",
-                                "key": "id",
-                              },
-                            },
-                          ],
-                          "properties": Object {
-                            "padding": 16,
-                          },
-                        },
-                      ],
-                    },
-                  ],
-                  "properties": Object {
-                    "height": "expand",
-                  },
-                },
-                Object {
-                  "_:component": "layout:row",
+                  "_:component": "then",
                   "children": Array [
                     Object {
                       "_:component": "layout:column",
                       "children": Array [
                         Object {
-                          "_:component": "layout:text",
-                          "properties": Object {
-                            "size": 14,
-                            "text": "Total",
-                            "weight": "light",
-                          },
-                        },
-                        Object {
-                          "_:component": "layout:text",
-                          "properties": Object {
-                            "color": "#008000",
-                            "text": "@{formatPrice(sumProducts(global.cart), 'BRL')}",
-                          },
+                          "_:component": "store:spinner",
+                          "properties": Object {},
                         },
                       ],
-                    },
-                    Object {
-                      "_:component": "store:button",
                       "properties": Object {
-                        "enabled": "@{not(isEmpty(global.cart))}",
-                        "onPress": Array [
-                          Object {
-                            "_:action": "push",
-                            "properties": Object {
-                              "url": "/address",
-                            },
-                          },
-                        ],
-                        "text": "Buy",
+                        "crossAxisAlignment": "center",
+                        "height": "expand",
+                        "mainAxisAlignment": "center",
+                        "width": "expand",
                       },
                     },
                   ],
-                  "properties": Object {
-                    "backgroundColor": "#FFFFFF",
-                    "borderColor": "#e3e3e3",
-                    "borderWidth": 1,
-                    "crossAxisAlignment": "center",
-                    "height": 70,
-                    "mainAxisAlignment": "spaceBetween",
-                    "paddingHorizontal": 16,
-                    "width": "expand",
-                  },
+                },
+                Object {
+                  "_:component": "else",
+                  "children": Array [
+                    Object {
+                      "_:component": "if",
+                      "children": Array [
+                        Object {
+                          "_:component": "then",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "alignment": "center",
+                                    "text": "Your cart is empty. Go to the products page and add some products.",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "crossAxisAlignment": "center",
+                                "height": "expand",
+                                "mainAxisAlignment": "center",
+                                "padding": 20,
+                                "width": "expand",
+                              },
+                            },
+                          ],
+                        },
+                        Object {
+                          "_:component": "else",
+                          "children": Array [
+                            Object {
+                              "_:component": "fragment",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:column",
+                                  "children": Array [
+                                    Object {
+                                      "_:component": "layout:scrollView",
+                                      "children": Array [
+                                        Object {
+                                          "_:component": "layout:column",
+                                          "children": Array [
+                                            Object {
+                                              "_:component": "forEach",
+                                              "children": Array [
+                                                Object {
+                                                  "_:component": "layout:touchable",
+                                                  "children": Array [
+                                                    Object {
+                                                      "_:component": "layout:row",
+                                                      "children": Array [
+                                                        Object {
+                                                          "_:component": "layout:remoteImage",
+                                                          "properties": Object {
+                                                            "scale": "fillWidth",
+                                                            "url": "@{item.image}",
+                                                            "width": 50,
+                                                          },
+                                                        },
+                                                        Object {
+                                                          "_:component": "layout:row",
+                                                          "children": Array [
+                                                            Object {
+                                                              "_:component": "layout:row",
+                                                              "children": Array [
+                                                                Object {
+                                                                  "_:component": "layout:text",
+                                                                  "properties": Object {
+                                                                    "size": 14,
+                                                                    "text": "(@{item.quantity}) @{item.title}",
+                                                                    "weight": "light",
+                                                                  },
+                                                                },
+                                                              ],
+                                                              "properties": Object {
+                                                                "marginEnd": 10,
+                                                                "width": "expand",
+                                                              },
+                                                            },
+                                                            Object {
+                                                              "_:component": "layout:text",
+                                                              "properties": Object {
+                                                                "size": 14,
+                                                                "text": "@{formatPrice(multiply(item.quantity, item.price), 'BRL')}",
+                                                                "weight": "normal",
+                                                              },
+                                                            },
+                                                          ],
+                                                          "properties": Object {
+                                                            "mainAxisAlignment": "spaceBetween",
+                                                            "marginStart": 16,
+                                                            "width": "expand",
+                                                          },
+                                                        },
+                                                      ],
+                                                      "properties": Object {
+                                                        "backgroundColor": "#FFFFFF",
+                                                        "borderColor": "#e3e3e3",
+                                                        "borderWidth": 1,
+                                                        "cornerRadius": 12,
+                                                        "crossAxisAlignment": "center",
+                                                        "marginBottom": 14,
+                                                        "padding": 12,
+                                                        "width": "expand",
+                                                      },
+                                                    },
+                                                  ],
+                                                  "properties": Object {
+                                                    "onPress": Array [
+                                                      Object {
+                                                        "_:action": "present",
+                                                        "properties": Object {
+                                                          "params": Object {
+                                                            "product": "@{item}",
+                                                          },
+                                                          "url": "/product",
+                                                        },
+                                                      },
+                                                    ],
+                                                  },
+                                                },
+                                              ],
+                                              "properties": Object {
+                                                "items": "@{global.cart.products}",
+                                                "key": "id",
+                                              },
+                                            },
+                                          ],
+                                          "properties": Object {
+                                            "padding": 16,
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                  "properties": Object {
+                                    "height": "expand",
+                                  },
+                                },
+                                Object {
+                                  "_:component": "layout:row",
+                                  "children": Array [
+                                    Object {
+                                      "_:component": "layout:column",
+                                      "children": Array [
+                                        Object {
+                                          "_:component": "layout:text",
+                                          "properties": Object {
+                                            "size": 14,
+                                            "text": "Total",
+                                            "weight": "light",
+                                          },
+                                        },
+                                        Object {
+                                          "_:component": "layout:text",
+                                          "properties": Object {
+                                            "color": "#008000",
+                                            "text": "@{formatPrice(global.cart.total, 'BRL')}",
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    Object {
+                                      "_:component": "store:button",
+                                      "properties": Object {
+                                        "onPress": Array [
+                                          Object {
+                                            "_:action": "push",
+                                            "properties": Object {
+                                              "url": "/address",
+                                            },
+                                          },
+                                        ],
+                                        "text": "Buy",
+                                      },
+                                    },
+                                  ],
+                                  "properties": Object {
+                                    "backgroundColor": "#FFFFFF",
+                                    "borderColor": "#e3e3e3",
+                                    "borderWidth": 1,
+                                    "crossAxisAlignment": "center",
+                                    "height": 70,
+                                    "mainAxisAlignment": "spaceBetween",
+                                    "paddingHorizontal": 16,
+                                    "width": "expand",
+                                  },
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                      "properties": Object {
+                        "condition": "@{isEmpty(global.cart.products)}",
+                      },
+                    },
+                  ],
                 },
               ],
+              "properties": Object {
+                "condition": "@{isLoading}",
+              },
             },
           ],
           "properties": Object {
-            "condition": "@{isEmpty(global.cart)}",
+            "onInit": Array [
+              Object {
+                "_:action": "condition",
+                "properties": Object {
+                  "condition": "@{isNull(global.cart)}",
+                  "onFalse": Array [
+                    Object {
+                      "_:action": "setState",
+                      "properties": Object {
+                        "path": "isLoading",
+                        "value": false,
+                      },
+                    },
+                  ],
+                  "onTrue": Array [
+                    Object {
+                      "_:action": "sendRequest",
+                      "properties": Object {
+                        "onError": Array [
+                          Object {
+                            "_:action": "log",
+                            "properties": Object {
+                              "level": "Error",
+                              "message": "@{onError.message}",
+                            },
+                          },
+                        ],
+                        "onFinish": Array [
+                          Object {
+                            "_:action": "setState",
+                            "properties": Object {
+                              "path": "isLoading",
+                              "value": false,
+                            },
+                          },
+                        ],
+                        "onSuccess": Array [
+                          Object {
+                            "_:action": "setState",
+                            "properties": Object {
+                              "path": "global.cart",
+                              "value": "@{onSuccess.data}",
+                            },
+                          },
+                        ],
+                        "url": "/data/cart",
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
           },
         },
       ],
@@ -502,41 +608,686 @@ Object {
   "properties": Object {
     "title": "Cart",
   },
+  "state": Object {
+    "id": "isLoading",
+    "value": true,
+  },
 }
 `;
 
 exports[`Verifies if the screens outputs match the snapshots should render the order screen 1`] = `
 Object {
-  "address": Object {
-    "city": "sao paulo",
-    "complement": "teste",
-    "neighborhood": "teste",
-    "number": "123",
-    "state": "SP",
-    "street": "rua a",
-    "zip": "12345",
-  },
-  "id": "1",
-  "products": Array [
+  "_:component": "layout:screen",
+  "children": Array [
     Object {
-      "category": "men's clothing",
-      "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
-      "id": 2,
-      "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
-      "price": 22.3,
-      "title": "Mens Casual Premium Slim Fit T-Shirts ",
-    },
-    Object {
-      "category": "men's clothing",
-      "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-      "id": 1,
-      "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-      "price": 109.95,
-      "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+      "_:component": "layout:column",
+      "children": Array [
+        Object {
+          "_:component": "layout:scrollView",
+          "children": Array [
+            Object {
+              "_:component": "layout:column",
+              "children": Array [
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:column",
+                      "children": Array [
+                        Object {
+                          "_:component": "layout:text",
+                          "properties": Object {
+                            "size": 20,
+                            "text": "Details",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "crossAxisAlignment": "center",
+                        "marginVertical": 6,
+                        "width": "expand",
+                      },
+                    },
+                    Object {
+                      "_:component": "layout:column",
+                      "children": Array [
+                        Object {
+                          "_:component": "layout:row",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "size": 14,
+                                    "text": "Id:",
+                                    "weight": "bold",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "marginEnd": 24,
+                              },
+                            },
+                            Object {
+                              "_:component": "layout:text",
+                              "properties": Object {
+                                "size": 14,
+                                "text": "@{order.id}",
+                                "weight": "normal",
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "mainAxisAlignment": "spaceBetween",
+                            "marginVertical": 6,
+                          },
+                        },
+                        Object {
+                          "_:component": "layout:row",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "size": 14,
+                                    "text": "Status:",
+                                    "weight": "bold",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "marginEnd": 24,
+                              },
+                            },
+                            Object {
+                              "_:component": "layout:text",
+                              "properties": Object {
+                                "size": 14,
+                                "text": "@{order.state}",
+                                "weight": "normal",
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "mainAxisAlignment": "spaceBetween",
+                            "marginVertical": 6,
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "backgroundColor": "#FFFFFF",
+                        "borderColor": "#e3e3e3",
+                        "borderWidth": 1,
+                        "cornerRadius": 8,
+                        "marginTop": 6,
+                        "padding": 12,
+                        "width": "expand",
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginBottom": 24,
+                  },
+                },
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:column",
+                      "children": Array [
+                        Object {
+                          "_:component": "layout:text",
+                          "properties": Object {
+                            "size": 20,
+                            "text": "Products",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "crossAxisAlignment": "center",
+                        "marginVertical": 6,
+                        "width": "expand",
+                      },
+                    },
+                    Object {
+                      "_:component": "layout:column",
+                      "children": Array [
+                        Object {
+                          "_:component": "forEach",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:touchable",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:row",
+                                  "children": Array [
+                                    Object {
+                                      "_:component": "layout:column",
+                                      "children": Array [
+                                        Object {
+                                          "_:component": "layout:text",
+                                          "properties": Object {
+                                            "size": 14,
+                                            "text": "(@{product.quantity}) @{product.title}",
+                                            "weight": "bold",
+                                          },
+                                        },
+                                      ],
+                                      "properties": Object {
+                                        "marginEnd": 24,
+                                      },
+                                    },
+                                    Object {
+                                      "_:component": "layout:text",
+                                      "properties": Object {
+                                        "size": 14,
+                                        "text": "@{formatPrice(multiply(product.quantity, product.price), 'BRL')}",
+                                        "weight": "normal",
+                                      },
+                                    },
+                                  ],
+                                  "properties": Object {
+                                    "mainAxisAlignment": "spaceBetween",
+                                    "marginVertical": 6,
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "onPress": Array [
+                                  Object {
+                                    "_:action": "present",
+                                    "properties": Object {
+                                      "params": Object {
+                                        "product": "@{product}",
+                                      },
+                                      "url": "/product",
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "items": "@{order.products}",
+                            "iteratorName": "product",
+                            "key": "id",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "backgroundColor": "#FFFFFF",
+                        "borderColor": "#e3e3e3",
+                        "borderWidth": 1,
+                        "cornerRadius": 8,
+                        "marginTop": 6,
+                        "padding": 12,
+                        "width": "expand",
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginBottom": 24,
+                  },
+                },
+                Object {
+                  "_:component": "layout:column",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:column",
+                      "children": Array [
+                        Object {
+                          "_:component": "layout:text",
+                          "properties": Object {
+                            "size": 20,
+                            "text": "Shipment",
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "crossAxisAlignment": "center",
+                        "marginVertical": 6,
+                        "width": "expand",
+                      },
+                    },
+                    Object {
+                      "_:component": "layout:column",
+                      "children": Array [
+                        Object {
+                          "_:component": "layout:row",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "size": 14,
+                                    "text": "Zip code:",
+                                    "weight": "bold",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "marginEnd": 24,
+                              },
+                            },
+                            Object {
+                              "_:component": "layout:text",
+                              "properties": Object {
+                                "size": 14,
+                                "text": "@{order.address.zip}",
+                                "weight": "normal",
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "mainAxisAlignment": "spaceBetween",
+                            "marginVertical": 6,
+                          },
+                        },
+                        Object {
+                          "_:component": "layout:row",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "size": 14,
+                                    "text": "City:",
+                                    "weight": "bold",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "marginEnd": 24,
+                              },
+                            },
+                            Object {
+                              "_:component": "layout:text",
+                              "properties": Object {
+                                "size": 14,
+                                "text": "@{order.address.city}",
+                                "weight": "normal",
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "mainAxisAlignment": "spaceBetween",
+                            "marginVertical": 6,
+                          },
+                        },
+                        Object {
+                          "_:component": "layout:row",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "size": 14,
+                                    "text": "State:",
+                                    "weight": "bold",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "marginEnd": 24,
+                              },
+                            },
+                            Object {
+                              "_:component": "layout:text",
+                              "properties": Object {
+                                "size": 14,
+                                "text": "@{order.address.state}",
+                                "weight": "normal",
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "mainAxisAlignment": "spaceBetween",
+                            "marginVertical": 6,
+                          },
+                        },
+                        Object {
+                          "_:component": "layout:row",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "size": 14,
+                                    "text": "Street:",
+                                    "weight": "bold",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "marginEnd": 24,
+                              },
+                            },
+                            Object {
+                              "_:component": "layout:text",
+                              "properties": Object {
+                                "size": 14,
+                                "text": "@{order.address.street}",
+                                "weight": "normal",
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "mainAxisAlignment": "spaceBetween",
+                            "marginVertical": 6,
+                          },
+                        },
+                        Object {
+                          "_:component": "layout:row",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "size": 14,
+                                    "text": "Number:",
+                                    "weight": "bold",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "marginEnd": 24,
+                              },
+                            },
+                            Object {
+                              "_:component": "layout:text",
+                              "properties": Object {
+                                "size": 14,
+                                "text": "@{order.address.number}",
+                                "weight": "normal",
+                              },
+                            },
+                          ],
+                          "properties": Object {
+                            "mainAxisAlignment": "spaceBetween",
+                            "marginVertical": 6,
+                          },
+                        },
+                      ],
+                      "properties": Object {
+                        "backgroundColor": "#FFFFFF",
+                        "borderColor": "#e3e3e3",
+                        "borderWidth": 1,
+                        "cornerRadius": 8,
+                        "marginTop": 6,
+                        "padding": 12,
+                        "width": "expand",
+                      },
+                    },
+                  ],
+                  "properties": Object {
+                    "marginBottom": 24,
+                  },
+                },
+              ],
+              "properties": Object {
+                "padding": 16,
+              },
+            },
+          ],
+        },
+      ],
+      "properties": Object {
+        "height": "expand",
+        "width": "expand",
+      },
     },
   ],
-  "state": "PAYMENT_ACCEPTED",
-  "total": 132.25,
+  "properties": Object {
+    "title": "Order",
+  },
+}
+`;
+
+exports[`Verifies if the screens outputs match the snapshots should render the orders screen 1`] = `
+Object {
+  "_:component": "layout:screen",
+  "children": Array [
+    Object {
+      "_:component": "layout:lifecycle",
+      "children": Array [
+        Object {
+          "_:component": "layout:column",
+          "children": Array [
+            Object {
+              "_:component": "if",
+              "children": Array [
+                Object {
+                  "_:component": "then",
+                  "children": Array [
+                    Object {
+                      "_:component": "layout:column",
+                      "children": Array [
+                        Object {
+                          "_:component": "store:spinner",
+                          "properties": Object {},
+                        },
+                      ],
+                      "properties": Object {
+                        "crossAxisAlignment": "center",
+                        "height": "expand",
+                        "mainAxisAlignment": "center",
+                        "width": "expand",
+                      },
+                    },
+                  ],
+                },
+                Object {
+                  "_:component": "else",
+                  "children": Array [
+                    Object {
+                      "_:component": "if",
+                      "children": Array [
+                        Object {
+                          "_:component": "then",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:column",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:text",
+                                  "properties": Object {
+                                    "alignment": "center",
+                                    "text": "You don't have any order yet.",
+                                  },
+                                },
+                              ],
+                              "properties": Object {
+                                "crossAxisAlignment": "center",
+                                "height": "expand",
+                                "mainAxisAlignment": "center",
+                                "padding": 20,
+                                "width": "expand",
+                              },
+                            },
+                          ],
+                        },
+                        Object {
+                          "_:component": "else",
+                          "children": Array [
+                            Object {
+                              "_:component": "layout:scrollView",
+                              "children": Array [
+                                Object {
+                                  "_:component": "layout:column",
+                                  "children": Array [
+                                    Object {
+                                      "_:component": "forEach",
+                                      "children": Array [
+                                        Object {
+                                          "_:component": "layout:touchable",
+                                          "children": Array [
+                                            Object {
+                                              "_:component": "layout:row",
+                                              "children": Array [
+                                                Object {
+                                                  "_:component": "layout:text",
+                                                  "properties": Object {
+                                                    "size": 14,
+                                                    "text": "#@{order.id}",
+                                                    "weight": "semiBold",
+                                                  },
+                                                },
+                                                Object {
+                                                  "_:component": "layout:text",
+                                                  "properties": Object {
+                                                    "size": 14,
+                                                    "text": "@{order.state}",
+                                                    "weight": "normal",
+                                                  },
+                                                },
+                                                Object {
+                                                  "_:component": "layout:text",
+                                                  "properties": Object {
+                                                    "size": 14,
+                                                    "text": "@{formatPrice(order.total, 'BRL')}",
+                                                    "weight": "normal",
+                                                  },
+                                                },
+                                              ],
+                                              "properties": Object {
+                                                "backgroundColor": "#fff",
+                                                "borderColor": "#e3e3e3",
+                                                "borderWidth": 1,
+                                                "cornerRadius": 12,
+                                                "crossAxisAlignment": "center",
+                                                "mainAxisAlignment": "spaceBetween",
+                                                "marginVertical": 6,
+                                                "padding": 12,
+                                                "width": "expand",
+                                              },
+                                            },
+                                          ],
+                                          "properties": Object {
+                                            "onPress": Array [
+                                              Object {
+                                                "_:action": "present",
+                                                "properties": Object {
+                                                  "params": Object {
+                                                    "order": "@{order}",
+                                                  },
+                                                  "url": "/order",
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                      "properties": Object {
+                                        "items": "@{global.orders}",
+                                        "iteratorName": "order",
+                                        "key": "id",
+                                      },
+                                    },
+                                  ],
+                                  "properties": Object {
+                                    "padding": 12,
+                                  },
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                      "properties": Object {
+                        "condition": "@{isEmpty(global.orders)}",
+                      },
+                    },
+                  ],
+                },
+              ],
+              "properties": Object {
+                "condition": "@{isLoading}",
+              },
+            },
+          ],
+          "properties": Object {
+            "backgroundColor": "#eee",
+            "width": "expand",
+          },
+        },
+      ],
+      "properties": Object {
+        "onInit": Array [
+          Object {
+            "_:action": "condition",
+            "properties": Object {
+              "condition": "@{isNull(global.orders)}",
+              "onFalse": Array [
+                Object {
+                  "_:action": "setState",
+                  "properties": Object {
+                    "path": "isLoading",
+                    "value": false,
+                  },
+                },
+              ],
+              "onTrue": Array [
+                Object {
+                  "_:action": "sendRequest",
+                  "properties": Object {
+                    "onError": Array [
+                      Object {
+                        "_:action": "log",
+                        "properties": Object {
+                          "level": "Error",
+                          "message": "@{onError.message}",
+                        },
+                      },
+                    ],
+                    "onFinish": Array [
+                      Object {
+                        "_:action": "setState",
+                        "properties": Object {
+                          "path": "isLoading",
+                          "value": false,
+                        },
+                      },
+                    ],
+                    "onSuccess": Array [
+                      Object {
+                        "_:action": "setState",
+                        "properties": Object {
+                          "path": "global.orders",
+                          "value": "@{onSuccess.data}",
+                        },
+                      },
+                    ],
+                    "url": "/data/orders",
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+  "properties": Object {
+    "title": "Orders",
+  },
+  "state": Object {
+    "id": "isLoading",
+    "value": true,
+  },
 }
 `;
 
@@ -565,7 +1316,7 @@ Object {
                             "_:action": "setState",
                             "properties": Object {
                               "path": "card.number",
-                              "value": "@{onChange.value}",
+                              "value": "@{onChange}",
                             },
                           },
                         ],
@@ -601,7 +1352,7 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "card.expirationDate",
-                                  "value": "@{onChange.value}",
+                                  "value": "@{onChange}",
                                 },
                               },
                             ],
@@ -634,7 +1385,7 @@ Object {
                                 "_:action": "setState",
                                 "properties": Object {
                                   "path": "card.cvc",
-                                  "value": "@{onChange.value}",
+                                  "value": "@{onChange}",
                                 },
                               },
                             ],
@@ -676,7 +1427,6 @@ Object {
                       "data": Object {
                         "address": "@{address}",
                         "payment": "@{card}",
-                        "products": "@{global.cart}",
                       },
                       "method": "Post",
                       "onError": Array [
@@ -684,7 +1434,7 @@ Object {
                           "_:action": "log",
                           "properties": Object {
                             "level": "Error",
-                            "message": "@{onError.data.error}",
+                            "message": "@{onError.message}",
                           },
                         },
                       ],
@@ -692,33 +1442,38 @@ Object {
                         Object {
                           "_:action": "setState",
                           "properties": Object {
-                            "path": "global.cart",
+                            "path": "global.cart.products",
                             "value": Array [],
                           },
                         },
                         Object {
-                          "_:action": "layout:updateCartIndicator",
+                          "_:action": "setState",
                           "properties": Object {
-                            "numberOfElementsInCart": 0,
+                            "path": "global.cart.total",
+                            "value": 0,
+                          },
+                        },
+                        Object {
+                          "_:action": "setState",
+                          "properties": Object {
+                            "path": "global.orders",
+                            "value": "@{onSuccess.data}",
                           },
                         },
                         Object {
                           "_:action": "popTo",
                           "properties": Object {
-                            "url": "/products",
+                            "url": "/cart",
                           },
                         },
                         Object {
-                          "_:action": "present",
+                          "_:action": "store:changeBottomNavigatorRoute",
                           "properties": Object {
-                            "params": Object {
-                              "currentOrder": "@{onSuccess.data}",
-                            },
-                            "url": "/order",
+                            "route": "Orders",
                           },
                         },
                       ],
-                      "url": "/order",
+                      "url": "/data/order",
                     },
                   },
                 ],
@@ -761,7 +1516,7 @@ Object {
               "_:component": "layout:text",
               "properties": Object {
                 "size": 24,
-                "text": "@{currentProduct.title}",
+                "text": "@{product.title}",
                 "weight": "normal",
               },
             },
@@ -772,7 +1527,7 @@ Object {
                   "_:component": "layout:remoteImage",
                   "properties": Object {
                     "scale": "fillWidth",
-                    "url": "@{currentProduct.image}",
+                    "url": "@{product.image}",
                     "width": 160,
                   },
                 },
@@ -785,7 +1540,7 @@ Object {
               "_:component": "layout:text",
               "properties": Object {
                 "size": 20,
-                "text": "@{formatPrice(currentProduct.price, 'BRL')}",
+                "text": "@{formatPrice(product.price, 'BRL')}",
                 "weight": "bold",
               },
             },
@@ -793,52 +1548,39 @@ Object {
               "_:component": "layout:row",
               "children": Array [
                 Object {
-                  "_:component": "if",
-                  "children": Array [
-                    Object {
-                      "_:component": "then",
-                      "children": Array [
-                        Object {
-                          "_:component": "layout:text",
-                          "properties": Object {
-                            "color": "#2E8B57",
-                            "size": 18,
-                            "text": "In cart ✓",
-                            "weight": "bold",
-                          },
-                        },
-                      ],
-                    },
-                    Object {
-                      "_:component": "else",
-                      "children": Array [
-                        Object {
-                          "_:component": "store:button",
-                          "properties": Object {
-                            "onPress": Array [
-                              Object {
-                                "_:action": "setState",
-                                "properties": Object {
-                                  "path": "global.cart",
-                                  "value": "@{insert(global.cart, currentProduct)}",
-                                },
-                              },
-                              Object {
-                                "_:action": "setState",
-                                "properties": Object {
-                                  "path": "currentProduct.inCart",
-                                  "value": true,
-                                },
-                              },
-                            ],
-                            "text": "Add to cart",
-                          },
-                        },
-                      ],
-                    },
-                  ],
+                  "_:component": "store:button",
                   "properties": Object {
-                    "condition": "@{eq(currentProduct.inCart, true)}",
+                    "onPress": Array [
+                      Object {
+                        "_:action": "sendRequest",
+                        "properties": Object {
+                          "data": Object {
+                            "productId": "@{product.id}",
+                          },
+                          "method": "Put",
+                          "onError": Array [
+                            Object {
+                              "_:action": "log",
+                              "properties": Object {
+                                "level": "Error",
+                                "message": "@{onError.message}",
+                              },
+                            },
+                          ],
+                          "onSuccess": Array [
+                            Object {
+                              "_:action": "setState",
+                              "properties": Object {
+                                "path": "global.cart",
+                                "value": "@{onSuccess.data}",
+                              },
+                            },
+                          ],
+                          "url": "/data/cart",
+                        },
+                      },
+                    ],
+                    "text": "Add to cart",
                   },
                 },
               ],
@@ -852,7 +1594,7 @@ Object {
               "properties": Object {
                 "color": "#515151",
                 "size": 16,
-                "text": "@{currentProduct.description}",
+                "text": "@{product.description}",
                 "weight": "light",
               },
             },
@@ -973,7 +1715,7 @@ Object {
                                             "_:action": "present",
                                             "properties": Object {
                                               "params": Object {
-                                                "currentProduct": "@{product}",
+                                                "product": "@{product}",
                                               },
                                               "url": "/product",
                                             },
@@ -994,52 +1736,39 @@ Object {
                                       "_:component": "layout:row",
                                       "children": Array [
                                         Object {
-                                          "_:component": "if",
-                                          "children": Array [
-                                            Object {
-                                              "_:component": "then",
-                                              "children": Array [
-                                                Object {
-                                                  "_:component": "layout:text",
-                                                  "properties": Object {
-                                                    "color": "#2E8B57",
-                                                    "size": 18,
-                                                    "text": "In cart ✓",
-                                                    "weight": "bold",
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                            Object {
-                                              "_:component": "else",
-                                              "children": Array [
-                                                Object {
-                                                  "_:component": "store:button",
-                                                  "properties": Object {
-                                                    "onPress": Array [
-                                                      Object {
-                                                        "_:action": "setState",
-                                                        "properties": Object {
-                                                          "path": "global.cart",
-                                                          "value": "@{insert(global.cart, product)}",
-                                                        },
-                                                      },
-                                                      Object {
-                                                        "_:action": "setState",
-                                                        "properties": Object {
-                                                          "path": "product.inCart",
-                                                          "value": true,
-                                                        },
-                                                      },
-                                                    ],
-                                                    "text": "Add to cart",
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          ],
+                                          "_:component": "store:button",
                                           "properties": Object {
-                                            "condition": "@{eq(product.inCart, true)}",
+                                            "onPress": Array [
+                                              Object {
+                                                "_:action": "sendRequest",
+                                                "properties": Object {
+                                                  "data": Object {
+                                                    "productId": "@{product.id}",
+                                                  },
+                                                  "method": "Put",
+                                                  "onError": Array [
+                                                    Object {
+                                                      "_:action": "log",
+                                                      "properties": Object {
+                                                        "level": "Error",
+                                                        "message": "@{onError.message}",
+                                                      },
+                                                    },
+                                                  ],
+                                                  "onSuccess": Array [
+                                                    Object {
+                                                      "_:action": "setState",
+                                                      "properties": Object {
+                                                        "path": "global.cart",
+                                                        "value": "@{onSuccess.data}",
+                                                      },
+                                                    },
+                                                  ],
+                                                  "url": "/data/cart",
+                                                },
+                                              },
+                                            ],
+                                            "text": "Add to cart",
                                           },
                                         },
                                       ],
@@ -1130,6 +1859,29 @@ Object {
                 },
               ],
               "url": "/data/products",
+            },
+          },
+          Object {
+            "_:action": "condition",
+            "properties": Object {
+              "condition": "@{isNull(global.cart)}",
+              "onTrue": Array [
+                Object {
+                  "_:action": "sendRequest",
+                  "properties": Object {
+                    "onSuccess": Array [
+                      Object {
+                        "_:action": "setState",
+                        "properties": Object {
+                          "path": "global.cart",
+                          "value": "@{onSuccess.data}",
+                        },
+                      },
+                    ],
+                    "url": "/data/cart",
+                  },
+                },
+              ],
             },
           },
         ],

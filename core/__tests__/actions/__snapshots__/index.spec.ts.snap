@@ -2,6 +2,7 @@
 
 exports[`Actions module should export 1`] = `
 Object {
+  "conditionalAction": "function",
   "dismiss": "function",
   "log": "function",
   "pop": "function",
