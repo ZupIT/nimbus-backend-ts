@@ -1,7 +1,7 @@
-import { createAction, Expression } from '@zup-it/nimbus-backend-core'
+import { createAction } from '@zup-it/nimbus-backend-core'
+import { customComponentNamespace } from './components/shared'
 
-interface UpdateCartIndicatorParams {
-  numberOfElementsInCart: Expression<number>,
-}
-
-export const updateCartIndicator = createAction<UpdateCartIndicatorParams>('updateCartIndicator')
+export let changeBottomNavigatorRoute = createAction<{ route: string }>(
+  "changeBottomNavigatorRoute",
+  customComponentNamespace,
+)

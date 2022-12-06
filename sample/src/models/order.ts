@@ -1,4 +1,4 @@
-import { Product } from './product'
+import { CartProduct } from './cart'
 
 export interface AddressModel {
   zip: string,
@@ -15,7 +15,7 @@ export type OrderStatus = 'AWAITING_PAYMENT' | 'PAYMENT_ACCEPTED' | 'PREPARING' 
 export interface Order {
   id: string,
   state: OrderStatus,
-  products: Pick<Product, 'title' | 'price' | 'image' | 'id' | 'description' | 'category'>[],
+  products: CartProduct[],
   total: number,
   address: AddressModel,
 }

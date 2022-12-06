@@ -1,8 +1,10 @@
 import { getGlobalState } from '@zup-it/nimbus-backend-core'
-import { Product } from '../models/product'
+import { Cart } from '../models/cart'
+import { Order } from '../models/order'
 
 export interface GlobalState {
-  cart: Product[],
+  cart: Cart,
+  orders: Order[],
 }
 
 export const globalState = getGlobalState<GlobalState>()

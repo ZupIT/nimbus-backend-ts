@@ -15,35 +15,28 @@ const validateChild = (child?: JSX.Element) => {
 }
 
 /**
- * This is a helper component. It makes it easier to make conditional rendering. This should always
- * be used with its Then and Else companions. See the example below:
+ * Controls which branch of the tree is rendered: `Then` or `Else`. If `condition` resolves to true, `Then` is rendered,
+ * otherwise `Else` is rendered.
  *
- * Suppose `isLoading` is a Context and it stores a boolean value.
+ * Example: suppose `isLoading` is a state and it stores a boolean value.
  *
  * @example
  * ```tsx
  * <If condition={isLoading}>
- *   <Then><>Loading...</></Then>
- *   <Else><>Loading is completed!</></Else>
+ *   <Then><Text>Loading...</Text></Then>
+ *   <Else><Text>Loading is completed!</Text></Else>
  * </If>
  * ```
  *
- * The children of If must always be a Then and an Else. The Else being optional.
- *
- * When `If` has only `Then` as a child, no enclosing child is created.
+ * The children of `If` must always be one `Then`, one `Else` or both.
  *
  * @category Component
  * @param props the component properties. See: {@link IfProps}
- * @returns a Container with the child of Then and the child of Else. Or the child of
- * Then, with no enclosing container, if no Else is provided.
+ * @returns an instance of the component If
  */
 export const If: FC<IfProps> = ({ children, ...props }) => {
   const thenElse = Array.isArray(children) ? children : [children]
   thenElse.forEach(validateChild)
-
-  const thenChild = thenElse.find(c => `${c?.namespace}:${c?.name}` === `${coreNamespace}:then`)?.children
-  if (!thenChild) throw Error('The If component must have the component Then as child')
-
   return <component namespace={coreNamespace} name="if" properties={props}>{children}</component>
 }
 
@@ -52,7 +45,7 @@ export const If: FC<IfProps> = ({ children, ...props }) => {
  *
  * @category Component
  * @param props the component properties. See: {@link ThenElseProps}
- * @returns a Component that won't be serialized with metadata to the parent If.
+ * @returns an instance of the component Then
  */
 export const Then = ({ children }: ThenElseProps) => (
   <component namespace={coreNamespace} name="then">{children}</component>
@@ -63,7 +56,7 @@ export const Then = ({ children }: ThenElseProps) => (
  *
  * @category Component
  * @param props the component properties. See: {@link ThenElseProps}
- * @returns a Component that won't be serialized with metadata to the parent If.
+ * @returns an instance of the component Else
  */
 export const Else = ({ children }: ThenElseProps) => (
   <component namespace={coreNamespace} name="else">{children}</component>

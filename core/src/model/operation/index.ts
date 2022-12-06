@@ -58,7 +58,7 @@ export class Operation<ReturnType = void> {
       if (item instanceof Operation) return item.asString(false)
       if (item instanceof StateNode) return item.path
       if (typeof item === 'string') return `'${item}'`
-      return item ? item.toString() : 'null'
+      return item == null ? 'null' : item.toString()
     })
     const expression = `${this.name}(${argumentsAsStrings.join(', ')})`
     return includeDelimiters ? `@{${expression}}` : expression

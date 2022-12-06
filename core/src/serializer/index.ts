@@ -26,7 +26,10 @@ const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
   Array.isArray(actions) ? actions.map(asActionCall) : [asActionCall(actions)]
 )
 
-const asStateDeclaration = ({ path, value }: LocalState<any>): StateDeclaration => ({ id: path, value })
+const asStateDeclaration = ({ path, value }: LocalState<any>): StateDeclaration => {
+  const serializableValue = (value instanceof Operation || value instanceof StateNode) ? value.toString() : value
+  return { id: path, value: serializableValue }
+}
 
 const transformExpressionsAndActions = (value: any): any => {
   const isActions = value instanceof Action || Array.isArray(value) && value[0] instanceof Action

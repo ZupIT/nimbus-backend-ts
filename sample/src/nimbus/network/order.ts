@@ -3,10 +3,6 @@ import { request } from '@zup-it/nimbus-backend-core/actions'
 import { Order } from '../../models/order'
 import { CreateOrderData } from '../../services/order'
 
-interface CreateOrderResponse {
-  id: string,
-}
-
 interface CreateOrderError {
   error: string,
 }
@@ -19,11 +15,11 @@ interface GetByIdOptions {
   id: Expression<string>,
 }
 
-export const createOrder = request<CreateOrderResponse, CreateOrderError>()
-  .compose(({ data }: CreateOptions) => ({ url: '/order', method: 'Post', data }))
+export const createOrder = request<Order[], CreateOrderError>()
+  .compose(({ data }: CreateOptions) => ({ url: '/data/order', method: 'Post', data }))
 
 export const getOrderById = request<Order>()
-  .compose(({ id }: GetByIdOptions) => ({ url: '/order/${id}' }))
+  .compose(({ id }: GetByIdOptions) => ({ url: '/data/order/${id}' }))
 
 export const listOrders = request<Order[]>()
   .compose(() => ({ url: '/data/orders' }))

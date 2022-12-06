@@ -1,17 +1,19 @@
 import { Request, Response } from 'express'
+import { clearCart } from '../services/cart'
 import { createOrder, CreateOrderData, getOrderById, listOrders } from '../services/order'
 
 export async function createOrderController(request: Request<unknown, unknown, CreateOrderData>, response: Response) {
   try {
     const payload = request.body
-    if (!payload?.address || !payload?.payment || !payload?.products) {
+    if (!payload?.address || !payload?.payment) {
       throw Error(
-        `You need to send address, products and payment in the payload.
+        `You need to send address and payment in the payload.
         Found: ${payload ? Object.keys(payload) : 'nothing'}.`
       )
     }
-    const id = createOrder(request.body || {})
-    response.status(201).send({ id })
+    const orders = createOrder(request.body || {})
+    clearCart()
+    response.status(201).send(orders)
   } catch (err) {
     response.status(500).send({ error: `${err}` })
   }

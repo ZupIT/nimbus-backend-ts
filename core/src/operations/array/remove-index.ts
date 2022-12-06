@@ -1,5 +1,5 @@
 import { Operation } from '../../api'
-import { DynamicExpression, Expression } from '../../types'
+import { DynamicExpression, Expression, ValueOrResultOfExpression } from '../../types'
 
 /**
  * Removes the element of the array at the given index.
@@ -20,5 +20,5 @@ import { DynamicExpression, Expression } from '../../types'
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
 export const removeIndex = <T>(array: DynamicExpression<T[]>, index?: Expression<number>) => (
-  new Operation<T[]>('removeIndex', index == undefined ? [array] : [array, index])
+  new Operation<ValueOrResultOfExpression<T>[]>('removeIndex', index == undefined ? [array] : [array, index])
 )

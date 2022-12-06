@@ -1,5 +1,5 @@
 import { Operation } from '../../api'
-import { DynamicExpression, Expression } from '../../types'
+import { DynamicExpression, Expression, ValueOrResultOfExpression } from '../../types'
 import { Element } from './types'
 
 /**
@@ -13,5 +13,7 @@ import { Element } from './types'
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
 export const insert = <T>(array: DynamicExpression<T[]>, element: Element<T>, index?: Expression<number>) => (
-  new Operation<T[]>('insert', index == undefined ? [array, element] : [array, element, index])
+  new Operation<ValueOrResultOfExpression<T>[]>(
+    'insert', index == undefined ? [array, element] : [array, element, index]
+  )
 )

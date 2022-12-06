@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Component } from '@zup-it/nimbus-backend-core'
+import { Component, State, DeepExpression } from '@zup-it/nimbus-backend-core'
 import { Navigator } from './navigator'
 import { NimbusHeaders, IsRequired } from './utils/types'
 
@@ -60,6 +60,10 @@ export interface ScreenRequest {
 }
 
 interface ScreenProps<T extends ScreenRequest> {
+  /**
+   * The states created when navigating to this page.
+   */
+  getViewState: <Key extends keyof T['params']>(name: Key) => State<T['params'][Key]>,
   /**
    * The request object from express.
    */
@@ -148,7 +152,9 @@ interface WithStateParams<T extends Record<string, any> | undefined> {
   /**
    * The map of states that will be created on the next screen.
    */
-  params: T,
+  params: {
+    [key in keyof T]: DeepExpression<T[key]>
+  },
 }
 
 interface WithHeaders<T> {

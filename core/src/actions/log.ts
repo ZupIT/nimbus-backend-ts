@@ -2,19 +2,19 @@ import { createCoreAction } from './core-action'
 
 export interface LogParams {
   /**
-   * The path of the property to change. If left blank, the entire structure will be changed.
+   * The object to log. Can be anything, but null.
    */
-  message: string,
+  message: any,
   /**
-   * The new value.
+   * The type of message.
    */
-  level: 'Info' | 'Warning' | 'Error',
+  level?: 'Info' | 'Warning' | 'Error',
 }
 
 /**
- * Sets a value in the given state. Prefer using the method set of your instance of StateNode instead of this.
+ * Logs a message using the Nimbus Logger configured in the application.
  *
- * @param options the parameters for the setState action: id, path and value. See {@link LogParams}.
+ * @param options the parameters for the log action: message, level. See {@link LogParams}.
  * @returns an instance of Action.
  */
 export const log = createCoreAction<LogParams>('log')

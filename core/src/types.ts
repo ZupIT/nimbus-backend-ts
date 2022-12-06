@@ -36,3 +36,8 @@ type InterpolatedTextAcceptableTypes =
 
 export type InterpolatedText = InterpolatedTextAcceptableTypes | InterpolatedTextAcceptableTypes[]
 
+/**
+ * If T is an expression, returns the result of the expression, otherwise returns T
+ */
+ export type ValueOrResultOfExpression<T> = T extends State<infer R> ? R : (T extends Operation<infer R> ? R : T)
+

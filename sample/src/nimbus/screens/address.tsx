@@ -1,7 +1,8 @@
-import { Actions, createState, createStateNode, Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { Actions, createState, Expression, FC, NimbusJSX } from '@zup-it/nimbus-backend-core'
+import { log } from '@zup-it/nimbus-backend-core/actions'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Column, Row, ScreenComponent, ScrollView, Text } from '@zup-it/nimbus-backend-layout'
+import { Column, Row, ScreenComponent, Text } from '@zup-it/nimbus-backend-layout'
 import { AddressModel } from '../../models/order'
 import { Button } from '../components/button'
 import { TextInput } from '../components/text-input'
@@ -37,6 +38,9 @@ export const Address: Screen = ({ navigator }) => {
       formAddress.get('neighborhood').set(response.get('data').get('bairro')),
       formAddress.get('state').set(response.get('data').get('uf')),
       formAddress.get('street').set(response.get('data').get('logradouro')),
+    ],
+    onError: error => [
+      log({ message: `Error while retrieving zip-code data: ${zip}.\n${error.get('message')}`, level: 'Error' })
     ]
   })
 

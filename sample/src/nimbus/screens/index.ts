@@ -1,5 +1,4 @@
 import { RouteMap } from '@zup-it/nimbus-backend-express'
-import { Welcome } from './welcome'
 import { Products } from './products'
 import { Product } from './product'
 import { Order } from './order'
@@ -7,7 +6,6 @@ import { Cart } from './cart'
 import { Address } from './address'
 import { Payment } from './payment'
 import { Orders } from './orders'
-import { MutableForEach } from './mutable-foreach'
 
 export const routes: RouteMap = {
   '/products': Products,
@@ -17,6 +15,4 @@ export const routes: RouteMap = {
   '/payment': Payment,
   '/orders': Orders,
   '/order': Order,
-  '/welcome': Welcome,
-  '/mutable-foreach': MutableForEach,
 }
