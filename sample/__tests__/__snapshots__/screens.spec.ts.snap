@@ -291,7 +291,7 @@ Object {
         "backgroundColor": "#EEEEEE",
       },
       "state": Object {
-        "id": "formAddress",
+        "formAddress": null,
       },
     },
   ],
@@ -609,8 +609,7 @@ Object {
     "title": "Cart",
   },
   "state": Object {
-    "id": "isLoading",
-    "value": true,
+    "isLoading": true,
   },
 }
 `;
@@ -1285,8 +1284,7 @@ Object {
     "title": "Orders",
   },
   "state": Object {
-    "id": "isLoading",
-    "value": true,
+    "isLoading": true,
   },
 }
 `;
@@ -1497,7 +1495,7 @@ Object {
     "title": "Payment",
   },
   "state": Object {
-    "id": "card",
+    "card": null,
   },
 }
 `;
@@ -1800,7 +1798,7 @@ Object {
                                 },
                               ],
                               "properties": Object {
-                                "items": "@{products.data}",
+                                "items": "@{products}",
                                 "iteratorName": "product",
                               },
                             },
@@ -1815,7 +1813,7 @@ Object {
                 },
               ],
               "properties": Object {
-                "condition": "@{products.isLoading}",
+                "condition": "@{isLoading}",
               },
             },
           ],
@@ -1844,7 +1842,7 @@ Object {
                 Object {
                   "_:action": "setState",
                   "properties": Object {
-                    "path": "products.isLoading",
+                    "path": "isLoading",
                     "value": false,
                   },
                 },
@@ -1853,7 +1851,7 @@ Object {
                 Object {
                   "_:action": "setState",
                   "properties": Object {
-                    "path": "products.data",
+                    "path": "products",
                     "value": "@{onSuccess.data}",
                   },
                 },
@@ -1892,11 +1890,8 @@ Object {
     "title": "Products",
   },
   "state": Object {
-    "id": "products",
-    "value": Object {
-      "data": Array [],
-      "isLoading": true,
-    },
+    "isLoading": true,
+    "products": Array [],
   },
 }
 `;
