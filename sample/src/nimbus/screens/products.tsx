@@ -10,19 +10,15 @@ import { Product } from './product'
 import { addToCart, getCart } from '../network/cart'
 import { globalState } from '../global-state'
 
-interface ProductData {
-  isLoading: boolean,
-  data: ProductModel[],
-}
-
 export const Products: Screen = ({ navigator }) => {
   const cart = globalState.get('cart')
-  const products = createState<ProductData>('products', { isLoading: true, data: [] })
+  const products = createState<ProductModel[]>('products', [])
+  const isLoading = createState('isLoading', true)
   const onInit = [
     listProducts({
-      onSuccess: response => products.get('data').set(response.get('data')),
+      onSuccess: response => products.set(response.get('data')),
       onError: response => log({ message: response.get('message').toString(), level: 'Error' }),
-      onFinish: products.get('isLoading').set(false),
+      onFinish: isLoading.set(false),
     }),
     conditionalAction({
       condition: isNull(cart),
@@ -33,13 +29,13 @@ export const Products: Screen = ({ navigator }) => {
   ]
 
   return (
-    <ScreenComponent title="Products" state={products}>
+    <ScreenComponent title="Products" state={[products, isLoading]}>
       <Lifecycle onInit={onInit}>
         <Column backgroundColor="#EEEEEE" width="expand" height="expand">
-          <Loading isLoading={products.get('isLoading')}>
+          <Loading isLoading={isLoading}>
             <ScrollView>
               <LazyColumn padding={16}>
-                <ForEach items={products.get('data')} iteratorName="product">
+                <ForEach items={products} iteratorName="product">
                   {(product) => (
                     <ProductItem
                       image={product.get('image')}

@@ -7,7 +7,7 @@ export interface WithState {
    * This must be a RootState, created via the function `createState`. States like the global state, the
    * navigation states or implicit states don't need to be declared and won't be accepted here.
    */
-  state?: LocalState<any>,
+  state?: LocalState<any> | LocalState<any>[],
 }
 
 export interface WithChildren {

@@ -8,7 +8,7 @@ import { StateNode } from '../model/state/state-node'
 import { Operation } from '../model/operation'
 import { componentValidation } from '..'
 import { isDevelopmentMode } from '../utils'
-import { ActionCall, StructureNodeName, NimbusNode, StateDeclaration } from './types'
+import { ActionCall, StructureNodeName, NimbusNode } from './types'
 
 const getComponentActionName = (componentAction: Component | Action): StructureNodeName => {
   const { namespace, name } = componentAction
@@ -26,9 +26,14 @@ const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
   Array.isArray(actions) ? actions.map(asActionCall) : [asActionCall(actions)]
 )
 
-const asStateDeclaration = ({ path, value }: LocalState<any>): StateDeclaration => {
-  const serializableValue = (value instanceof Operation || value instanceof StateNode) ? value.toString() : value
-  return { id: path, value: serializableValue }
+const asStateDeclaration = (state: LocalState<any> | LocalState<any>[]): Record<string, any> => {
+  const stateList = Array.isArray(state) ? state : [state]
+  return stateList.reduce((result, item) => {
+    const serializableValue = (item.value instanceof Operation || item.value instanceof StateNode)
+      ? item.value.toString()
+      : item.value
+    return { ...result, [item.path]: serializableValue ?? null }
+  }, {})
 }
 
 const transformExpressionsAndActions = (value: any): any => {
