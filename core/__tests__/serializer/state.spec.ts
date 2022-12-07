@@ -7,14 +7,14 @@ describe('Serializer: state', () => {
     const stt = new RootState('stt')
     const component = new Component({ name: 'test', state: stt })
     const serialized = serialize(component)
-    expect(JSON.parse(serialized).state).toEqual({ id: 'stt' })
+    expect(JSON.parse(serialized).state).toEqual({ stt: null })
   })
 
   it('should declare local state with initial value', () => {
     const stt = new RootState('stt', { a: 1, b: '2' })
     const component = new Component({ name: 'test', state: stt })
     const serialized = serialize(component)
-    expect(JSON.parse(serialized).state).toEqual({ id: 'stt', value: { a: 1, b: '2' } })
+    expect(JSON.parse(serialized).state).toEqual({ stt: { a: 1, b: '2' } })
   })
 
   it('should serialize references to states', () => {
