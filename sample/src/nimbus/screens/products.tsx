@@ -4,7 +4,7 @@ import { Product as ProductModel } from '../../models/product'
 import { listProducts } from '../network/product'
 import { ProductItem } from '../components/product-item'
 import { Loading } from '../fragments/loading'
-import { Column, LazyColumn, Lifecycle, ScreenComponent, ScrollView } from '@zup-it/nimbus-backend-layout'
+import { Column, LazyColumn, Lifecycle, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { conditionalAction, log } from '@zup-it/nimbus-backend-core/actions'
 import { Product } from './product'
 import { addToCart, getCart } from '../network/cart'
@@ -33,8 +33,7 @@ export const Products: Screen = ({ navigator }) => {
       <Lifecycle onInit={onInit}>
         <Column backgroundColor="#EEEEEE" width="expand" height="expand">
           <Loading isLoading={isLoading}>
-            <ScrollView>
-              <LazyColumn padding={16}>
+              <LazyColumn>
                 <ForEach items={products} iteratorName="product">
                   {(product) => (
                     <ProductItem
@@ -47,7 +46,6 @@ export const Products: Screen = ({ navigator }) => {
                   )}
                 </ForEach>
               </LazyColumn>
-            </ScrollView>
           </Loading>
         </Column>
       </Lifecycle>

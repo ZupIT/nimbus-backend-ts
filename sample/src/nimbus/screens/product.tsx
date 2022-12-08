@@ -17,19 +17,21 @@ export const Product: Screen<ProductScreenProps> = ({ getViewState }) => {
 
   return (
     <ScreenComponent title="Product details">
-      <ScrollView>
-        <Column padding={24} crossAxisAlignment="center">
-          <Text size={24} weight="normal">{product.get('title')}</Text>
-          <Row marginVertical={28}>
-            <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} />
-          </Row>
-          <Text size={20} weight="bold">{formatPrice(product.get('price'), 'BRL')}</Text>
-          <Row marginVertical={36} mainAxisAlignment="center">
-            <Button text="Add to cart" onPress={addToCart(product.get('id'))} />
-          </Row>
-          <Text size={16} weight="light" color="#515151">{product.get('description')}</Text>
-        </Column>
-      </ScrollView>
+      <Column backgroundColor="#FFFFFF" height="expand">
+        <ScrollView>
+          <Column padding={24} crossAxisAlignment="center">
+            <Text size={24} weight="normal">{product.get('title')}</Text>
+            <Row marginVertical={28}>
+              <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} />
+            </Row>
+            <Text size={20} weight="bold">{formatPrice(product.get('price'), 'BRL')}</Text>
+            <Row marginVertical={36} mainAxisAlignment="center">
+              <Button text="Add to cart" onPress={addToCart(product.get('id'))} />
+            </Row>
+            <Text size={16} weight="light" color="#515151">{product.get('description')}</Text>
+          </Column>
+        </ScrollView>
+      </Column>
     </ScreenComponent>
   )
 }

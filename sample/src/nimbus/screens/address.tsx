@@ -48,7 +48,7 @@ export const Address: Screen = ({ navigator }) => {
     <ScreenComponent title="Address">
       <Column state={formAddress} backgroundColor="#EEEEEE">
         <Column padding={16} height="expand">
-          <Row marginBottom={16}>
+          <Row marginBottom={16} width="expand">
             <AddressInput
               label="Zip Code"
               placeholder="Eg: 95010-000"
