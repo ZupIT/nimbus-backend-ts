@@ -8,6 +8,7 @@ export interface TextInputProps extends Margin, Padding, BackgroundColor, Border
   value: Expression<string>,
   placeholder: Expression<string>,
   label: Expression<string>,
+  type?: 'text' | 'password' | 'email' | 'number',
 }
 
 export const TextInput: FC<TextInputProps> = ({ id, onChange, onBlur, ...props }) => {
