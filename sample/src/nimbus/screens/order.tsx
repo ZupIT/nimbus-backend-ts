@@ -33,7 +33,6 @@ const Section: FC<SectionProps> = ({ title, children }) => {
 interface DefinitionItemProps extends ContainerProps {
   title: Expression<string>,
   definition: Expression<string>,
-  definitionWidth?: number,
 }
 
 const DefinitionItem: FC<DefinitionItemProps> = ({ title, definition }) => (
