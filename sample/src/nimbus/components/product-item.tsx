@@ -33,7 +33,7 @@ export const ProductItem: FC<ProductItemProps> = ({
   >
     <Touchable onPress={onPressDetails}>
       <Row>
-        <RemoteImage url={image.toString()} width={60} scale="fillWidth" />
+        <RemoteImage url={image.toString()} width={60} height={60} scale="fillWidth" />
         <Column marginStart={30}>
           <Text size={15}>{title}</Text>
           <Row paddingTop={12}>

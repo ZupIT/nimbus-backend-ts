@@ -6,7 +6,7 @@ import { globalState } from '../global-state'
 import { Column, Row, ScreenComponent } from '@zup-it/nimbus-backend-layout'
 import { Button } from '../components/button'
 import { log } from '@zup-it/nimbus-backend-core/actions'
-import { TextInput } from '../components/text-input'
+import { TextInput, TextInputProps } from '../components/text-input'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { AddressModel } from '../../models/order'
 import { Cart } from './cart'
@@ -17,9 +17,10 @@ type PaymentInputProps = {
   placeholder: string,
   name: keyof PaymentCard,
   paymentState: MapStateNode<PaymentCard>,
+  type?: TextInputProps['type'],
 }
 
-const PaymentInput: FC<PaymentInputProps> = ({ label, placeholder, name, paymentState: state }) => {
+const PaymentInput: FC<PaymentInputProps> = ({ label, placeholder, name, paymentState: state, type }) => {
   const getField = (name: keyof PaymentCard) => state.get(name)
   const setField = (name: keyof PaymentCard, value: Expression<string>) => state.get(name).set(value)
   return (
@@ -29,6 +30,7 @@ const PaymentInput: FC<PaymentInputProps> = ({ label, placeholder, name, payment
         placeholder={placeholder}
         value={getField(name)}
         onChange={value => setField(name, value)}
+        type={type}
       />
     </Row>
   )
@@ -70,14 +72,14 @@ export const Payment: Screen<PaymentScreenProps> = ({ navigator, getViewState })
       <Column backgroundColor="#EEEEEE">
         <Column padding={16} height="expand">
           <Row marginBottom={12}>
-            <PaymentInput label="Card number" placeholder="0000 0000 0000 0000" name="number" paymentState={card} />
+            <PaymentInput label="Card number" placeholder="0000 0000 0000 0000" name="number" type="number" paymentState={card} />
           </Row>
           <Row marginBottom={48}>
-            <Column marginEnd={6}>
+            <Column marginEnd={6} width="expand">
               <PaymentInput label="Expiration Date" placeholder="MM/YY" name="expirationDate" paymentState={card} />
             </Column>
-            <Column marginStart={6}>
-              <PaymentInput label="CVC" placeholder="000" name="cvc" paymentState={card} />
+            <Column marginStart={6} width={90}>
+              <PaymentInput label="CVC" placeholder="000" name="cvc" type="number" paymentState={card} />
             </Column>
           </Row>
         </Column>

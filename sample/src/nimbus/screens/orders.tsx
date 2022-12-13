@@ -2,7 +2,7 @@ import { NimbusJSX, createState, ForEach, Then, Else, If } from '@zup-it/nimbus-
 import { isEmpty, isNull, length, subtract } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
 import { Loading } from '../fragments/loading'
-import { Column, Lifecycle, Row, ScreenComponent, ScrollView, Text, Touchable } from '@zup-it/nimbus-backend-layout'
+import { Column, LazyColumn, Lifecycle, Row, ScreenComponent, ScrollView, Text, Touchable } from '@zup-it/nimbus-backend-layout'
 import { conditionalAction, log } from '@zup-it/nimbus-backend-core/actions'
 import { eq } from 'lodash'
 import { Order as OrderModel } from '../../models/order'
