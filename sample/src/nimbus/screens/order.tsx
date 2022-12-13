@@ -33,14 +33,17 @@ const Section: FC<SectionProps> = ({ title, children }) => {
 interface DefinitionItemProps extends ContainerProps {
   title: Expression<string>,
   definition: Expression<string>,
+  definitionWidth?: number,
 }
 
 const DefinitionItem: FC<DefinitionItemProps> = ({ title, definition }) => (
-  <Row mainAxisAlignment="spaceBetween" marginVertical={6}>
-    <Column marginEnd={24}>
+  <Row mainAxisAlignment="spaceBetween" marginVertical={6} width="expand">
+    <Column marginEnd={12} width="expand">
       <Text size={14} weight="bold">{title}</Text>
     </Column>
-    <Text size={14} weight="normal">{definition}</Text>
+    <Column mainAxisAlignment="end">
+      <Text size={14} weight="normal">{definition}</Text>
+    </Column>
   </Row>
 )
 

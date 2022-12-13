@@ -3,7 +3,7 @@ import { conditionalAction, log } from '@zup-it/nimbus-backend-core/actions'
 import { MapStateNode } from '@zup-it/nimbus-backend-core/model/state/types'
 import { isEmpty, isNull, multiply } from '@zup-it/nimbus-backend-core/operations'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { Column, LazyColumn, Lifecycle, RemoteImage, Row, ScreenComponent, Text, Touchable } from '@zup-it/nimbus-backend-layout'
+import { Column, LazyColumn, Lifecycle, RemoteImage, Row, ScreenComponent, ScrollView, Text, Touchable } from '@zup-it/nimbus-backend-layout'
 import { Product as ProductModel } from '../../models/product'
 import { Button } from '../components/button'
 import { Loading } from '../fragments/loading'
@@ -44,36 +44,38 @@ export const Cart: Screen = ({ navigator }) => {
   const cartView = (
     <>
       <Column height="expand">
-        <LazyColumn padding={16}>
-          <ForEach items={cart.get('products')} key="id">
-            {(product) => (
-              <Touchable onPress={goToDetails(product)}>
-                <Row
-                  padding={12}
-                  marginBottom={14}
-                  borderColor="#e3e3e3"
-                  borderWidth={1}
-                  backgroundColor="#FFFFFF"
-                  cornerRadius={12}
-                  crossAxisAlignment="center"
-                  width="expand"
-                >
-                  <RemoteImage url={product.get('image')} width={50} scale="fillWidth" />
-                  <Row marginStart={16} width="expand" mainAxisAlignment="spaceBetween">
-                    { /* todo: by removing the following row with expand, the Text in Android acts differently
-                    than the text on iOS. We should check this when we can. */}
-                    <Row width="expand" marginEnd={10}>
-                      <Text size={14} weight="light">({product.get('quantity')}) {product.get('title')}</Text>
+        <ScrollView>
+          <Column padding={16}>
+            <ForEach items={cart.get('products')} key="id">
+              {(product) => (
+                <Touchable onPress={goToDetails(product)}>
+                  <Row
+                    padding={12}
+                    marginBottom={14}
+                    borderColor="#e3e3e3"
+                    borderWidth={1}
+                    backgroundColor="#FFFFFF"
+                    cornerRadius={12}
+                    crossAxisAlignment="center"
+                    width="expand"
+                  >
+                    <RemoteImage url={product.get('image')} width={50} scale="fillWidth" />
+                    <Row marginStart={16} width="expand" mainAxisAlignment="spaceBetween">
+                      { /* todo: by removing the following row with expand, the Text in Android acts differently
+                      than the text on iOS. We should check this when we can. */}
+                      <Row width="expand" marginEnd={10}>
+                        <Text size={14} weight="light">({product.get('quantity')}) {product.get('title')}</Text>
+                      </Row>
+                      <Text size={14} weight="normal">
+                        {formatPrice(multiply(product.get('quantity'), product.get('price')), 'BRL')}
+                      </Text>
                     </Row>
-                    <Text size={14} weight="normal">
-                      {formatPrice(multiply(product.get('quantity'), product.get('price')), 'BRL')}
-                    </Text>
                   </Row>
-                </Row>
-              </Touchable>
-            )}
-          </ForEach>
-        </LazyColumn>
+                </Touchable>
+              )}
+            </ForEach>
+          </Column>
+        </ScrollView>
       </Column>
       <Row
         height={70}

@@ -33,8 +33,7 @@ export const Products: Screen = ({ navigator }) => {
       <Lifecycle onInit={onInit}>
         <Column backgroundColor="#EEEEEE" width="expand" height="expand">
           <Loading isLoading={isLoading}>
-            <ScrollView>
-              <Column>
+            <LazyColumn padding={16}>
                 <ForEach items={products} iteratorName="product">
                   {(product) => (
                     <ProductItem
@@ -46,8 +45,7 @@ export const Products: Screen = ({ navigator }) => {
                     />
                   )}
                 </ForEach>
-              </Column>
-              </ScrollView>
+              </LazyColumn>
           </Loading>
         </Column>
       </Lifecycle>
