@@ -1615,6 +1615,7 @@ Object {
                     Object {
                       "_:component": "layout:remoteImage",
                       "properties": Object {
+                        "height": 160,
                         "scale": "fillWidth",
                         "url": "@{product.image}",
                         "width": 160,

@@ -1,56 +1,22 @@
 # Nimbus Backend Typescript
+Nimbus Backend Typescript is a library for generating the JSON required for the Nimbus frontend libs. In other words, Nimbus Backend TS creates the server driven views used by the client applications.
 
-Welcome to the Nimbus Backend TS! This project implements a backend for [Nimbus](todo) in Typescript. To run the
-backend you'll need NodeJS. Although not tested, this should also work for any backend technology for Javascript (but
-without the facilities provided by the express-client sub-project).
+To know more about Nimbus SDUI as a whole, please check our [main documentation](https://github.com/ZupIT/nimbus-docs/blob/main/readme.md).
 
-This repository is a mono-repo with 4 projects:
+To get started with Nimbus Backend TS, please check the [documentation for Nimbus Backend TS](https://github.com/ZupIT/nimbus-docs/blob/main/backend-ts/index.md).
 
-- core: the core implementation for the Nimbus backend, this should work with anything that runs JS.
-- express: a more user-friendly interface of the core lib, it brings a lot of benefits that makes the lib easier to
-use and safer (better typing). The drawback is that it only works with node-express servers.
+# Development stage
+Nimbus Backend TS is currently in alpha.
 
-This documentation will assume you have all three modules installed in your node application. For more information
-on how to use the Nimbus Backend TS without Express, check [this topic](todo).
+# Useful links
+- [Introductory article](https://medium.com/p/9a0d95686fd9/): blog post introducing Nimbus SDUI.
+- [Documentation](https://github.com/ZupIT/nimbus-docs): the documentation for both the frontend and backend libraries. This is not in a website format yet, but you can read everything through GitHub.
+- [Nimbus](https://github.com/ZupIT/nimbus): the common code between Nimbus SwiftUI and Nimbus Compose. This has been built using Kotlin Multiplatform Mobile (KMM).
+- [Nimbus Compose](https://github.com/ZupIT/nimbus-compose): all modules necessary to run Nimbus in a Jetpack Compose project.
+- [Nimbus SwiftUI](https://github.com/ZupIT/nimbus-swiftui): all modules necessary to run Nimbus in a SwiftUI project.
+- [Nimbus Compose Layout](https://github.com/ZupIT/nimbus-layout-compose): layout components for Nimbus Compose.
+- [Nimbus SwiftUI Layout](https://github.com/ZupIT/nimbus-layout-swiftui): layout components for Nimbus SwiftUI.
+- [Nimbus Backend TS](https://github.com/ZupIT/nimbus-backend-ts): modules for the backend in Typescript.
 
-## Documentation
-
-The documentation for this lib is in our [wiki](todo).
-
-## Getting Started
-
-### 1. Before Installation
-
-This project uses Yarn as node packages manager, so be sure that you have installed.
-If you do not have it installed, you can follow the installation instructions [here](https://classic.yarnpkg.com/lang/en/docs/install).
-Or simply run:
-> npm install --global yarn
-
-### 2. Installation
-
-Once you have yarn installed you can run the following command, at the root of the project, to install the packages on all projects at once:
-> yarn
-
-Then run the following command, at the root of the project, to generate the libs locally:
-> yarn build
-
-### 3. Running the Sample Application
-
-The sample store application is a `node` project that is served using an `express` server.
-To run the application, you can run the following command, at the root of the project:
-> yarn sample start
-
-or you can run from the sample folder, with:
-> cd sample
-> yarn start
-
-The application will start running at: `http://localhost:3000`
-
-### 4. Testing
-
-To run the tests, you can run the following command, at the root of the project, to run the tests of all projects:
-> yarn test
-
-or you can run from the project folder, i.e.:
-> cd core
-> yarn test
+## **License**
+[**Apache License 2.0**](https://github.com/ZupIT/nimbus-swiftui/blob/main/LICENSE.txt).

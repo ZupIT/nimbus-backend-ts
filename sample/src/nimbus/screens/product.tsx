@@ -22,7 +22,7 @@ export const Product: Screen<ProductScreenProps> = ({ getViewState }) => {
           <Column padding={24} crossAxisAlignment="center">
             <Text size={24} weight="normal">{product.get('title')}</Text>
             <Row marginVertical={28}>
-              <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} />
+              <RemoteImage url={product.get('image').toString()} scale="fillWidth" width={160} height={160} />
             </Row>
             <Text size={20} weight="bold">{formatPrice(product.get('price'), 'BRL')}</Text>
             <Row marginVertical={36} mainAxisAlignment="center">
