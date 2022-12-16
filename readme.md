@@ -6,7 +6,7 @@ To know more about Nimbus SDUI as a whole, please check our [main documentation]
 To get started with Nimbus Backend TS, please check the [documentation for Nimbus Backend TS](https://github.com/ZupIT/nimbus-docs/blob/main/backend-ts/index.md).
 
 # Development stage
-Nimbus Backend TS is currently in beta.
+Nimbus Backend TS is currently in alpha.
 
 # Useful links
 - [Introductory article](https://medium.com/p/9a0d95686fd9/): blog post introducing Nimbus SDUI.
