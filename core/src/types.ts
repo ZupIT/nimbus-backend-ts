@@ -42,11 +42,6 @@ export type InterpolatedText = InterpolatedTextAcceptableTypes | InterpolatedTex
 export type ValueOrResultOfExpression<T> = T extends State<infer R> ? R : (T extends Operation<infer R> ? R : T)
 
 /**
- * A string that represents a number
- */
-export type NumberString = `${number}`
-
-/**
  * A number or a string that represents a number
  */
 export type AnyNumber = number | `${number}`
