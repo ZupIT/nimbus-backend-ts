@@ -1,5 +1,5 @@
 import { Operation } from '../../api'
-import { Expression } from '../../types'
+import { AnyNumber, Expression } from '../../types'
 
 /**
  * Sums all the arguments passed.
@@ -9,4 +9,4 @@ import { Expression } from '../../types'
  * @param values the numerical values to sum.
  * @returns an instance of Operation<number>, i.e. an operation that results in a number when run by the frontend.
  */
-export const sum = (...numbers: Expression<number>[]) => new Operation<number>('sum', numbers)
+export const sum = (...numbers: Expression<AnyNumber>[]) => new Operation<number>('sum', numbers)

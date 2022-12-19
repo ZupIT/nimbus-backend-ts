@@ -1,5 +1,5 @@
 import { Operation } from '../../api'
-import { DynamicExpression, Expression, ValueOrResultOfExpression } from '../../types'
+import { DynamicExpression, Expression, AnyNumber, ValueOrResultOfExpression } from '../../types'
 
 /**
  * Removes the element of the array at the given index.
@@ -19,6 +19,6 @@ import { DynamicExpression, Expression, ValueOrResultOfExpression } from '../../
  * @param index the position to remove. If not provided, the last element is removed.
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
-export const removeIndex = <T>(array: DynamicExpression<T[]>, index?: Expression<number>) => (
+export const removeIndex = <T>(array: DynamicExpression<T[]>, index?: Expression<AnyNumber>) => (
   new Operation<ValueOrResultOfExpression<T>[]>('removeIndex', index == undefined ? [array] : [array, index])
 )
