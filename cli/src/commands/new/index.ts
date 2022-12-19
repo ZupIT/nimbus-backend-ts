@@ -23,8 +23,15 @@ export const newProject = async (projectName: string, options: NewProjectOptions
   logger.info('3 - Nimbus: Creating configuration file...')
   await createNimbusTsConfigFile(projectName, options)
   logger.info('4 - Nimbus: Installing dependencies...')
-  await execShellCommand('npm install', { cwd: `${cwd()}/${projectName}` })
-
-  logger.success(`Nimbus: All done! The project was created under the folder: "${projectName}".`)
+  let installationError = false
+  try {
+    await execShellCommand('yarn', { cwd: `${cwd()}/${projectName}` })
+  } catch {
+    installationError = true
+  }
+  logger.success(`Nimbus: all done! The project was created under the folder: "${projectName}".`)
+  if (installationError) {
+    logger.error('Nimbus: failed to install dependencies, but don\'t worry, you can still do it manually with "yarn" or "npm install" in the project folder.')
+  }
   exit()
 }

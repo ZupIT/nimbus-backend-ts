@@ -1,17 +1,21 @@
 import { NimbusJSX } from '@zup-it/nimbus-backend-core'
 import { Screen } from '@zup-it/nimbus-backend-express'
-import { gte, length } from '@zup-it/nimbus-backend-core/operations'
-import { globalState } from '../global-state'
+import { Column, Text, Touchable } from '@zup-it/nimbus-backend-layout'
 
 export const Home: Screen = ({ navigator }) => (
-  <>
-    {/* <Text>Hello!</Text>
-    <Text style={{ marginTop: 40 }}>This is the Home Page!</Text>
-    <If condition={gte(length(globalState.get('message') ?? ''), 0)}>
-      <Then>
-        <Text style={{ marginTop: 40 }}>Global state: {globalState.get('message')}</Text>
-      </Then>
-    </If>
-    <Button style={{ marginTop: 40 }} onPress={navigator.popView()}>Go back</Button> */}
-  </>
+  <Column
+      mainAxisAlignment="center"
+      crossAxisAlignment="center"
+      width="expand"
+      height="expand"
+      backgroundColor="#FFFFFF"
+  >
+    <Text size={20}>Hello!</Text>
+    <Column marginVertical={40}>
+      <Text weight="bold">This is the Home Page!</Text>
+    </Column>
+    <Touchable onPress={navigator.pop()}>
+      <Text color="#0000FF">Go back</Text>
+    </Touchable>
+  </Column>
 )

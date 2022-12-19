@@ -18,17 +18,22 @@ const projectFilesToChange: Array<ProjectFile> = [
     name: 'README.md',
     action: (content: string, projectName: string, options: NewProjectOptions) =>
       content
-        .replace(PROJECT_NAME_PLACEHOLDER, projectName)
-        .replace(PORT_PLACEHOLDER, options.port),
+        .replaceAll(PROJECT_NAME_PLACEHOLDER, projectName)
+        .replaceAll(PORT_PLACEHOLDER, options.port),
   },
 ]
+
+// some files like ".gitignore" are never uploaded in an npm package, so we need to rename it
+const projectFilesToRename: Record<string, string> = {
+  gitignore: '.gitignore',
+}
 
 export const copyBoilerplateUpdatingFilesContent = async (newFolderName: string, options: NewProjectOptions) => {
   const boilerplateContent = await fsPromise.readdir(BOILERPLATE_PATH)
   const projectFolder = `${cwd()}/${newFolderName}`
 
-  for (const dir of boilerplateContent) {
-    await fse.copySync(`${BOILERPLATE_PATH}/${dir}`, `${projectFolder}/${dir}`)
+  for (const file of boilerplateContent) {
+    fse.copySync(`${BOILERPLATE_PATH}/${file}`, `${projectFolder}/${file}`)
   }
 
   for (const file of projectFilesToChange) {
@@ -36,6 +41,10 @@ export const copyBoilerplateUpdatingFilesContent = async (newFolderName: string,
     let fileContent = (await fsPromise.readFile(path)).toString('utf8')
     fileContent = file.action(fileContent, newFolderName, options)
     await fsPromise.writeFile(path, fileContent)
+  }
+
+  for (const filename in projectFilesToRename) {
+    await fsPromise.rename(`${projectFolder}/${filename}`, `${projectFolder}/${projectFilesToRename[filename]}`)
   }
 }
 
