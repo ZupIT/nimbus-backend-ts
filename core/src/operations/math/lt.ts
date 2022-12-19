@@ -1,5 +1,5 @@
 import { Operation } from '../../api'
-import { Expression } from '../../types'
+import { AnyNumber, Expression } from '../../types'
 
 /**
  * Checks if the first argument is less than the second.
@@ -10,4 +10,7 @@ import { Expression } from '../../types'
  * @param right the numerical value at the right side of the operation.
  * @returns an instance of Operation<boolean>, i.e. an operation that results in a boolean when run by the frontend.
  */
-export const lt = (left: Expression<number>, right: Expression<number>) => new Operation<boolean>('lt', [left, right])
+export const lt = (
+  left: Expression<AnyNumber>,
+  right: Expression<AnyNumber>,
+) => new Operation<boolean>('lt', [left, right])

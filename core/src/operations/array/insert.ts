@@ -1,5 +1,5 @@
 import { Operation } from '../../api'
-import { DynamicExpression, Expression, ValueOrResultOfExpression } from '../../types'
+import { DynamicExpression, Expression, AnyNumber, ValueOrResultOfExpression } from '../../types'
 import { Element } from './types'
 
 /**
@@ -12,8 +12,10 @@ import { Element } from './types'
  * @param index the index to insert the element at. If not provided, the element is added to the end of the array.
  * @returns an instance of Operation<Array>, i.e. an operation that results in an Array when run by the frontend.
  */
-export const insert = <T>(array: DynamicExpression<T[]>, element: Element<T>, index?: Expression<number>) => (
-  new Operation<ValueOrResultOfExpression<T>[]>(
-    'insert', index == undefined ? [array, element] : [array, element, index]
-  )
+export const insert = <T>(
+  array: DynamicExpression<T[]>,
+  element: Element<T>,
+  index?: Expression<AnyNumber>,
+) => new Operation<ValueOrResultOfExpression<T>[]>(
+  'insert', index == undefined ? [array, element] : [array, element, index]
 )
