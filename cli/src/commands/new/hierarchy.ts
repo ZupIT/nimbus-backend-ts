@@ -18,8 +18,8 @@ const projectFilesToChange: Array<ProjectFile> = [
     name: 'README.md',
     action: (content: string, projectName: string, options: NewProjectOptions) =>
       content
-        .replace(PROJECT_NAME_PLACEHOLDER, projectName)
-        .replace(PORT_PLACEHOLDER, options.port),
+        .replaceAll(PROJECT_NAME_PLACEHOLDER, projectName)
+        .replaceAll(PORT_PLACEHOLDER, options.port),
   },
 ]
 

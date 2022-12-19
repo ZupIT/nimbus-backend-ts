@@ -1,6 +1,6 @@
 {
   "name": "@zup-it/nimbus-backend-cli",
-  "version": "1.0.0-alpha.8",
+  "version": "1.0.0-alpha.9",
   "description": "CLI for Nimbus Backend using TypeScript",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec npm run server",
