@@ -12,6 +12,6 @@
     "@zup-it/nimbus-backend-core": "1.0.0-alpha.1"
   },
   "devDependencies": {
-    "@zup-it/nimbus-backend-core": "1.0.0"
+    "@zup-it/nimbus-backend-core": "1.0.0-alpha.1"
   }
 }
