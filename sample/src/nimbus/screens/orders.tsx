@@ -23,7 +23,7 @@ export const Orders: Screen = ({ navigator }) => {
     condition: isNull(orders),
     onTrue: listOrders({
       onSuccess: response => orders.set(response.get('data')),
-      onError: response => log({ message: response.get('message').toString(), level: 'Error' }),
+      onError: response => log({ message: response.get('message').toString(), level: 'error' }),
       onFinish: isLoading.set(false),
     }),
     onFalse: isLoading.set(false),

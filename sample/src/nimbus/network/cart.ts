@@ -8,7 +8,7 @@ export const addToCart = (productId: Expression<number>) => sendRequest<Cart>({
   method: 'Put',
   data: { productId },
   onSuccess: (response) => globalState.get('cart').set(response.get('data')),
-  onError: (response) => log({ message: response.get('message'), level: 'Error' })
+  onError: (response) => log({ message: response.get('message'), level: 'error' })
 })
 
 export const getCart = request<Cart>()
