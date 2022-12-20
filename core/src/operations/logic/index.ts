@@ -1,7 +1,4 @@
 export * from './and'
 export * from './condition'
-export * from './eq'
-export * from './is-empty'
-export * from './is-null'
 export * from './not'
 export * from './or'

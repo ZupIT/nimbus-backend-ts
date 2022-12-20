@@ -8,7 +8,7 @@ export interface LogParams {
   /**
    * The type of message.
    */
-  level?: 'Info' | 'Warning' | 'Error',
+  level?: 'info' | 'warning' | 'error',
 }
 
 /**
