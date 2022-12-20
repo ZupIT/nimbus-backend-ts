@@ -21,6 +21,7 @@ Object {
   "createState": "function",
   "createStateNode": "function",
   "divide": "function",
+  "entries": "function",
   "eq": "function",
   "getGlobalState": "function",
   "gt": "function",
@@ -46,7 +47,6 @@ Object {
   "substr": "function",
   "subtract": "function",
   "sum": "function",
-  "union": "function",
   "uppercase": "function",
 }
 `;

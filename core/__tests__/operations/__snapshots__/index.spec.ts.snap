@@ -8,6 +8,7 @@ Object {
   "condition": "function",
   "contains": "function",
   "divide": "function",
+  "entries": "function",
   "eq": "function",
   "gt": "function",
   "gte": "function",
@@ -28,7 +29,6 @@ Object {
   "substr": "function",
   "subtract": "function",
   "sum": "function",
-  "union": "function",
   "uppercase": "function",
 }
 `;
