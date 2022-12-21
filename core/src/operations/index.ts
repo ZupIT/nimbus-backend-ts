@@ -4,6 +4,6 @@
 
 export * from './array'
 export * from './logic'
-export * from './math'
+export * from './number'
 export * from './other'
-export * from './text'
+export * from './string'

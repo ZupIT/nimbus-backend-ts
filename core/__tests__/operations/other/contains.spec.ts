@@ -1,5 +1,5 @@
 import { createStateNode, Operation } from 'src'
-import { contains } from 'src/operations/array'
+import { contains } from 'src/operations/other'
 
 describe('operations', () => {
   describe('array', () => {

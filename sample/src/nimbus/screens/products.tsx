@@ -17,7 +17,7 @@ export const Products: Screen = ({ navigator }) => {
   const onInit = [
     listProducts({
       onSuccess: response => products.set(response.get('data')),
-      onError: response => log({ message: response.get('message').toString(), level: 'Error' }),
+      onError: response => log({ message: response.get('message').toString(), level: 'error' }),
       onFinish: isLoading.set(false),
     }),
     conditionalAction({

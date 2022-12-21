@@ -1,5 +1,4 @@
 export * from './capitalize'
-export * from './concat'
 export * from './lowercase'
 export * from './match'
 export * from './replace'

@@ -42,7 +42,7 @@ export const Address: Screen = ({ navigator }) => {
       formAddress.get('street').set(response.get('data').get('logradouro')),
     ],
     onError: error => [
-      log({ message: `Error while retrieving zip-code data: ${zip}.\n${error.get('message')}`, level: 'Error' })
+      log({ message: `Error while retrieving zip-code data: ${zip}.\n${error.get('message')}`, level: 'error' })
     ]
   })
 

@@ -21,7 +21,7 @@ export const Cart: Screen = ({ navigator }) => {
     condition: isNull(cart),
     onTrue: getCart({
       onSuccess: (response) => cart.set(response.get('data')),
-      onError: (response) => log({ message: response.get('message'), level: 'Error' }),
+      onError: (response) => log({ message: response.get('message'), level: 'error' }),
       onFinish: isLoading.set(false)
     }),
     onFalse: isLoading.set(false),

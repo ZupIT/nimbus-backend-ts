@@ -62,7 +62,7 @@ export const Payment: Screen<PaymentScreenProps> = ({ navigator, getViewState })
       ],
       onError: response => log({
         message: response.get('message'),
-        level: 'Error'
+        level: 'error'
       })
     },
   )

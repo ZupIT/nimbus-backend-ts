@@ -28,7 +28,7 @@ Object {
                                 Object {
                                   "_:action": "log",
                                   "properties": Object {
-                                    "level": "Error",
+                                    "level": "error",
                                     "message": "Error while retrieving zip-code data: @{onBlur}.
 @{onError.message}",
                                   },
@@ -569,7 +569,7 @@ Object {
                           Object {
                             "_:action": "log",
                             "properties": Object {
-                              "level": "Error",
+                              "level": "error",
                               "message": "@{onError.message}",
                             },
                           },
@@ -1331,7 +1331,7 @@ Object {
                       Object {
                         "_:action": "log",
                         "properties": Object {
-                          "level": "Error",
+                          "level": "error",
                           "message": "@{onError.message}",
                         },
                       },
@@ -1519,7 +1519,7 @@ Object {
                         Object {
                           "_:action": "log",
                           "properties": Object {
-                            "level": "Error",
+                            "level": "error",
                             "message": "@{onError.message}",
                           },
                         },
@@ -1652,7 +1652,7 @@ Object {
                                 Object {
                                   "_:action": "log",
                                   "properties": Object {
-                                    "level": "Error",
+                                    "level": "error",
                                     "message": "@{onError.message}",
                                   },
                                 },
@@ -1844,7 +1844,7 @@ Object {
                                                 Object {
                                                   "_:action": "log",
                                                   "properties": Object {
-                                                    "level": "Error",
+                                                    "level": "error",
                                                     "message": "@{onError.message}",
                                                   },
                                                 },
@@ -1927,7 +1927,7 @@ Object {
                 Object {
                   "_:action": "log",
                   "properties": Object {
-                    "level": "Error",
+                    "level": "error",
                     "message": "@{onError.message}",
                   },
                 },

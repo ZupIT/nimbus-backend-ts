@@ -2,7 +2,7 @@ import { log, LogParams } from 'src/actions/log'
 import { expectActionToBeCorrect } from './utils'
 
 const properties: LogParams = {
-  level: 'Warning',
+  level: 'warning',
   message: 'This is a warning log',
 }
 
