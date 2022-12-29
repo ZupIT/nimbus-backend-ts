@@ -1,9 +1,11 @@
+import { Expression } from '../../types'
+
 export interface Margin {
-  margin?: number,
-  marginStart?: number,
-  marginEnd?: number,
-  marginTop?: number,
-  marginBottom?: number,
-  marginHorizontal?: number,
-  marginVertical?: number,
+  margin?: Expression<number>,
+  marginStart?: Expression<number>,
+  marginEnd?: Expression<number>,
+  marginTop?: Expression<number>,
+  marginBottom?: Expression<number>,
+  marginHorizontal?: Expression<number>,
+  marginVertical?: Expression<number>,
 }
