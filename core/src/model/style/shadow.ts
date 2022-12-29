@@ -1,20 +1,21 @@
+import { Expression } from '../../types'
 import { Color } from './color'
 
 export interface Shadow {
   /**
    *  @default 0
    */
-  x?: number,
+  x?: Expression<number>,
   /**
    *  @default 0
    */
-  y?: number,
+  y?: Expression<number>,
   /**
    *  @default 0
    */
-  blur?: number,
+  blur?: Expression<number>,
   /**
    *  @default '#000'
    */
-  color?: Color,
+  color?: Expression<Color>,
 }

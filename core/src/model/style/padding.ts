@@ -1,9 +1,11 @@
+import { Expression } from '../../types'
+
 export interface Padding {
-  padding?: number,
-  paddingStart?: number,
-  paddingEnd?: number,
-  paddingTop?: number,
-  paddingBottom?: number,
-  paddingHorizontal?: number,
-  paddingVertical?: number,
+  padding?: Expression<number>,
+  paddingStart?: Expression<number>,
+  paddingEnd?: Expression<number>,
+  paddingTop?: Expression<number>,
+  paddingBottom?: Expression<number>,
+  paddingHorizontal?: Expression<number>,
+  paddingVertical?: Expression<number>,
 }

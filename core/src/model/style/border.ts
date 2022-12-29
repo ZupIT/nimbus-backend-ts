@@ -1,24 +1,25 @@
+import { Expression } from '../../types'
 import { Color } from './color'
 
 export interface Border {
   /**
    *  @default 0
    */
-  borderWidth?: number,
+  borderWidth?: Expression<number>,
   /**
    *  @default 1
    */
-  borderDashLength?: number,
+  borderDashLength?: Expression<number>,
   /**
    *  @default 0
    */
-  borderDashSpacing?: number,
+  borderDashSpacing?: Expression<number>,
   /**
-   *  @default 0
+   *  @default Expression<0
    */
-  cornerRadius?: number,
+  cornerRadius?: Expression<number>,
   /**
    *  @default '#000'
    */
-  borderColor?: Color,
+  borderColor?: Expression<Color>,
 }

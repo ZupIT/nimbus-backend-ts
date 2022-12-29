@@ -1,14 +1,16 @@
+import { Expression } from '../../types'
+
 export type AdaptiveSize = number | 'fitContent' | 'expand'
 
 export interface Size {
-  width?: AdaptiveSize,
-  height?: AdaptiveSize,
-  minWidth?: number,
-  minHeight?: number,
-  maxWidth?: number,
-  maxHeight?: number,
+  width?: Expression<AdaptiveSize>,
+  height?: Expression<AdaptiveSize>,
+  minWidth?: Expression<number>,
+  minHeight?: Expression<number>,
+  maxWidth?: Expression<number>,
+  maxHeight?: Expression<number>,
   /**
    *  @default false
    */
-  clipped?: boolean,
+  clipped?: Expression<boolean>,
 }

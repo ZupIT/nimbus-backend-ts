@@ -10,7 +10,12 @@ import { InterpolatedText } from './types'
  * @param data the value to check
  * @returns true if data is an instance of StateNode or Operation. False otherwise.
  */
-export const isDynamicExpression = (data: any) => data instanceof StateNode || data instanceof Operation
+export const isDynamicExpression = (data: any) =>
+  data instanceof StateNode
+  || data instanceof Operation
+  // this is a workaround for an issue of unknown cause that sometimes prevents `instanceof` from working after
+  // transpilation to JS
+  || data.toString().startsWith('@{')
 
 /**
  * Checks if the program is running in development mode.
