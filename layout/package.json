@@ -1,6 +1,10 @@
 {
   "name": "@zup-it/nimbus-backend-layout",
+<<<<<<< HEAD
   "version": "1.0.0-alpha.5",
+=======
+  "version": "1.0.0-alpha.3",
+>>>>>>> 9d985a09a7c532bdd8a42d05481326b654cafcec
   "license": "MIT",
   "main": "src/index.ts",
   "scripts": {
