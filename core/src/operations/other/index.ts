@@ -1,5 +1,4 @@
 export * from './length'
-export * from './entries'
 export * from './is-empty'
 export * from './is-null'
 export * from './concat'

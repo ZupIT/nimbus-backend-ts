@@ -41,7 +41,7 @@ export const Products: Screen = ({ navigator }) => {
                       title={product.get('title')}
                       price={product.get('price')}
                       onPressBuy={addToCart(product.get('id'))}
-                      onPressDetails={navigator.present(Product, { params: { product } })}
+                      onPressDetails={navigator.present(Product, { state: { product } })}
                     />
                   )}
                 </ForEach>

@@ -29,7 +29,7 @@ const asActionCalls = (actions: Action<any> | Action<any>[]): ActionCall[] => (
 const asStateDeclaration = (state: LocalState<any> | LocalState<any>[]): Record<string, any> => {
   const stateList = Array.isArray(state) ? state : [state]
   return stateList.reduce((result, item) => {
-    const serializableValue = (item.value instanceof Operation || item.value instanceof StateNode)
+    const serializableValue = (Operation.isOperation(item.value) || StateNode.isState(item.value))
       ? item.value.toString()
       : item.value
     return { ...result, [item.path]: serializableValue ?? null }
@@ -37,10 +37,10 @@ const asStateDeclaration = (state: LocalState<any> | LocalState<any>[]): Record<
 }
 
 const transformExpressionsAndActions = (value: any): any => {
-  const isActions = value instanceof Action || Array.isArray(value) && value[0] instanceof Action
+  const isActions = Action.isAction(value) || Array.isArray(value) && Action.isAction(value[0])
   if (isActions) return asActionCalls(value)
-  if (value instanceof Component) return asNimbusNode(value)
-  if (value instanceof StateNode || value instanceof Operation) return value.toString()
+  if (Component.isComponent(value)) return asNimbusNode(value)
+  if (StateNode.isState(value) || Operation.isOperation(value)) return value.toString()
   if (Array.isArray(value)) return value.map(transformExpressionsAndActions)
   if (value && typeof value === 'object') return mapValues(value, transformExpressionsAndActions)
   return value

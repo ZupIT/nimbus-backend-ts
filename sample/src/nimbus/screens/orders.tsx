@@ -31,7 +31,7 @@ export const Orders: Screen = ({ navigator }) => {
 
   const goToDetails = (order: MapStateNode<OrderModel>) => [
     navigator.present(Order, {
-      params: {
+      state: {
         order,
       }
     })

@@ -9,7 +9,12 @@ import { State } from './types'
  * {@link createStateNode}.
  */
 export class StateNode<T> {
-  constructor(readonly path: string) {}
+  private static STATE_TYPE = 'state'
+
+  constructor(readonly path: string) {
+    // @ts-ignore
+    this._type = StateNode.STATE_TYPE // avoiding strange random behavior where instanceof doesn't work
+  }
 
   /**
    * @returns the Nimbus Expression corresponding to this StateNode
@@ -36,6 +41,10 @@ export class StateNode<T> {
 
   get(key: string): StateNode<any> {
     return new StateNode(`${this.path}.${key}`)
+  }
+
+  static isState(value: any | undefined | null) {
+    return value instanceof StateNode || value?._type === StateNode.STATE_TYPE
   }
 }
 
