@@ -109,6 +109,7 @@ describe('Nimbus App', () => {
         response,
         navigator: { routes },
         getViewState: expect.any(Function),
+        triggerViewEvent: expect.any(Function),
       })
     })
 

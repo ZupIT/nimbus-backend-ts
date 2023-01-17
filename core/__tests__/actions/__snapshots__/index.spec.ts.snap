@@ -12,5 +12,6 @@ Object {
   "request": "function",
   "sendRequest": "function",
   "setState": "function",
+  "triggerViewEvent": "function",
 }
 `;

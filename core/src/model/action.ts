@@ -73,6 +73,8 @@ export interface Action<Props = any> {
    call?: never,
 }
 export class Action<Props = any> {
+  private static ACTION_TYPE = 'action'
+
   /**
    * @param options the action parameters: namespace, name, properties. See {@link Action}.
    */
@@ -80,6 +82,12 @@ export class Action<Props = any> {
     this.name = name
     this.namespace = namespace
     this.properties = properties
+    // @ts-ignore
+    this._type = Action.ACTION_TYPE // avoiding strange random behavior where instanceof doesn't work
+  }
+
+  static isAction(value: any | undefined | null) {
+    return value instanceof Action || value?._type === Action.ACTION_TYPE
   }
 }
 

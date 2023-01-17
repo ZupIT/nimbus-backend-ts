@@ -13,6 +13,7 @@ describe('Component', () => {
     })
 
     expect(component).toEqual({
+      _type: 'component',
       name: 'component',
       children: [new Component({ name: 'test' })],
       state: new RootState('stt'),
@@ -24,6 +25,6 @@ describe('Component', () => {
 
   it('should create component with only a name', () => {
     const component = new Component({ name: 'component' })
-    expect(component).toEqual({ name: 'component' })
+    expect(component).toEqual({ name: 'component', _type: 'component' })
   })
 })

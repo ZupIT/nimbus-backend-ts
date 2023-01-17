@@ -1,8 +1,8 @@
 import { createStateNode, Operation } from 'src'
-import { entries } from 'src/operations/other'
+import { entries } from 'src/operations/object'
 
 describe('operations', () => {
-  describe('other', () => {
+  describe('object', () => {
     describe('entries', () => {
       it('should create operation "entries"', () => {
         const mapState = createStateNode<Record<string, number>>('stt')

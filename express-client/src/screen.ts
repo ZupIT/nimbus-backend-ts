@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import { Component, State, DeepExpression } from '@zup-it/nimbus-backend-core'
+import { Component, State, DeepExpression, Actions } from '@zup-it/nimbus-backend-core'
+import { Action } from '@zup-it/nimbus-backend-core/api'
 import { Navigator } from './navigator'
 import { NimbusHeaders, IsRequired } from './utils/types'
 
@@ -54,16 +55,27 @@ export interface ScreenRequest {
    */
   data?: unknown,
   /**
-   * The map of states that will be created on the next screen.
+   * The view states of this screen, passed when navigating.
    */
-  params?: Record<string, any>,
+  state?: Record<string, any>,
+  /**
+   * The events this screen can trigger and the value types they produce.
+   */
+  events?: Record<string, any>,
 }
 
 interface ScreenProps<T extends ScreenRequest> {
   /**
-   * The states created when navigating to this page.
+   * Recovers a view state. A view state is normally passed when navigating to a screen.
+   * @param event the name of the state to get
    */
-  getViewState: <Key extends keyof T['params']>(name: Key) => State<T['params'][Key]>,
+  getViewState: <Key extends keyof T['state']>(name: Key) => State<T['state'][Key]>,
+  /**
+   * Triggers a view event.
+   * @param event the event name
+   * @param value the value to pass to the event
+   */
+  triggerViewEvent: <Key extends keyof T['events']>(event: Key, value: DeepExpression<T['events'][Key]>) => Action,
   /**
    * The request object from express.
    */
@@ -148,12 +160,21 @@ interface WithRouteParams<T> {
   routeParams: T,
 }
 
-interface WithStateParams<T extends Record<string, any> | undefined> {
+interface WithState<T extends Record<string, any> | undefined> {
   /**
    * The map of states that will be created on the next screen.
    */
-  params: {
+  state: {
     [key in keyof T]: DeepExpression<T[key]>
+  },
+}
+
+interface WithEvents<T extends Record<string, any> | undefined> {
+  /**
+   * The actions to associate with the events the next screen can trigger.
+   */
+  events?: {
+    [K in keyof T]?: (value: State<T[K]>) => Actions
   },
 }
 
@@ -189,7 +210,8 @@ export type ScreenNavigation<T extends ScreenRequest> = BaseScreenNavigation
   & (IsRequired<T, 'headers'> extends true ? WithHeaders<T['headers']> : Partial<WithHeaders<T['headers']>>)
   & (IsRequired<T, 'data'> extends true ? WithData<T['data']> : Partial<WithData<T['data']>>)
   & (IsRequired<T, 'query'> extends true ? WithQuery<T['query']> : Partial<WithQuery<T['query']>>)
-  & (IsRequired<T, 'params'> extends true
-    ? WithStateParams<T['params']>
-    : Partial<WithStateParams<T['params']>>)
+  & WithEvents<T['events']>
+  & (IsRequired<T, 'state'> extends true
+    ? WithState<T['state']>
+    : Partial<WithState<T['state']>>)
 

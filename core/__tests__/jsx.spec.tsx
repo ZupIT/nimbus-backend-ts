@@ -11,6 +11,7 @@ describe('JSX', () => {
       )
       expect(component).toBeInstanceOf(Component)
       expect(component).toEqual({
+        _type: 'component',
         name: 'comp',
         namespace: 'test',
         state: new RootState('stt'),
@@ -26,8 +27,10 @@ describe('JSX', () => {
         </component>
       )
       expect(component).toEqual({
+        _type: 'component',
         name: 'comp',
         children: {
+          _type: 'component',
           name: 'another',
         },
       })
@@ -41,10 +44,11 @@ describe('JSX', () => {
         </component>
       )
       expect(component).toEqual({
+        _type: 'component',
         name: 'comp',
         children: [
-          { name: 'another' },
-          { name: 'another' },
+          { _type: 'component', name: 'another' },
+          { _type: 'component', name: 'another' },
         ],
       })
     })
@@ -69,9 +73,10 @@ describe('JSX', () => {
       const myFC = <MyFC prop1="hello" prop2={5}><component name="child" /></MyFC>
       expect(myFC).toBeInstanceOf(Component)
       expect(myFC).toEqual({
+        _type: 'component',
         name: 'test',
         properties: { prop1: 'hello', prop2: 5 },
-        children: { name: 'child' },
+        children: { _type: 'component', name: 'child' },
       })
     })
 
@@ -86,6 +91,7 @@ describe('JSX', () => {
 
       const text = <Text>hello world!</Text>
       expect(text).toEqual({
+        _type: 'component',
         name: 'text',
         properties: { value: 'hello world!' },
       })
@@ -102,8 +108,9 @@ describe('JSX', () => {
 
       const text = <MyFC>{() => <component name="child" />}</MyFC>
       expect(omitUndefined(text)).toEqual({
+        _type: 'component',
         name: 'test',
-        properties: { fallback: { name: 'child' } },
+        properties: { fallback: { _type: 'component', name: 'child' } },
       })
     })
   })
@@ -113,9 +120,10 @@ describe('JSX', () => {
       const component = <><component name="test1" /><component name="test2" /></>
       expect(component).toBeInstanceOf(Component)
       expect(omitUndefined(component)).toEqual({
+        _type: 'component',
         name: 'fragment',
         namespace: coreNamespace,
-        children: [{ name: 'test1' }, { name: 'test2' }],
+        children: [{ _type: 'component', name: 'test1' }, { _type: 'component', name: 'test2' }],
       })
     })
 
@@ -124,8 +132,9 @@ describe('JSX', () => {
       const component = <><component name="test" /></>
       expect(component).toBeInstanceOf(Component)
       expect(component).toEqual({
+        _type: 'component',
         name: 'my-fragment',
-        children: { name: 'test' },
+        children: { _type: 'component', name: 'test' },
       })
       setFragmentFactory(nimbusFragmentFactory)
     })
