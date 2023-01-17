@@ -30,7 +30,7 @@ on:
     #        │  │ │ │ │
     #        │  │ │ │ │
     #        *  * * * *
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 1'
 
 jobs:
   CodeQL-Build:
