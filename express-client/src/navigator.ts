@@ -62,7 +62,7 @@ export class Navigator {
   }
 
   private buildRouteProperties({ type, screen, properties = {} }: GenericRemoteNavigation) {
-    const { routeParams, headers, data, prefetch, fallback, query, params } = properties
+    const { routeParams, headers, data, prefetch, fallback, query, state, events } = properties
 
     if (type === 'pop' || type === 'dismiss') return undefined
 
@@ -77,7 +77,9 @@ export class Navigator {
       headers,
       fallback,
       data,
-      params,
+      state,
+      // @ts-ignore todo: this typing error
+      events,
     }
 
     return routeProperties
@@ -87,12 +89,14 @@ export class Navigator {
     return navigationActions[navigation.type](this.buildRouteProperties(navigation) as any)
   }
 
+  // @ts-ignore todo: this typing error
   push: PushAction = (...[screen, properties]) => this.navigateRemote({ type: 'push', screen, properties })
 
   pop: PopAction = () => this.navigateRemote({ type: 'pop' })
 
   popTo: PopToAction = (...[screen, properties]) => this.navigateRemote({ type: 'popTo', screen, properties })
 
+  // @ts-ignore todo: this typing error
   present: PresentAction = (...[screen, properties]) => this.navigateRemote({ type: 'present', screen, properties })
 
   dismiss: DismissAction = () => this.navigateRemote({ type: 'dismiss' })

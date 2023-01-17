@@ -1,6 +1,7 @@
 import { forEach } from 'lodash'
 import { Express } from 'express'
 import { serialize, HttpMethod, createStateNode } from '@zup-it/nimbus-backend-core'
+import { triggerViewEvent } from '@zup-it/nimbus-backend-core/actions'
 import { RouteConfig, RouteMap } from './route'
 import { RequestWithCustomHeaders, Screen } from './screen'
 import { Navigator } from './navigator'
@@ -76,6 +77,7 @@ export class NimbusApp {
         response: res,
         navigator: this.navigator,
         getViewState: (name: string) => createStateNode(name),
+        triggerViewEvent: (event: string, value: any) => triggerViewEvent({ event, value }),
       })
       res.send(serialize(componentTree))
     })

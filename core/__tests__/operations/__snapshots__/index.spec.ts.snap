@@ -3,6 +3,7 @@
 exports[`Operations module should export 1`] = `
 Object {
   "and": "function",
+  "array": "function",
   "capitalize": "function",
   "concat": "function",
   "condition": "function",
@@ -22,6 +23,7 @@ Object {
   "match": "function",
   "multiply": "function",
   "not": "function",
+  "object": "function",
   "or": "function",
   "remove": "function",
   "removeIndex": "function",

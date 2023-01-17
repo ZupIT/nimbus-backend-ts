@@ -37,7 +37,7 @@ const PaymentInput: FC<PaymentInputProps> = ({ label, placeholder, name, payment
 }
 
 interface PaymentScreenProps extends ScreenRequest {
-  params: {
+  state: {
     address: AddressModel,
   }
 }

@@ -47,7 +47,7 @@ const DefinitionItem: FC<DefinitionItemProps> = ({ title, definition }) => (
 )
 
 interface OrderScreenProps extends ScreenRequest {
-  params: {
+  state: {
     order: OrderModel,
   }
 }
@@ -67,7 +67,7 @@ export const Order: Screen<OrderScreenProps> = ({ navigator, getViewState }) => 
             <Section title="Products">
               <ForEach items={order.get('products')} iteratorName="product" key="id">
                 {(product) => (
-                  <Touchable onPress={[navigator.present(Product, { params: { product } })]}>
+                  <Touchable onPress={[navigator.present(Product, { state: { product } })]}>
                     <DefinitionItem
                       title={`(${product.get('quantity')}) ${product.get('title')}`}
                       definition={formatPrice(multiply(product.get('quantity'), product.get('price')), 'BRL')}

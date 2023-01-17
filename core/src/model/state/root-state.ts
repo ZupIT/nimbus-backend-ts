@@ -1,3 +1,4 @@
+import { ValueOrResultOfExpression } from '../../types'
 import { StateNode } from './state-node'
 import { LocalState } from './types'
 
@@ -70,6 +71,6 @@ export class RootState<T> extends StateNode<T> {
  * @param id the id of the state, this is very important for debugging the application.
  * @returns an instance of RootState
  */
-export function createState<T>(id: string, value?: T): LocalState<T> {
+export function createState<T>(id: string, value?: T): LocalState<ValueOrResultOfExpression<T>> {
   return new RootState<T>(id, value) as any
 }

@@ -7,7 +7,7 @@ import { addToCart } from '../network/cart'
 import { formatPrice } from '../operations'
 
 interface ProductScreenProps extends ScreenRequest {
-  params: {
+  state: {
     product: ProductModel,
   }
 }

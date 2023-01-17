@@ -33,6 +33,8 @@ import { ValidOperationAttribute } from './types'
  * ```
  */
 export class Operation<ReturnType = void> {
+  private static OPERATION_TYPE = 'operation'
+
   /**
    * @param name the name that identifies the operation in the front-end.
    * @param args an array with the arguments for running the operation. The argument can never be an array or map, only
@@ -41,6 +43,8 @@ export class Operation<ReturnType = void> {
   constructor(name: string, args: ValidOperationAttribute[]) {
     this.args = args
     this.name = name
+    // @ts-ignore
+    this._type = Operation.OPERATION_TYPE // avoiding strange random behavior where instanceof doesn't work
   }
 
   readonly name: string
@@ -55,8 +59,8 @@ export class Operation<ReturnType = void> {
 
   private asString(includeDelimiters: boolean): string {
     const argumentsAsStrings = this.args.map(item => {
-      if (item instanceof Operation) return item.asString(false)
-      if (item instanceof StateNode) return item.path
+      if (Operation.isOperation(item)) return (item as Operation).asString(false)
+      if (StateNode.isState(item)) return (item as StateNode<unknown>).path
       if (typeof item === 'string') return `'${item}'`
       return item == null ? 'null' : item.toString()
     })
@@ -74,5 +78,9 @@ export class Operation<ReturnType = void> {
    */
   toString() {
     return this.asString(true)
+  }
+
+  static isOperation(value: any | undefined | null) {
+    return value instanceof Operation || value?._type === Operation.OPERATION_TYPE
   }
 }

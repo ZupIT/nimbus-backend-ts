@@ -29,7 +29,7 @@ export const Cart: Screen = ({ navigator }) => {
 
   const goToDetails = (product: MapStateNode<ProductModel>) => [
     navigator.present(Product, {
-      params: {
+      state: {
         product,
       }
     })

@@ -79,7 +79,7 @@ export const Address: Screen = ({ navigator }) => {
         </Column>
         <Row mainAxisAlignment="spaceBetween" width="expand" padding={16}>
           <Button text="Cancel" onPress={navigator.pop()} />
-          <Button text="Next" onPress={[navigator.push(Payment, { params: { address: formAddress } })]} />
+          <Button text="Next" onPress={[navigator.push(Payment, { state: { address: formAddress } })]} />
         </Row>
       </Column>
     </ScreenComponent>

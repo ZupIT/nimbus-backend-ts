@@ -72,6 +72,8 @@ export interface Component extends WithState, WithChildren {
 }
 
 export class Component {
+  private static COMPONENT_TYPE = 'component'
+
   /**
    * @param options the component parameters: properties, children, state, id, name and namespace.
    */
@@ -82,5 +84,11 @@ export class Component {
     this.state = state
     this.properties = properties
     this.children = children
+    // @ts-ignore
+    this._type = Component.COMPONENT_TYPE // avoiding strange random behavior where instanceof doesn't work
+  }
+
+  static isComponent(value: any | undefined | null) {
+    return value instanceof Component || value?._type === Component.COMPONENT_TYPE
   }
 }

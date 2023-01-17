@@ -273,7 +273,7 @@ Object {
                   Object {
                     "_:action": "push",
                     "properties": Object {
-                      "params": Object {
+                      "state": Object {
                         "address": "@{formAddress}",
                       },
                       "url": "/payment",
@@ -453,7 +453,7 @@ Object {
                                                       Object {
                                                         "_:action": "present",
                                                         "properties": Object {
-                                                          "params": Object {
+                                                          "state": Object {
                                                             "product": "@{item}",
                                                           },
                                                           "url": "/product",
@@ -834,7 +834,7 @@ Object {
                                   Object {
                                     "_:action": "present",
                                     "properties": Object {
-                                      "params": Object {
+                                      "state": Object {
                                         "product": "@{product}",
                                       },
                                       "url": "/product",
@@ -1264,7 +1264,7 @@ Object {
                                               Object {
                                                 "_:action": "present",
                                                 "properties": Object {
-                                                  "params": Object {
+                                                  "state": Object {
                                                     "order": "@{order}",
                                                   },
                                                   "url": "/order",
@@ -1808,7 +1808,7 @@ Object {
                                       Object {
                                         "_:action": "present",
                                         "properties": Object {
-                                          "params": Object {
+                                          "state": Object {
                                             "product": "@{product}",
                                           },
                                           "url": "/product",
