@@ -24,4 +24,4 @@ Nimbus Backend TS is currently in alpha.
 - [Nimbus Backend TS](https://github.com/ZupIT/nimbus-backend-ts): modules for the backend in Typescript.
 
 ## **License**
-[**Apache License 2.0**](https://github.com/ZupIT/nimbus-swiftui/blob/main/LICENSE.txt).
+[**Apache License 2.0**](https://github.com/ZupIT/nimbus-backend-ts/blob/main/LICENSE.txt).
