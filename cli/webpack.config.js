@@ -10,8 +10,11 @@ module.exports = {
   },
   devtool: false,
   target: 'node',
+  externalsPresets: { node: true },
+  externals: [nodeExternals({
+    additionalModuleDirs: ['../node_modules'],
+  })],
   mode: 'development',
-  externals: [nodeExternals()],
   module: {
     rules: [
       {
