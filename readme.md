@@ -8,6 +8,11 @@ To get started with Nimbus Backend TS, please check the [documentation for Nimbu
 # Development stage
 Nimbus Backend TS is currently in alpha.
 
+- CLI: [![npm version](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-cli.svg)](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-cli)
+- Core: [![npm version](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-core.svg)](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-core)
+- Express: [![npm version](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-express.svg)](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-express)
+- Layout: [![npm version](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-layout.svg)](https://badge.fury.io/js/@zup-it%2Fnimbus-backend-layout)
+
 # Useful links
 - [Introductory article](https://medium.com/p/9a0d95686fd9/): blog post introducing Nimbus SDUI.
 - [Documentation](https://github.com/ZupIT/nimbus-docs): the documentation for both the frontend and backend libraries. This is not in a website format yet, but you can read everything through GitHub.
