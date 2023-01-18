@@ -12,9 +12,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "@zup-it/nimbus-backend-layout": "1.0.0-alpha.5",
-    "@zup-it/nimbus-backend-core": "1.0.0-alpha.3",
-    "@zup-it/nimbus-backend-express": "1.0.0-alpha.3",
+    "@zup-it/nimbus-backend-layout": "1.0.0-alpha.6",
+    "@zup-it/nimbus-backend-core": "1.0.0-alpha.5",
+    "@zup-it/nimbus-backend-express": "1.0.0-alpha.5",
     "cors": "^2.8.5",
     "express": "4.18.2"
   },
