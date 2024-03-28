@@ -16,7 +16,7 @@
     "@zup-it/nimbus-backend-core": "1.0.0-alpha.5",
     "@zup-it/nimbus-backend-express": "1.0.0-alpha.5",
     "cors": "^2.8.5",
-    "express": "4.18.2"
+    "express": "4.19.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
